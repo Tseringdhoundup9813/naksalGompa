@@ -196,12 +196,12 @@
         background-color:rgb(59, 59, 59);
         width:10%;
         height:30px;
+     
         display: flex;
         justify-content: center;
         align-items: center;
         z-index:99999999;
         color:white;
-        cursor: pointer;
        
     }
     .cancle-preview:hover{

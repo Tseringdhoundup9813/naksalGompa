@@ -75,7 +75,7 @@ function UploadBanner() {
             
 
             <div className="banner-upload-section"  >
-                <input class ="uploadbannerbutton" type="file" id="file" onChange={(e)=>set_file(e.target.files[0])}/>
+                <input class ="uploadbannerbutton" accept=" image/gif, image/jpeg" type="file" id="file" onChange={(e)=>set_file(e.target.files[0])}/>
                      <label for ="file" className='upload-container-section'>
 
                         
