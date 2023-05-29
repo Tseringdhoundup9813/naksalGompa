@@ -1,0 +1,214 @@
+
+
+.banner-upload-section{
+ 
+    width:100%;
+    height:65vh;
+}
+
+
+.banner-upload-button-section{
+    width:100%;
+    height:60vh;
+
+}
+.uploadbanner-container  input[type="file"]{
+    display: none;
+}
+
+
+
+
+
+
+.uploadbanner-container label{
+    height:60vh;
+    width:80%;
+    background-color: rgb(243, 243, 243);
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    
+    margin:2% auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius:10px;
+    transition:all 1s ease-in-out;
+    background-size:contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+}
+/* preivew image ============================================ */
+
+.preview-img-section{
+    width:100%;
+    height:100%;
+    z-index:999999;
+    background-repeat: no-repeat;
+    background-size:100%;
+    position: absolute;
+    box-shadow:2px 1px 4px 4px rgb(232, 232, 232);
+    background-position: center;
+    
+    
+    
+    
+}
+/* =========================================== */
+.uploadbanner-container label p{
+    color:#c8c8c8;
+    font-size:1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top:20px;
+
+    
+    
+}
+.uploadbanner-container label p span{
+    color:rgb(255, 128, 128);
+    font-weight: bold;
+}
+
+.uploadbanner-container .fa-file-arrow-up{
+    font-size:5rem;
+    color:rgb(200, 200, 200);
+    transition:all 0.6s ease-in-out;
+
+    
+}
+
+
+/* dotted border */
+.uploadbanner-container .dotted-border{
+   border:2px dotted rgb(255, 172, 172);
+   width:96%;
+   height:90%;
+   position: absolute;
+   
+
+
+    
+}
+.upload-container-section:hover .fa-file-arrow-up{
+        transform: scale(1.1);
+        color:rgb(255, 146, 146);
+      
+        
+}
+.banner-upload-button-section {
+    position: relative;
+}
+/* button upload */
+
+.banner-upload-button-section button{
+    border:none;
+    background-color: tomato;
+    width:30%;
+    color:white;
+    padding:10px 0px;
+    border-radius:5px;
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+
+/* image progress section ================================================== */
+.banner-progress-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    width:50%;
+    margin:auto;
+    padding:20px;
+
+}
+.banner-progress-container .fa-file-image{
+    font-size:2rem;
+    color:rgb(228, 228, 228);
+
+
+}
+.banner-progress-container .progress-bar{
+    width:100%;
+    height:10px;
+    background-color: rgb(223, 221, 221);
+    border-radius:2px;
+    overflow: hidden;
+    
+}
+.banner-progress-container .inner-bar{
+    width:0%;
+    height:10px;
+    background-color: rgb(96, 65, 255);
+    transition:all 0.5s ease-in;
+    
+    
+}
+
+
+
+.banner-progress-container .banner-progress-bar{
+   
+    width:80%;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items:flex-start;
+    margin:0px 10px;
+    position: relative;
+
+    
+    
+}
+.banner-progress-container .banner-progress-bar p{
+    font-size:12px;
+    margin:1px 2px;
+    color:rgb(190, 190, 190);
+
+}
+
+/* uploading progess number ==================== */
+.uploading-progess-number{
+    position: absolute;
+    right:0px;
+    bottom:0px;
+
+}
+.uploading-progess-number p{
+    color:rgb(68, 56, 61) !important;
+
+}
+
+/* cancle preview=================== */
+    .cancle-preview{
+        
+        position: absolute;
+        top:5%;
+        left:10%;
+        background-color:rgb(59, 59, 59);
+        width:10%;
+        height:30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index:99999999;
+        color:white;
+        cursor: pointer;
+       
+    }
+    .cancle-preview:hover{
+        background-color: rgb(250, 132, 132);
+        color:white;
+    }
+    .cancle-preview .fa-xmark{
+        font-size:1.2rem;
+    }
+/* ============================= */
