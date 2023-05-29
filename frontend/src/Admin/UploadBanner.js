@@ -22,7 +22,8 @@ function UploadBanner() {
             const imgsrc = URL.createObjectURL(blob)
 
             baner_preview.style.backgroundImage = `url(${imgsrc})`
-            console.log("this working")
+            set_progressbar(0)
+
 
         }
 
@@ -39,20 +40,13 @@ function UploadBanner() {
 
         try{
             const repsonse = await  axios.post("api/naksa/bannerupload",formdata,{onUploadProgress:({loaded,total})=>{
-                console.log(loaded);
-                console.log(total);
+        
                 set_progressbar(Math.floor((loaded/total) *100));
                 
             }})
             console.log(repsonse)
-            if(repsonse.data.sucess==true){
-                setTimeout(function(){
-                    set_progressbar(0);
-                    set_file();
-
-                },5000)
-            }
-
+    
+            
         }
         catch(err){
             console.log(err)
@@ -65,6 +59,7 @@ function UploadBanner() {
     // cancle previe w=======================================================
     function handleCanclePreview(){
         set_file();
+        set_progressbar(0)
     }
 
   return (
