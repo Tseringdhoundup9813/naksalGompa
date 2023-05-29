@@ -66,7 +66,7 @@ function UploadBanner() {
     <div className='uploadbanner-container'>
        
 
-        <form onSubmit={fileUpload} action="">
+        <form onSubmit={fileUpload} action="" method='post' encType='multipart/form-data'>
             
 
             <div className="banner-upload-section"  >
