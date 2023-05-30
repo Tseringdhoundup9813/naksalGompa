@@ -7,6 +7,9 @@
   width: 100vw;
   background: green;
   position: relative;
+  background-position: center;
+  background-size:cover;
+  background-repeat: no-repeat;
 }
 .home-banner-text {
   position: absolute;
@@ -78,6 +81,12 @@
   .home-banner {
     font-size: 14px;
     height: 60vh;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size:50%;
+    
+    
+   
   }
   .home-banner-btn {
     font-size: 12px;

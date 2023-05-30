@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 //css
 import "../style/Home.css";
 //navbar
@@ -6,19 +6,57 @@ import NavbarMain from "./navbar";
 //Footer
 import Footer from "./Footer";
 
+// ////////////////////////////////////
+// axiso import ===========================
+import axios from "../Services/Instance"
+// =======================================
 //bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 export default function Home() {
+
+  // state ==================================================
+    const[bannerpath,set_bannerpath] = useState(undefined)
+
+    console.log(bannerpath!==undefined)
+
+  // ///////////////////////////////////////////////////////////////
+  // Fetch api ==================================================================
+  useEffect(()=>{
+     async function fetchbanner(){
+        try{
+          const response = await axios.get("getbanner")
+        
+          set_bannerpath(response.data[0].banner)
+          
+
+        }catch(err){
+          console.log(err)
+        }
+
+      }
+      fetchbanner()
+
+
+  })
+  // /////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
   return (
     <div id="home">
       <NavbarMain></NavbarMain>
       {/*home-banner */}
-      <div className="home-banner container-fluid">
+      <div className="home-banner container-fluid" style={{backgroundImage:`url(${bannerpath!==undefined?`"${bannerpath}"`:""})`}}>
         <div className="home-banner-text">
           <div className="home-banner-title text-capitalize">
             naksa chhuling
+            
           </div>
           <div className="home-banner-sub-title">Monastery</div>
           <p className="text-capitalize">empowering through education</p>

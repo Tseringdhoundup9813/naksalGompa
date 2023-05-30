@@ -39,7 +39,7 @@ function UploadBanner() {
         formdata.append("banner",file)
 
         try{
-            const repsonse = await axios.post("api/naksa/bannerupload",formdata,
+            const repsonse = await axios.post("bannerupload",formdata,
 
             {onUploadProgress:({loaded,total})=>{
                 console.log(loaded)

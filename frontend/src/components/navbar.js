@@ -3,6 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
+
+
 //css
 import "../style/Navbar.css";
 function NavbarMain() {
@@ -31,7 +33,7 @@ function NavbarMain() {
         </Navbar.Collapse>
         {/*center logo*/}
         <Navbar.Brand href="#home" className="order-1 nav-brand me-1 ms-1">
-          <div className="nav-main-logo"></div>
+          <div className="nav-main-logo" ></div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="order-2" />
         {/*right side*/}
