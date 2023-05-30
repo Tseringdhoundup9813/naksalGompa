@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import axios from "axios"
+import axios from "../Services/Instance"
 import "../AdminStyle/uploadbanner.css"
 
 function UploadBanner() {
@@ -12,7 +12,7 @@ function UploadBanner() {
     const[progressbar,set_progressbar] = useState();
 
 
-    console.log(file);
+
     
     useEffect(()=>{
         if(file!==null){
@@ -39,17 +39,18 @@ function UploadBanner() {
         formdata.append("banner",file)
 
         try{
-            const repsonse = await  axios.post("api/naksa/bannerupload",formdata,{onUploadProgress:({loaded,total})=>{
-        
-                set_progressbar(Math.floor((loaded/total) *100));
-                
+            const repsonse = await axios.post("api/naksa/bannerupload",formdata,
+
+            {onUploadProgress:({loaded,total})=>{
+                console.log(loaded)
+                set_progressbar(Math.floor((loaded/total) *100));  
             }})
             console.log(repsonse)
     
-            
         }
         catch(err){
             console.log(err)
+            set_progressbar(0)
         }
        
 
@@ -74,14 +75,13 @@ function UploadBanner() {
                      <label for ="file" className='upload-container-section'>
 
                         
+                        {/* image preview section */}
                          <div className="preview-img-section" >
                           
                          </div>
+                         {/* image preivewi end ================================== */}
                         
                         
-                       
-
-
                      <i class="fa-solid fa-file-arrow-up"></i>
                         <p>Choose a file and <span>upload</span> </p>
                         <div className="dotted-border">
@@ -108,10 +108,10 @@ function UploadBanner() {
                     </div>
                     
                     <div className="banner-progress-bar">
+                        
                         <p>{file.name}</p>
                         <div className='progress-bar'>
-                            <div className="inner-bar" style={{width:`${progressbar}%`}}>
-                            </div>
+                            <div className="inner-bar" style={{width:`${progressbar}%`}}></div>
                          </div>
 
 

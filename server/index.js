@@ -2,6 +2,8 @@ const express = require("express")
 const moongose = require("mongoose")
 const app = express()
 const fileUpload = require("express-fileupload")
+const cors = require("cors")
+
 
 require("dotenv").config()
 
@@ -10,6 +12,9 @@ const MainRouter = require("./Router/MainRouter")
 const { default: mongoose } = require("mongoose")
 
 // ==================================================================================
+// cors
+app.use(cors())
+// 
 
 // initialing fileuplaod
 app.use(fileUpload())

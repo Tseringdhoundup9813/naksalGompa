@@ -111,12 +111,21 @@
     border:none;
     background-color: tomato;
     width:30%;
+    position: absolute;
+    left:50%;
+    top:40%;
+    transform: translate(-50%,-50%);
+    
     color:white;
     padding:10px 0px;
     border-radius:5px;
     font-weight: bold;
     cursor: pointer;
+ 
     
+}
+.banner-upload-button-section button:hover{
+    background-color: red;
 }
 
 /* image progress section ================================================== */
