@@ -23,27 +23,30 @@ exports.uploadBanner = async (req,res)=>{
 
         // image path
         const bannerpath = `${req.protocol}://${req.get("host")}/Banner/${filename}`
+        /////////////////////////////////////////////////////////////////////////
+
+
+        // create image in server at upload folder
         bannerImage.banner.mv(`Upload/Banner/${filename}`,async (error)=>{
             if(error){
                 return  res.status(500).json({sucess:false,message:"server error"})
 
             }})
+         //////////////////////////////////////////////////////////
 
           
   // check wheather banner already exits or not 
         if(bannerExist.length < 1){
-          
-            
+    
             // check banner exist
             const newbanner = await BannerModel.create({ banner:bannerpath})
                 if(newbanner){
-
-                   
                     console.log("created")
                     return  res.status(200).json({sucess:true,message:"Sucessfully upload"})
 
                 }
             }
+            //////////////////////////////////////////////////////////////////////////////////
 
             // if exist banner then find the existing banner and update that 
             else if(bannerExist.length > 0){
@@ -51,7 +54,7 @@ exports.uploadBanner = async (req,res)=>{
                 const exist_banner = await BannerModel.find({})
                 // getting a old img path 
                 let old_img_path = exist_banner[0].banner
-                console.log(old_img_path.split("/"))
+               
                 old_img_path = old_img_path.split("/")[4]
                 console.log(old_img_path)
                 

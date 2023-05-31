@@ -5,7 +5,7 @@
 .home-banner {
   height: 60vh;
   width: 100vw;
-  background: green;
+  background: rgb(224, 224, 224);
   position: relative;
   background-position: center;
   background-size:cover;
@@ -13,7 +13,7 @@
 }
 .home-banner-text {
   position: absolute;
-  top: 15%;
+  top: 24%;
   left: 10%;
 }
 .home-banner-title {
@@ -22,6 +22,7 @@
   font-weight: 700;
   font-size: 70px;
   color: #f4c51b;
+  line-height:50px;
 }
 .home-banner-sub-title {
   font-family: "Mulish";

@@ -1,5 +1,8 @@
 const express = require("express")
-const MainController = require("../Controller/MainController")
+// import controller =====================================
+const BannerController = require("../Controller/BannerController")
+const NewsController = require("../Controller/NewsController")
+// -//////////////////////////////////////////////////////////
 const router = express.Router()
 
 
@@ -7,10 +10,13 @@ const router = express.Router()
 
 // Admin ROuter =========================================
 // upload banner api =================================
-router.post("/bannerupload",MainController.uploadBanner)
+router.post("/bannerupload",BannerController.uploadBanner)
 // /////////////////////////////////////////////////////
 
+// upload news api=======================================
+router.post("/newsupload",NewsController.UploadNews)
 
+// ////////////////////////////////////////////////////
 // ===========================================================
 
 
@@ -19,7 +25,7 @@ router.post("/bannerupload",MainController.uploadBanner)
 // Client page Router ================================================================================
 
 // Banner Router api ===================
-router.get("/getbanner",MainController.GetBannerImg)
+router.get("/getbanner",BannerController.GetBannerImg)
 // /////////////////////////////////////
 
 

@@ -14,8 +14,10 @@ const { default: mongoose } = require("mongoose")
 // ==================================================================================
 // cors
 app.use(cors())
+
 // 
 
+app.use(express.json())
 // initialing fileuplaod
 app.use(fileUpload())
 app.use(express.static("Upload"))
