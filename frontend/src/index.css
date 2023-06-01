@@ -17,3 +17,6 @@ code {
   padding:0px;
   box-sizing: border-box;
 }
+.admin-main-container{
+  display: flex;
+}

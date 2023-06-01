@@ -29,13 +29,14 @@ exports.UploadNews=async(req,res)=>{
 
         // LOGIC TO CREATE A DATA IN DATABASE///////////////////////////////////
         const create_news = await NewsModel.create({photo:filepath,title,des, programdate})
+        const getnews = await NewsModel.find({})
         // ///////////////////////////////////////////////////////////////////////////////
 
 
         // IF DATA IS NOT STORE IN DATABASE SHOW ERROR
         ////////////////////////////////////////
         if(!create_news==undefined){
-            return  res.status(500).json({sucess:false,message:"due to some error news is not create"})
+            return  res.status(500).json({success:false,message:"due to some error news is not create"})
           
         }
         ///////////////////////////////////////////////
@@ -50,13 +51,13 @@ exports.UploadNews=async(req,res)=>{
                 
                 // if error occur upload a photo to server 
                 if(err){
-                    return  res.status(500).json({sucess:false,message:"server error"})
+                    return  res.status(500).json({success:false,message:"server error"})
                 }
                 // ////////////////////////////////////////////////////////////////////
 
                 // successfull uploading photo to server and adding data to database show response with success message 
                 else{
-                    return res.status(200).json({sucess:true,message:"Sucessfully upload"})
+                    return res.status(200).json({success:true,message:"Sucessfully upload",getnews})
                 }
             }))
             // ////////////////////////////////////////////////////////////////////////////////////////////////

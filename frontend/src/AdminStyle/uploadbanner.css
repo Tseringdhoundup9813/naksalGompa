@@ -1,224 +1,260 @@
 
+/* main banner container that split navbar and content */
+.upload-main-container{
+    width:100%;
+    height:100vh;
+    display: flex;
+   
+    
+    
+}
 
+/* sidebar-container */
+
+
+.uploadbanner-container{
+    width:85%;
+  
+  
+}
+
+/* banner image preivew section =========================================================== */
+/* //////////////////////////////////////////////////////////////////////////////////////////// */
 .banner-upload-section{
- 
-    width:100%;
+    width:90%;
     height:65vh;
+   
+    margin:auto;
+    margin-top:1%;
 }
-
-
-.banner-upload-button-section{
-    width:100%;
-    height:60vh;
-
-}
-.uploadbanner-container  input[type="file"]{
+/* hide the default button file */
+.uploadbannerbutton{
     display: none;
 }
 
-
-
-
-
-
-.uploadbanner-container label{
-    height:60vh;
-    width:80%;
-    background-color: rgb(243, 243, 243);
-    position: absolute;
-    top:0px;
-    left:0px;
-    right:0px;
-    bottom:0px;
-    
-    margin:2% auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius:10px;
-    transition:all 1s ease-in-out;
-    background-size:contain;
-    background-position: center;
-    background-repeat: no-repeat;
-
-
-}
-/* preivew image ============================================ */
-
-.preview-img-section{
+/* create a another selection file customzing */
+.upload-container-section{
+    background-color: rgb(238, 238, 238);
     width:100%;
     height:100%;
-    z-index:999999;
-    background-repeat: no-repeat;
-    background-size:100%;
-    position: absolute;
-    box-shadow:2px 1px 4px 4px rgb(232, 232, 232);
-    background-position: center;
-    
-    
-    
-    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
 }
-/* =========================================== */
-.uploadbanner-container label p{
-    color:#c8c8c8;
-    font-size:1.2rem;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top:20px;
-
-    
-    
-}
-.uploadbanner-container label p span{
-    color:rgb(255, 128, 128);
-    font-weight: bold;
-}
-
-.uploadbanner-container .fa-file-arrow-up{
-    font-size:5rem;
-    color:rgb(200, 200, 200);
-    transition:all 0.6s ease-in-out;
-
-    
-}
-
-
-/* dotted border */
-.uploadbanner-container .dotted-border{
-   border:2px dotted rgb(255, 172, 172);
-   width:96%;
-   height:90%;
-   position: absolute;
+.preview-img-section{
    
+    width:100%;
+    height:100%;
+    position: absolute;
+    top:0px;
+    z-index: 999999;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+/* customize the image icon of file  */
 
+.dotted-border{
+    border:3px dotted rgb(255, 151, 151);
+    width:95%;
+    height:90%;
+    position: absolute;
 
-    
+}
+.fa-file-arrow-up{
+    font-size:4.5rem;
+    transition:all 0.5s ease-in-out;
 }
 .upload-container-section:hover .fa-file-arrow-up{
-        transform: scale(1.1);
-        color:rgb(255, 146, 146);
-      
-        
-}
-.banner-upload-button-section {
-    position: relative;
-}
-/* button upload */
+    transform: scale(1.2);
+    color:rgb(255, 110, 110);
 
-.banner-upload-button-section button{
-    border:none;
-    background-color: tomato;
-    width:30%;
-    position: absolute;
-    left:50%;
-    top:40%;
-    transform: translate(-50%,-50%);
-    
-    color:white;
-    padding:10px 0px;
-    border-radius:5px;
-    font-weight: bold;
-    cursor: pointer;
- 
-    
 }
-.banner-upload-button-section button:hover{
+.upload-container-section p{
+    font-size:1.6rem;
+    margin:10px 0px;
+    color:rgb(201, 201, 201);
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.upload-container-section p > span{
+    color:rgb(255, 64, 64);
+    font-weight: bold;
+}
+/* ?//////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+/* second section ==================================================== */
+/* ///////////////////////////////////////////// */
+.banner-upload-button-section{
+ 
+    width:90%;
+    margin:auto;
+}
+
+
+/* /////////////////////////////////Image Size check ============================================ */
+.file-size-container{
+   
+    
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    padding:10px 0px;
+ 
+}
+
+/* cancle preivew ============================================== */
+.cancle-preview{
+    position: absolute;
+    top:6px;
+    left:0px;
+    background-color: rgb(61, 61, 61);
+    color:white;
+    width:15%;
+    display: flex;
+    justify-content: center;
+    padding:6px 0px;
+    cursor: pointer;
+    transition:all 0.4s ease;
+}
+.cancle-preview:hover{
     background-color: red;
 }
+/* ///////////////////////////////////////////////////////////////////// */
 
-/* image progress section ================================================== */
+.file-size-check{
+    width:50%;
+   
+
+}
+.file-size-inner{
+    background: rgb(111,181,230);
+    background: linear-gradient(90deg, rgba(111,181,230,1) 0%, rgba(133,255,128,1) 0%, rgba(139,255,158,1) 50%, rgba(241,211,255,1) 50%, rgba(63,136,251,1) 50%, rgba(82,143,255,1) 80%, rgba(255,71,71,1) 80%, rgba(255,0,0,1) 100%); 
+    width:100%;
+    height:15px;
+    position: relative;
+}
+.file-size-description{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    font-size:12px;
+    position: relative;
+}
+
+.fa-location-dot{
+    position: absolute;
+    top:-10px;
+    animation-name: filesizeanimation;
+    animation-duration: 1s;
+    transition:all 0.5s ease;
+    left:0%;
+}
+/* file size picker animation */
+@keyframes filesizeanimation{
+    0%{
+       left:0%;
+    }
+}
+.file-size-description p:nth-child(1){
+ 
+    left:20%;
+    position: absolute;  
+}
+.file-size-description p:nth-child(2){
+
+    left:60%;
+    position: absolute;  
+}
+.file-size-description p:nth-child(3){
+    left:88%;
+    position: absolute;  
+}
+/* ////////////////////////////////////////////////////////////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////// */
+
+/* banner-progress-container//////////////////////// */
 .banner-progress-container{
+    width:100%;
+ 
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    margin-top:10px;
+
+    
+}
+
+
+
+.banner-upload-icon > i{
+    font-size:50px;
+    color:rgb(222, 222, 222);
+}
+
+
+.banner-progress-bar{
+    width:50%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+
+    padding:15px 20px;
+    
+
+}
+.banner-progress-bar p{
+  
+    margin:0px;
+    font-size:12px;
+    color:grey;
+}
+
+
+
+.banner-progress-bar .progress-bar{
+    width: 100%;
+    height:15px;
+    background-color: rgb(223, 223, 223);
+    border-radius:2px;
+    position: relative;
+}
+.banner-progress-bar  .inner-bar{
+    width:50%;
+    height: 100%;
+    transition:all 1s ease;
+    background-color: rgb(38, 92, 218);
     display: flex;
     justify-content: center;
     align-items: center;
-  
-    width:50%;
-    margin:auto;
-    padding:20px;
+}
+.inner-bar p{
+    color:white;
+    font-size:8px;
+    
 
 }
-.banner-progress-container .fa-file-image{
-    font-size:2rem;
-    color:rgb(228, 228, 228);
+/* ///////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////// */
 
-
-}
-.banner-progress-container .progress-bar{
+/* button submit */
+.uploadbanner-container button{
+    border:0px;
+    background-color: rgb(189, 189, 189);
+    color:rgb(227, 227, 227);
+    padding:10px 0px;
     width:100%;
-    height:10px;
-    background-color: rgb(223, 221, 221);
-    border-radius:2px;
-    overflow: hidden;
-    
+    border-radius:10px;
+    font-weight: bold;
+    transition:all 1s ease;
 }
-.banner-progress-container .inner-bar{
-    width:0%;
-    height:10px;
-    background-color: rgb(96, 65, 255);
-    transition:all 0.5s ease-in;
-    
-    
+.uploadbanner-container button:hover{
+    background-color: rgb(61, 61, 61);
+    color:white;
 }
-
-
-
-.banner-progress-container .banner-progress-bar{
-   
-    width:80%;
-    display: flex;
-    flex-direction: column;
-    justify-content:flex-start;
-    align-items:flex-start;
-    margin:0px 10px;
-    position: relative;
-
-    
-    
-}
-.banner-progress-container .banner-progress-bar p{
-    font-size:12px;
-    margin:1px 2px;
-    color:rgb(190, 190, 190);
-
-}
-
-/* uploading progess number ==================== */
-.uploading-progess-number{
-    position: absolute;
-    right:0px;
-    bottom:0px;
-
-}
-.uploading-progess-number p{
-    color:rgb(68, 56, 61) !important;
-
-}
-
-/* cancle preview=================== */
-    .cancle-preview{
-        
-        position: absolute;
-        top:5%;
-        left:10%;
-        background-color:rgb(59, 59, 59);
-        width:10%;
-        height:30px;
-     
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index:99999999;
-        color:white;
-        cursor: pointer;
-       
-    }
-    .cancle-preview:hover{
-        background-color: rgb(250, 132, 132);
-        color:white;
-    }
-    .cancle-preview .fa-xmark{
-        font-size:1.2rem;
-    }
-/* ============================= */
+/* ////////////////// */

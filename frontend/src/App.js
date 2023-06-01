@@ -8,7 +8,7 @@ import {
 import RootLayout from "./layout/RootLayout.js";
 import Home from "./components/Home.js";
 import UploadBanner from "./Admin/UploadBanner.js"
-
+import AdminNews from "./Admin/AdminNews.js";
 //bootstrap style
 import "bootstrap/dist/css/bootstrap.min.css";
 const router = createBrowserRouter(
@@ -16,11 +16,15 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route path="/" element={<Home />} />
       <Route path="/admin/uploadbanner" element={<UploadBanner />} />
+      <Route path="/admin/uploadnews" element={<AdminNews />} />
 
       
-      
     </Route>
-  )
+
+
+   
+  ),
+
 );
 
 function App() {
