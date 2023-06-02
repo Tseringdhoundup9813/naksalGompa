@@ -1,5 +1,5 @@
 {
-  "proxy":"http://localhost:8001/",
+  "proxy": "http://localhost:8001/",
   "name": "naksa",
   "version": "0.1.0",
   "private": true,
@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "date-fns": "^2.30.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",

@@ -123,9 +123,11 @@
   
     width:100%;
     height:100%;
-    z-index: 999999;
-    background-color: rgba(0, 0, 0, 0.434);
-    filter: opacity(0.5);
+    z-index:99999999999;
+    background-color: rgba(0, 0, 0,0.1);
+    position: absolute;
+  
+    
     
 }
 /* ////////////////////////////////// */
@@ -136,7 +138,6 @@
     right:4%;
     transform: translate(-50%,-50%);
 
-    
     color:white;
     z-index:99999999999999999;
     animation:news-success-animation 3s ease 0s 1 normal forwards;
@@ -146,8 +147,8 @@
     
 }
 .sucessfullupload_message p{
-    font-size:15px;
-    padding:10px;
+    font-size:12px;
+    padding:10px 20px;
     border-radius:4px;
     background-color: orange;
     text-transform: uppercase;
@@ -189,3 +190,192 @@
 
 
 /* /////////////////////////////// */
+
+
+
+
+/* news_error_message */
+.news_error_message{
+    position: absolute;
+    top:10px;
+    right:20px;
+    color:white;
+    z-index:99999999999999999;
+    animation:news-success-animation 3s ease 0s 1 normal forwards;
+    transition:all 4s ease-in;
+
+}
+.news_error_message p{
+    font-size:10px;
+    background-color: rgb(255, 39, 39);
+    text-transform: uppercase;
+    font-weight: bold;
+    padding:10px;
+}
+
+/* /////////////////////// */
+/* ///////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////// */
+/* GET NEWS SHOW NEWS//////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////////// */
+.news-show-container{
+    overflow: auto;
+    overflow-x: hidden;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+
+  
+}
+
+/* delete a news */
+.delete-news{
+    position: absolute;
+
+    right:5px;
+    top:5px;
+   
+    cursor: pointer;
+  
+ 
+    
+}
+.delete-news i{
+    margin:0px 5px;
+    border-radius:3px;
+    padding:10px 7px;
+    background-color:rgb(255, 20, 20);
+    color:white;
+}
+.delete-news i:nth-child(1){
+    background-color:rgb(42, 55, 225);
+}
+.delete-news i:nth-child(1):hover{
+    background-color: rgb(122, 110, 255);
+    
+}
+.delete-news i:nth-child(2):hover{
+    background-color: rgb(255, 77, 77);
+}
+/* //////////// */
+
+.news-top-gap{
+   
+    height:10vh;
+}
+/* total-news */
+
+.total-news{
+ 
+    background-color: rgb(255, 255, 255);
+    position:fixed;
+    top:0px;
+    width:32%;
+    font-weight: bold;
+    display: block;
+    font-size:15px;
+    padding:0px 40px;
+    text-transform: uppercase;
+    color:rgb(70, 27, 180);
+    font-family: Arial, Helvetica, sans-serif;
+    z-index:999999;
+    
+    
+}
+
+.total-news p{
+    /* border:1px solid red; */
+    margin:0px;
+}
+.total-news p:nth-child(1){
+    font-size: 25px;
+    color:rgb(255, 85, 0);
+    position: relative;
+    
+    
+    
+}
+.total-news p:nth-child(1)::after{
+    content:"";
+    background-color: rgb(31, 57, 141);
+    position: absolute;
+    width:20%;
+    height:4px;
+    bottom: 0px;
+    left:0px;
+    
+}
+/* /////////////// */
+.news-box-container{
+    width:80%;
+    background-color: rgb(236, 236, 236);
+    margin:10px auto;
+    position: relative;
+
+
+}
+.news-box-photo-parent{
+    width:100%;
+    height:22vh;
+    
+}
+.news-box-photo-parent img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  
+
+}
+.news-box-container .title-date{
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:3px 10px; 
+    /* border:1px solid red; */
+
+}
+.title-descrition{  
+    margin:5px 0px;
+}
+.title-descrition .title-date> h5{
+    font-size:18px;
+    text-transform: uppercase;
+    color:rgb(44, 40, 126);
+    
+}
+.title-descrition .title-date > p{
+    font-size:11px;
+}
+.title-descrition .news-des{
+
+    padding:10px 10px;
+    font-size:14px;
+    text-align:left;
+    overflow: hidden;
+}
+
+.news-created-date{
+    font-size:10px;
+}
+/* //////////////////
+ */
+
+ /* scroll bar */
+ ::-webkit-scrollbar{
+    width:0.5em;
+    
+ }
+ ::-webkit-scrollbar-track{
+   background-color: rgb(63, 43, 168);
+   border-radius: 100vw;
+    margin-block:0.2em;
+    overflow: hidden;
+ }
+ ::-webkit-scrollbar-thumb{
+  background-color: rgb(255, 255, 255);
+  border:.15em solid rgb(63, 43, 168);
+  border-radius:100vw;
+ }
+ /*  */

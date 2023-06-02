@@ -3,6 +3,8 @@ export const INITIAL_STATE ={
     loading:false,
     success:false,
     error:false,
+    error_message:"",
+    empty_field:[],
     data:[]
 }
 
@@ -15,7 +17,9 @@ export const postReducer =(state,action)=>{
                 loading:true,
                 success:false,
                 error:false,
-                data:[]
+                data:[],
+                error_message:"",
+                empty_field:[],
           
             }
         case "FETCH_SUCCESS":
@@ -23,7 +27,9 @@ export const postReducer =(state,action)=>{
                 loading:false,
                 success:action.payload,
                 error:false,
-                data:[],
+                data:action.payloadnews,
+                error_message:"",
+                empty_field:[],
                
                 
             }
@@ -35,9 +41,20 @@ export const postReducer =(state,action)=>{
                 loading:false,
                 success:false,
                 data:[],
-               
-
+                error_message:action.payload[0],
+                empty_field:action.payload[1],
             }
+        case "DELETE_SUCCESS":
+            return{
+                error:true,
+                loading:false,
+                success:false,
+                data:state.data.filter((data) =>data._id!==action.payload._id),
+                error_message:"",
+                empty_field:[]
+            }
+       
+       
         default:
             return state
     }

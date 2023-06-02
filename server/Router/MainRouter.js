@@ -17,6 +17,11 @@ router.post("/bannerupload",BannerController.uploadBanner)
 router.post("/newsupload",NewsController.UploadNews)
 
 // ////////////////////////////////////////////////////
+
+
+// DELETE A NEWS DATA========================================
+router.delete("/deletenews/:id",NewsController.DeleteNews)
+// ///////////////////////////////////////////////////////////
 // ===========================================================
 
 
@@ -27,6 +32,13 @@ router.post("/newsupload",NewsController.UploadNews)
 // Banner Router api ===================
 router.get("/getbanner",BannerController.GetBannerImg)
 // /////////////////////////////////////
+
+
+
+// Get A News////////////////////////////////////
+router.get("/getnews/",NewsController.GetNews)
+
+// ////////////////////////////////////////////
 
 
 

@@ -12,11 +12,33 @@ exports.UploadNews=async(req,res)=>{
     // getting file
     const file = req.files
     // //////////////////
+    let emptyfield = []
+
+    // check req if empty or not 
+
+    if(title.length<1){
+        emptyfield.push("title")
+    }
+  
+    if(des.length<1){
+       
+        emptyfield.push("des")
+    }
+    if(file==undefined){
+        emptyfield.push("file")
+    }
+    if(emptyfield.length > 0){
+        return res.status(400).json({error:true,message:"please provide all the field",emptyfield})
+        
+    }
+
+   
+    // //////////////////////////////
 
     // check if file not exist then return error and message 
-    if(file==undefined){
-        return res.status(400).json({error:true,message:"please add file"})
-    }
+    // if(file==undefined){
+    //     return res.status(400).json({error:true,message:"please add file"})
+    // }
     let photo_name = file.photo.name
     // if image name have any gap between name then it will cut the gap
     photo_name = photo_name.split(" ").join("")
@@ -76,3 +98,39 @@ exports.UploadNews=async(req,res)=>{
 // //////////////////////////////////////////FINISHED/////////////LOGIC////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////TSERING////////////////////////////////////////////////////////////////////////////////////////
 
+
+// GET A NEWS //////////////////////////////////////
+exports.GetNews=async (req,res)=>{
+    try{
+        const allnews = await NewsModel.find({}).sort({createdAt:-1})
+        
+        res.status(200).json({success:true,data:allnews})
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+// ///////////////////////////////////////////////////////////////////////////////
+
+// ////////////////////////////////////////////////////////////////////
+// DELETE A NEWS DATA//////////////////////////////////////////////////////
+
+
+exports.DeleteNews =async(req,res)=>{
+    try{
+        
+        const {id} = req.params
+        const deletednews = await NewsModel.findByIdAndDelete({_id:id})
+        console.log(deletednews!==undefined)
+        if(deletednews!==undefined){
+            res.status(200).json({success:true,data:deletednews})
+        }
+
+      
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
+// //////////////////////////////////////////////////

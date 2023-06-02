@@ -39,7 +39,7 @@ useEffect(()=>{
   return (
     <div>
         
-        <div className="banner-upload-section" style={{width:`${props.width}`,height:`${props.height}`}}  >
+        <div className="banner-upload-section" style={{width:`${props.width}`,height:`${props.height}`,border:`${props.required?"2px solid red":""}`}}  >
                 <input class ="uploadbannerbutton" accept=" image/gif, image/jpeg" type="file" id="file" onChange={(e)=>set_file(e.target.files[0])}/>
                      <label for ="file" className='upload-container-section'>
 

@@ -8,7 +8,7 @@
     border-radius: 50%;
     position: relative;
     transform: translateZ(0);
-    animation: mltShdSpin 0.5s infinite ease, round 0.5s infinite ease;
+    animation: mltShdSpin 0.6s infinite ease, round 0.6s infinite ease;
     z-index:999999999999;
     position: absolute;
     top:50%;
