@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 //css
 import "../style/Home.css";
 //navbar
@@ -8,59 +8,61 @@ import Footer from "./Footer";
 
 // ////////////////////////////////////
 // axiso import ===========================
-import axios from "../Services/Instance"
+import axios from "../Services/Instance";
 // =======================================
 //bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { NavLink } from "react-router-dom";
 export default function Home() {
-
   // state ==================================================
-    const[bannerpath,set_bannerpath] = useState(undefined)
+  const [bannerpath, set_bannerpath] = useState(undefined);
 
-    console.log(bannerpath!==undefined)
+  console.log(bannerpath !== undefined);
 
   // ///////////////////////////////////////////////////////////////
   // Fetch api ==================================================================
-  useEffect(()=>{
-     async function fetchbanner(){
-        try{
-          const response = await axios.get("getbanner")
-        
-          set_bannerpath(response.data[0].banner)
-          
+  useEffect(() => {
+    async function fetchbanner() {
+      try {
+        const response = await axios.get("getbanner");
 
-        }catch(err){
-          console.log(err)
-        }
-
+        set_bannerpath(response.data[0].banner);
+      } catch (err) {
+        console.log(err);
       }
-      fetchbanner()
-
-
-  })
+    }
+    fetchbanner();
+  });
   // /////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 
   return (
     <div id="home">
       <NavbarMain></NavbarMain>
       {/*home-banner */}
-      <div className="home-banner container-fluid" style={{backgroundImage:`url(${bannerpath!==undefined?`"${bannerpath}"`:""})`}}>
+      <div
+        className="home-banner container-fluid m-0"
+        style={{
+          backgroundImage: `url(${
+            bannerpath !== undefined ? `"${bannerpath}"` : ""
+          })`,
+        }}
+      >
         <div className="home-banner-text">
           <div className="home-banner-title text-capitalize">
             naksa chhuling
-            
           </div>
           <div className="home-banner-sub-title">Monastery</div>
           <p className="text-capitalize">empowering through education</p>
-          <div className="home-banner-btn btn">Donate now</div>
+          <div>
+            <NavLink
+              to="/donation/donation-pay"
+              className="home-banner-btn btn"
+            >
+              Donate now
+            </NavLink>
+          </div>
         </div>
       </div>
 
@@ -89,7 +91,11 @@ export default function Home() {
               of Guru Padmasambhava. The village is near the hill Rinchen Pungpa
               (Heaped Jewel) located in front of the holy mountain.
             </p>
-            <div className="btn btn-home-f-more">Read More</div>
+            <div>
+              <NavLink to="/about/founder" className="btn btn-home-f-more">
+                Read More
+              </NavLink>
+            </div>
           </Col>
           <Col className="col-12 col-md-4 me-md-5 me-lg-0 col-lg-3 order-lg-3 order-sm-1 home-f-photo-container">
             <div className="home-f-photo"></div>
@@ -117,8 +123,10 @@ export default function Home() {
               ea quae placeat! Quidem sed veniam, quia earum modi ipsa ab eum
               deserunt sit fugiat. Architecto quidem magni saepe veritatis!
             </div>
-            <div className="home-news-f-more">
-              read more <i class="fa-solid fa-angle-right"></i>
+            <div>
+              <NavLink to="/news" className="home-news-f-more ">
+                read more <i class="fa-solid fa-angle-right"></i>
+              </NavLink>
             </div>
           </Col>
           <Col className="col-12 col-lg-4 col-md-5">
@@ -217,7 +225,15 @@ export default function Home() {
         </Row>
         <Row>
           <Col className="col-5 mx-auto text-center">
-            <div className="btn btn-home-f-more">see more</div>
+            <div>
+              <NavLink
+                to="/about/our-team"
+                className="btn btn-home-f-more"
+                preventScrollReset={false}
+              >
+                see more
+              </NavLink>
+            </div>
           </Col>
         </Row>
       </Container>

@@ -3,8 +3,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-
-
+//logo
+import logoImg from "../images/logo/logo.png";
+//router
+import { NavLink } from "react-router-dom";
 //css
 import "../style/Navbar.css";
 function NavbarMain() {
@@ -14,38 +16,71 @@ function NavbarMain() {
         {/*leftside*/}
         <Navbar.Collapse id="basic-navbar-nav" className="order-lg-1 order-3">
           <Nav className="ms-auto">
-            <Nav.Link
-              href="#home"
-              className="text-uppercase mx-lg-2 nav-color active"
+            <NavLink
+              to="/"
+              className=" nav-link text-uppercase mx-lg-2 nav-color "
             >
               Home
-            </Nav.Link>
-            <Nav.Link href="#home" className="text-uppercase mx-lg-2">
-              About
-            </Nav.Link>
-            <Nav.Link href="#home" className="text-uppercase mx-lg-2">
+            </NavLink>
+
+            <NavDropdown title="ABOUT" id="basic-nav-dropdown">
+              <NavLink
+                to="/about/history"
+                className="dropdown-item text-uppercase"
+              >
+                History
+              </NavLink>
+              <NavLink
+                to="/about/founder"
+                className="dropdown-item text-uppercase"
+              >
+                founder
+              </NavLink>
+              <NavLink
+                to="/about/director"
+                className="dropdown-item text-uppercase"
+              >
+                Director
+              </NavLink>
+              <NavLink
+                to="/about/our-team"
+                className="dropdown-item text-uppercase"
+              >
+                OurTeam
+              </NavLink>
+              <NavLink
+                to="/about/our-student"
+                className="dropdown-item text-uppercase"
+              >
+                Total Student
+              </NavLink>
+            </NavDropdown>
+
+            <NavLink to="/donation" className="nav-link text-uppercase mx-lg-2">
               Donation
-            </Nav.Link>
-            <Nav.Link href="#home" className="text-uppercase mx-lg-2">
+            </NavLink>
+            <NavLink to="/news" className="nav-link text-uppercase mx-lg-2">
               News
-            </Nav.Link>
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
         {/*center logo*/}
         <Navbar.Brand href="#home" className="order-1 nav-brand me-1 ms-1">
-          <div className="nav-main-logo" ></div>
+          <div className="nav-main-logo">
+            <img src={logoImg} className="img-fluid" alt="" />
+          </div>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="order-2" />
         {/*right side*/}
 
         <Navbar.Collapse id="basic-navbar-nav" className="order-lg-3 order-4">
           <Nav className="me-auto">
-            <Nav.Link href="#home" className="text-uppercase mx-lg-2">
-              Gallery
-            </Nav.Link>
-            <Nav.Link href="#home" className="text-uppercase mx-lg-2">
-              Contact
-            </Nav.Link>
+            <NavLink to="/gallery" className="nav-link text-uppercase mx-lg-2">
+              gallery
+            </NavLink>
+            <NavLink to="/contact" className="nav-link text-uppercase mx-lg-2">
+              contact
+            </NavLink>
             <Nav.Link href="#home" className="text-uppercase mx-lg-2">
               login
             </Nav.Link>

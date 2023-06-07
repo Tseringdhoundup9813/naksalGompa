@@ -1,0 +1,260 @@
+.donation-banner {
+  background: url("../images/news/news3.jpg") center/cover no-repeat;
+  height: 60vh;
+  width: 100vw;
+  position: relative;
+}
+.donation-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, #ffffff00, #f9d974);
+  height: 100%;
+  width: 100%;
+}
+.donation-banner-text {
+  position: absolute;
+  top: 40%;
+  left: 70%;
+  transform: translate(-50%, -50%);
+}
+.dona-banner-title {
+  font-size: 42px;
+  font-weight: 600;
+}
+.donation-red {
+  color: #851616 !important;
+}
+.dona-banner {
+  font-weight: 600;
+}
+/* //second part */
+.dona-about {
+  position: relative;
+  height: 80vh;
+  width: 100vw;
+}
+.dona-row {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 75% !important;
+  margin: 0 auto !important;
+}
+.dona-top {
+  background: #851616;
+  color: #fff;
+  display: flex;
+  padding: 20px 0;
+}
+.help-grid {
+  display: grid;
+  grid-template-columns: 20% 50%;
+  align-items: center;
+  justify-content: center;
+}
+.help-icon {
+  font-size: 25px;
+}
+.help-number {
+  color: #ff3535;
+  font-size: 18px;
+}
+.help-text {
+  font-size: 20px;
+  font-family: Mulish;
+}
+.right-border {
+  border-right: 2px solid #fff;
+}
+.dona-why {
+  color: #454444;
+  margin: 10px 0;
+  font-size: 22px;
+}
+.dona-para {
+  text-align: justify;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+.dona-img {
+  height: 300px;
+  width: 100%;
+  background: url("../images/news/news3.jpg") center/cover no-repeat;
+}
+
+/* third */
+
+.dona-more {
+  background: #f9d974;
+  padding: 160px 30px !important;
+  position: relative;
+}
+.dona-more-bg {
+  clip-path: polygon(0 0, 46% 0, 100% 100%, 0% 100%);
+  height: 100%;
+  width: 50%;
+  background-color: #851616;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.dona-more-img {
+  background: url("../images/news/news1.jpg") center/cover no-repeat;
+  height: 500px;
+  width: 100%;
+  border: 1px solid grey;
+  z-index: 99;
+}
+.dona-more-img-container {
+  width: 90% !important;
+  margin: 0 auto !important;
+  align-items: center;
+  justify-content: center;
+}
+.dona-more-head {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 44px;
+}
+.dona-more-para {
+  font-size: 17px;
+  text-align: justify;
+  color: #020202;
+  margin: 20px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .dona-banner-title {
+    font-size: 40px;
+    font-weight: 600;
+  }
+  .help-text {
+    font-size: 18px;
+  }
+  .dona-para {
+    font-size: 14px;
+  }
+  .dona-about {
+    height: 90vh;
+  }
+  .dona-more-head {
+    font-size: 32px;
+    line-height: 34px;
+  }
+  .dona-more-para {
+    font-size: 14px;
+  }
+  .dona-more {
+    padding: 100px 30px !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .dona-banner-title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .help-text {
+    font-size: 13px;
+  }
+  .dona-top {
+    padding: 10px 0;
+  }
+  .dona-more-head {
+    font-size: 20px;
+    line-height: 23px;
+  }
+  .dona-more-para {
+    font-size: 12px;
+  }
+  .dona-img {
+    height: 250px;
+  }
+  .dona-more-img {
+    height: 400px;
+  }
+  .dona-row {
+    width: 90% !important;
+    top: -30px;
+  }
+  .dona-about {
+    height: 120vh;
+  }
+  .dona-para {
+    font-size: 11px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .donation-banner-text {
+    width: 50%;
+    top: 56%;
+    left: 68%;
+  }
+  .help-text {
+    font-size: 11px;
+  }
+  .help-icon {
+    font-size: 20px;
+  }
+  .dona-about {
+    height: auto;
+    padding: 20px 0 !important;
+    background: #fde08118;
+  }
+  .dona-row {
+    position: initial;
+    transform: none;
+  }
+  .dona-small {
+    padding: 20px 0;
+  }
+  .dona-more {
+    padding: 45px 30px !important;
+  }
+  .dona-more-head {
+    font-size: 17px;
+    line-height: 18px;
+  }
+  .dona-more-para {
+    font-size: 10px;
+  }
+  .home-banner-btn {
+    font-size: 10px !important;
+  }
+  .dona-more-img-container {
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 520px) {
+  .donation-banner-text {
+    width: 100%;
+    top: 56%;
+    left: 60%;
+  }
+  .help-text {
+    font-size: 9px;
+  }
+  .help-icon {
+    font-size: 12px;
+  }
+  .help-number {
+    font-size: 13px;
+  }
+  .dona-top {
+    padding: 10px 0 !important;
+  }
+  .dona-more {
+    padding: 29px 0px !important;
+  }
+  .dona-more-img {
+    height: 300px;
+    margin-bottom: 20px;
+  }
+  .right-border {
+    border-right: 1px solid #fff;
+  }
+}

@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@500&family=Source+Code+Pro&display=swap");
 
 .main-navbar {
-  background: #fffbf2 !important;
   font-family: "Mulish", sans-serif;
   font-style: normal;
   font-size: 18px;
@@ -11,11 +10,20 @@
 
 .nav-container {
   border-bottom: 4px solid #f9d974;
-  background: #fffbf2;
-  padding: 5px;
+  background: #851616;
 }
-.nav-link .active {
-  background: green;
+.navbar-toggler {
+  border: 1px solid #fff !important;
+}
+.nav-link {
+  color: #fff !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .show > .nav-link {
+  color: #851616 !important;
+  background-color: #f9d974 !important;
 }
 .nav-icon {
   width: 10%;
@@ -29,6 +37,15 @@
 }
 .nav-insta {
   color: red;
+}
+.nav-main-logo {
+  height: auto !important;
+  width: 100%;
+  border: 1px solid #f9d974;
+  background-color: #fff;
+}
+.nav-main-logo img {
+  height: 50px !important;
 }
 @media screen and (min-width: 992px) {
   .main-navbar {
@@ -53,6 +70,9 @@
     height: 100px;
     width: 100%;
     border: 1px solid #f9d974;
+  }
+  .nav-main-logo img {
+    height: auto !important;
   }
   #basic-navbar-nav {
     width: 20%;
