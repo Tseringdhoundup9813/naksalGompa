@@ -4,11 +4,10 @@
 }
 .home-banner {
   height: 60vh;
-  width: 100vw;
-  background: rgb(224, 224, 224);
+  background: green;
   position: relative;
   background-position: center;
-  background-size:cover;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .home-banner-text {
@@ -84,10 +83,7 @@
     height: 60vh;
     background-position: center center;
     background-repeat: no-repeat;
-    background-size:50%;
-    
-    
-   
+    background-size: 50%;
   }
   .home-banner-btn {
     font-size: 12px;
@@ -334,6 +330,7 @@
 .home-news-f-more {
   font-size: 16px;
   color: #851616;
+  text-decoration: none;
   cursor: pointer;
   text-transform: capitalize;
 }

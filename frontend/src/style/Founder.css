@@ -1,0 +1,163 @@
+#founder {
+  font-family: "Mulish";
+  font-style: normal;
+  margin: 100px 0;
+}
+.founder-container {
+  width: 97%;
+  margin: 0 auto;
+}
+.founder-title {
+  font-weight: 800;
+  font-size: 25px;
+  color: #62615f;
+  padding: 5px 0;
+  border-bottom: 1.2px solid #851616;
+  width: 40%;
+}
+
+.founder-card-container {
+  position: relative;
+  height: 400px;
+  width: 100%;
+}
+.f-box-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30%;
+  background: #f9d974;
+  z-index: 1;
+}
+.f-box-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 30%;
+  background: #f9d974;
+  z-index: 1;
+}
+.f-box-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 85%;
+  width: 80%;
+  z-index: 2;
+  background: url("../images//news/news4.jpg") center/cover no-repeat;
+}
+.founder-detail {
+  text-align: center;
+  font-weight: 800;
+  font-size: 23px;
+  text-transform: capitalize;
+  color: #414141;
+  padding: 10px 0;
+  position: relative;
+}
+.founder-detail::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 1.2px;
+  width: 90%;
+  background-color: #f9d974;
+}
+.founder-post {
+  font-size: 90%;
+}
+.founder-main-detail {
+  border-left: 1px solid #851616;
+  padding-left: 35px;
+}
+.f-name {
+  font-weight: 600;
+  font-size: 20px;
+  margin: 20px 0;
+  color: #232323;
+}
+.f-para {
+  font-size: 14px;
+  color: #414141;
+  text-align: justify;
+}
+.f-icon {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.f-line {
+  height: 1.2px;
+  width: 85%;
+  background: #851616;
+}
+.f-fb,
+.f-insta {
+  margin: 0 6px;
+  font-size: 25px;
+  color: #851616;
+}
+@media screen and (max-width: 992px) {
+  .f-name {
+    margin: 9px 0;
+  }
+  .f-para {
+    font-size: 12px;
+  }
+  .founder-detail {
+    font-size: 18px;
+  }
+  .founder-main-detail {
+    padding-left: 14px;
+  }
+  #founder {
+    margin: 10px 0;
+  }
+  .founder-title {
+    font-size: 21px;
+    width: 30%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .founder-card-container {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .f-box-left,
+  .f-box-right {
+    width: 20%;
+  }
+  .founder-detail:after {
+    width: 65%;
+  }
+  .founder-main-detail {
+    border-left: 0;
+    margin-top: 20px;
+  }
+  .founder-title {
+    font-size: 18px;
+    width: 40%;
+  }
+}
+@media screen and (max-width: 576px) {
+  .founder-card-container {
+    height: 216px;
+  }
+  .founder-detail,
+  .f-name {
+    font-size: 14px;
+  }
+  .f-para {
+    font-size: 10px;
+  }
+  .f-fb,
+  .f-insta {
+    font-size: 19px;
+  }
+}

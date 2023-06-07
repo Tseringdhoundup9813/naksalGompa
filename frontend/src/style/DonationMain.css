@@ -1,0 +1,202 @@
+.dmain-red {
+  height: 50vh;
+  width: 100%;
+  background: #851616;
+}
+.dmain-white {
+  height: 35vh;
+  width: 100%;
+  position: relative;
+}
+.pay-container {
+  background: #f9d974;
+  width: 50%;
+  margin: 0 auto;
+  padding: 30px 0;
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.pay-account,
+.pay-sum,
+.pay-scan {
+  display: flex;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  padding: 22px 0;
+}
+.pay-checkbox {
+  margin-right: 10px;
+}
+.pay-top {
+  border-bottom: 2px solid #fff;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  text-transform: capitalize;
+  color: #fff;
+}
+.khalti img,
+.esewa img,
+.imepay img {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+}
+.khalti,
+.esewa,
+.imepay {
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #fff;
+  background: #851616;
+  padding: 5px 10px;
+  margin: 10px 0px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+
+.pay-bottom {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-gap: 20px;
+  width: 80%;
+  margin: 10px auto;
+  color: #851616;
+}
+.pay-right-head {
+  font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #851616;
+  width: 30%;
+}
+.pay-left {
+  border-right: 1px solid #851616;
+  padding-right: 20px;
+}
+.pay-name,
+.pay-number {
+  font-size: 18px;
+  margin-top: 10px;
+}
+.pay-qr {
+  height: 100px;
+  width: 100px;
+  background: url("../images/logo/logo.png") center/cover no-repeat;
+  border: 1px solid red;
+  margin: 10px auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .pay-container {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 992px) {
+  .dmain-white {
+    height: 70vh;
+  }
+  .pay-top {
+    font-size: 15px;
+  }
+  .khalti,
+  .esewa,
+  .imepay {
+    font-size: 14px;
+  }
+  .khalti img,
+  .esewa img,
+  .imepay img {
+    height: 40px;
+    width: 40px;
+  }
+  .pay-right-head {
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .pay-name,
+  .pay-number {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .pay-container {
+    position: initial;
+    transform: none;
+    width: 100%;
+  }
+  .dmain-red {
+    display: none;
+  }
+  .pay-account,
+  .pay-sum,
+  .pay-scan {
+    padding: 13px 0;
+    margin-right: 40px;
+  }
+  .pay-top {
+    font-size: 13px;
+  }
+  .dmain-white {
+    height: auto;
+  }
+  .pay-bottom {
+    width: 90%;
+  }
+  .khalti,
+  .esewa,
+  .imepay {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .pay-top {
+    font-size: 9px;
+  }
+  .pay-account,
+  .pay-sum,
+  .pay-scan {
+    padding: 13px 0;
+    margin-right: 5px;
+  }
+  .pay-container {
+    padding: 10px 0;
+  }
+  .khalti,
+  .esewa,
+  .imepay {
+    font-size: 11px;
+  }
+  .pay-left {
+    padding-right: 0;
+  }
+  .pay-bottom {
+    width: 100%;
+    grid-template-columns: 25% 75%;
+    grid-gap: 10px;
+  }
+  .khalti img,
+  .esewa img,
+  .imepay img {
+    height: 35px;
+    width: 35px;
+    margin-right: 0;
+  }
+  .pay-right-head {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .pay-name,
+  .pay-number {
+    font-size: 11px;
+  }
+  .pay-qr {
+    margin-top: 10px;
+    margin-left: 30px;
+  }
+}
