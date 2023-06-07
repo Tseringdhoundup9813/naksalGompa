@@ -1,0 +1,123 @@
+
+.editor-news-background-container{
+    background-color: rgba(18, 18, 18, 0.873);
+    position: absolute;
+    width:100%;
+    height:100%;
+    z-index:9999999;
+    
+}
+.news-editor-main-container{
+    width:85%;
+    height:85vh;
+    background-color:rgb(255, 255, 255);
+    position: absolute;
+    z-index:99999999999999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+/* close-news-editor */
+.close-news-editor{
+    position: absolute;
+    top:-34px;
+    right:0px;
+    cursor: pointer;
+    width:10%;
+    background-color: rgb(255, 49, 49);
+    display: flex;
+    justify-content: flex-end;
+    padding:5px;
+    
+    
+
+}
+.close-news-editor i{
+    font-size:20px;
+    color:white;
+}
+.close-news-editor i:hover{
+   color:rgb(11, 11, 11);
+}
+/* //////////////////// */
+
+/* edit-news-title */
+.edit-news-title{
+    font-size:25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color:rgb(68, 68, 68);
+    width:90%;
+    margin:auto;
+    padding:10px 0px;
+    position: relative;
+}
+
+/*  */
+
+/* /////////////////////////////////////// */
+.news-editor-main-container form{
+    width:100%;
+    height:100%;
+  
+}
+.news-editor-main-container form{
+    display: flex;
+}
+
+
+.photo-title-date-section{
+    width:50%;
+    
+}
+.edit-news-input-title-date-container{
+    width:90%;
+    margin:auto;
+   
+}
+.edit-news-input-title-date-container >input{
+    width:100%;
+    margin:10px 0px;
+    border:none;
+    background-color: rgb(244, 244, 244);
+    padding:5px;
+
+}
+.edit-news-input-title-date-container > input:focus{
+    outline:2px solid rgb(144, 60, 255);
+
+
+}
+.edit-news-input-title-date-container > button{
+    width:100%;
+    border:none;
+    padding:10px;
+    background-color:rgb(124, 52, 248);
+    cursor: pointer;
+    font-weight: bold;
+    color:rgb(255, 255, 255);
+}
+.description-section{
+    width:50%;
+    height:100%;
+  
+    display: flex;
+    justify-content: center;
+ 
+}
+.description-section textarea{
+    width:95%;
+    height:90%;
+    background-color: rgb(235, 235, 235);
+    margin:auto;
+    padding:10px;
+    border:none;
+  
+    
+}
+.description-section textarea:focus{
+    outline:2px solid rgb(144, 60, 255);
+}
+
+/* ////////////////////////// */

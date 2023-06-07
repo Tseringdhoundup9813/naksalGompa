@@ -7,6 +7,8 @@ import axios from "../Services/Instance"
 
 import Loader from '../components/Loader'
 
+import AdminNewsEdit from './AdminNewsEdit'
+
 // 
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
 
@@ -22,6 +24,8 @@ function AdminNews() {
     // delete reducer//////////////////////////////////////////////////////////////
     const[deletenews_state,deletenews_dispatch] = useReducer(postReducer,INITIAL_STATE)
 
+    const[news_id,set_news_id] = useState()
+
 
 
 
@@ -29,6 +33,7 @@ function AdminNews() {
     const[preview,set_preview] = useState(false)
     const[news_data,set_news_data] = useState({title:"",des:"",programdate:"",file:""})
     const[allnewsdata,setallnewsdata] = useState()
+    const[editnewsopen,set_edit_news_open] = useState()
 
     // //////////////////////////
 
@@ -154,11 +159,35 @@ function AdminNews() {
     // ////////////////////////////////////////////////////////////////////////
 
 
+    ///////////////////////////////
+    // Open Editor news 
+    function EditNews(id){
+        set_edit_news_open(true)
+        set_news_id(id)
+    }
+
+    // ////////////////
+    // CLose EDITOR////////////////////
+    function  EditClose(value){
+        console.log(value)
+        set_edit_news_open(value)
+    }
+
+    // //////////////////////////////
+
+
 
     // //////////////////////////////////////////////////
   return (
     <div className="admin-main-container">
         <AdminSideBar></AdminSideBar>
+
+        {/* EDITOR NEWS COMPOTNENT /////////////////////////////////////////////// */}
+        {
+            editnewsopen? <AdminNewsEdit set_news_id={news_id} closeEdit={EditClose}></AdminNewsEdit>:""
+        }
+ 
+        {/* END/////////////////////////////////////////////////////////////////////// */}
          
          
         <div className="news-main-container">
@@ -186,11 +215,9 @@ function AdminNews() {
                         return (
                             <div className='news-box-container'>
 
-                            
-
                                 {/* delete news */}
                                 <div className="delete-news">
-                                 <i class="fa-solid fa-pen-to-square"></i> <i class="fa-solid fa-trash" onClick={()=>DeleteNews(data._id)}></i>
+                                 <i class="fa-solid fa-pen-to-square" onClick={()=>EditNews(data._id)}></i> <i class="fa-solid fa-trash" onClick={()=>DeleteNews(data._id)}></i>
                                 </div>
                                 {/* delte news */}
 

@@ -44,7 +44,7 @@ useEffect(()=>{
                      <label for ="file" className='upload-container-section'>
 
                         {/* image preview section */}
-                         <div className="preview-img-section" >
+                         <div className="preview-img-section" style={{backgroundImage:`url(${props.set_img_src&&props.set_img_src})`}} >
                           
                          </div>
                          {/* image preivewi end ================================== */}

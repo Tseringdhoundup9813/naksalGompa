@@ -1,4 +1,5 @@
 
+const News = require("../Models/News")
 const NewsModel = require("../Models/News")
 
 
@@ -134,3 +135,18 @@ exports.DeleteNews =async(req,res)=>{
 }
 
 // //////////////////////////////////////////////////
+
+// GET A SINGLE news//////////////////////////////////
+exports.GetSingleNews=async(req,res)=>{
+    const { id}  =req.params
+    try{
+        const singlenews = await NewsModel.findById({_id:id})
+        res.status(200).json({success:true,data:singlenews})
+    }
+    catch(err){
+        res.status(200).json({success:false,message:"some error in server"})
+
+    }
+}
+
+// ///////////////////////////////////////////////////
