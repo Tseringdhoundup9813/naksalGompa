@@ -277,7 +277,7 @@
     font-size:15px;
     padding:0px 40px;
     text-transform: uppercase;
-    color:rgb(70, 27, 180);
+    color:rgb(255, 184, 29);
     font-family: Arial, Helvetica, sans-serif;
     z-index:999999;
     
@@ -300,8 +300,8 @@
     content:"";
     background-color: rgb(31, 57, 141);
     position: absolute;
-    width:20%;
-    height:4px;
+    width:13%;
+    height:2px;
     bottom: 0px;
     left:0px;
     
@@ -342,7 +342,7 @@
 .title-descrition .title-date> h5{
     font-size:18px;
     text-transform: uppercase;
-    color:rgb(44, 40, 126);
+    color:rgb(55, 51, 135);
     
 }
 .title-descrition .title-date > p{
@@ -354,6 +354,12 @@
     font-size:14px;
     text-align:left;
     overflow: hidden;
+}
+
+.news-read-more{
+    color:rgb(41, 39, 160) !important;
+    cursor: pointer;
+
 }
 
 .news-created-date{

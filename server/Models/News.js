@@ -21,7 +21,8 @@ const NewsModel = new Scheme({
 
     programdate:{
         type:Date,
-        require:false,
+        required:false,
+        
     }
     
 

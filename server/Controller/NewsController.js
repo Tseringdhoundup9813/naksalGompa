@@ -1,6 +1,7 @@
 
-const News = require("../Models/News")
 const NewsModel = require("../Models/News")
+const fs = require('fs');
+
 
 
 // uploading a news from adming site ==================================================================================================
@@ -9,6 +10,7 @@ exports.UploadNews=async(req,res)=>{
     
     // getting json from body ===================
     const {title,des,programdate} = req.body
+  
     // =====================================
     // getting file
     const file = req.files
@@ -60,7 +62,6 @@ exports.UploadNews=async(req,res)=>{
         ////////////////////////////////////////
         if(!create_news==undefined){
             return  res.status(500).json({success:false,message:"due to some error news is not create"})
-          
         }
         ///////////////////////////////////////////////
         // SUCCESS TO STORE DATA IN DATABASE 
@@ -104,7 +105,6 @@ exports.UploadNews=async(req,res)=>{
 exports.GetNews=async (req,res)=>{
     try{
         const allnews = await NewsModel.find({}).sort({createdAt:-1})
-        
         res.status(200).json({success:true,data:allnews})
     }
     catch(err){
@@ -122,8 +122,15 @@ exports.DeleteNews =async(req,res)=>{
         
         const {id} = req.params
         const deletednews = await NewsModel.findByIdAndDelete({_id:id})
-        console.log(deletednews!==undefined)
+      
+      
+       
         if(deletednews!==undefined){
+            const deleted_file = deletednews.photo.split('/')[4];
+            const success_delted_file = fs.unlinkSync(`Upload/News/${deleted_file}`)
+            console.log(success_delted_file)
+
+            
             res.status(200).json({success:true,data:deletednews})
         }
 
@@ -150,3 +157,85 @@ exports.GetSingleNews=async(req,res)=>{
 }
 
 // ///////////////////////////////////////////////////
+
+// EDIT A NEWS 
+// ///////////////////////////////////////
+exports.EditNews =async(req,res)=>{
+
+    const {id} = req.params
+    const {title,des,programdate} = req.body
+
+    const file = req.files
+    
+    try{
+
+       
+        // IF DATE IS HAS NOT VALUE THEN DON'T UPDATE DATE
+        if(programdate.length < 1){
+            const updatenews = await NewsModel.findByIdAndUpdate({_id:id},{title,des})
+            return res.status(200).json({success:true,message:"Sucessfully upload"})
+        }
+        // ///////////////////////////////////////////////////////////////////////
+   
+        if(file==null){
+
+            console.log("image has not change 1")
+           
+            const updatenews = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate})
+            return res.status(200).json({success:true,message:"Sucessfully upload"})
+        }
+       
+        else if(file!==null){
+                console.log("new photo is added")
+                let photo_name = file.photo.name
+                // if image name have any gap between name then it will cut the gap
+                photo_name = photo_name.split(" ").join("")
+                // photo path ===================================================
+                const filepath =`${req.protocol}://${req.get("host")}/News/${photo_name}`
+               
+                const create_news = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate,photo:filepath})
+
+                const new_update_news = await NewsModel.findById({_id:id})
+                console.log(new_update_news)
+                ////////////////////////////////////////
+            if(!create_news==undefined){
+                return  res.status(500).json({success:false,message:"due to some error news is not create"})
+            
+            }
+            ///////////////////////////////////////////////
+            // SUCCESS TO STORE DATA IN DATABASE 
+            else{
+            // get a photo path from database///////////////////////////////
+            const photoUploadServer_path = new_update_news.photo.split("/")[4]
+            console.log(photoUploadServer_path)
+            //////////////////////////////////////////////////////////////
+             
+            // after successfull creating news in database upload a photo file to server upload note:folder
+            file.photo.mv(`Upload/News/${photoUploadServer_path}`,((err)=>{
+                
+                // if error occur upload a photo to server 
+                if(err){
+                    return  res.status(500).json({success:false,message:"server error"})
+                }
+                // ////////////////////////////////////////////////////////////////////
+                // successfull uploading photo to server and adding data to database show response with success message 
+                else{
+                    return res.status(200).json({success:true,message:"Sucessfully upload"})
+                }
+            }))
+            // ////////////////////////////////////////////////////////////////////////////////////////////////
+
+         
+        }
+        // 
+            
+        }
+        
+           
+    }
+    catch(err){
+        res.status(500).json({sucess:false,message:"server error"})
+    }
+}
+
+// //////////////////////////////////

@@ -92,6 +92,8 @@
   background: #f9d974;
   padding: 160px 30px !important;
   position: relative;
+  isolation: isolate;
+
 }
 .dona-more-bg {
   clip-path: polygon(0 0, 46% 0, 100% 100%, 0% 100%);
@@ -101,7 +103,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index:-1;
 }
 .dona-more-img {
   background: url("../images/news/news1.jpg") center/cover no-repeat;

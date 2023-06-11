@@ -26,6 +26,7 @@ import News from "./components/News.js";
 import Gallery from "./components/Gallery.js";
 import Contact from "./components/Contact.js";
 import ScrollToTop from "./components/ScrollToTop.js";
+import AdminTeam from "./Admin/AdminTeam.js";
 
 import { ScrollRestoration } from "react-router-dom";
 const router = createBrowserRouter(
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
 
       <Route path="/admin/uploadbanner" element={<UploadBanner />} />
       <Route path="/admin/uploadnews" element={<UploadNews />} />
+      <Route path="/admin/team" element={<AdminTeam/>} />
 
 
 

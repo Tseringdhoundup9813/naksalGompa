@@ -3,10 +3,18 @@ import "../AdminStyle/NewsEditor.css"
 import PhotoPreview from '../components/PhotoPreview'
 import axios from '../Services/Instance'
 import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
+import Loader from '../components/Loader'
+
 
 function AdminNewsEdit(props) {
     const[getnews_state,getnews_dispatch] = useReducer(postReducer,INITIAL_STATE)
+    const[updatenews_state,updatenews_dispatch] = useReducer(postReducer,INITIAL_STATE)
     const[preview,set_preview] = useState(false)
+
+
+    const[news_data,set_news_data] = useState({title:"",des:"",programdate:"",file:""})
+    
+
 
     // close edit//////
     function closeEdit(){
@@ -18,9 +26,8 @@ function AdminNewsEdit(props) {
       // get a  file from photopreview component
       function getfile(file){
         // set_news_data({...news_data,file:file})
-        if(file!==undefined){
-            set_preview(false)
-        }
+        set_news_data({...news_data,file:file})
+      
     }
     // //////////////////////////////////////////
     // /Cancle the current image preview////////////////
@@ -37,22 +44,37 @@ function AdminNewsEdit(props) {
             getnews_dispatch({type:"FETCH_START"})
             try{
                 const response = await axios.get(`getnew/${props.set_news_id}`)
-                console.log(response)
-                // console.log(response)
+               
                 if(response.data.success){
                     
-                    console.log(response.data.data)
+                  
                     const all_news_data = response.data.data
-                    getnews_dispatch({type:"FETCH_SUCCESS",payloadnews:all_news_data})
-            
+                    getnews_dispatch({type:"FETCH_SUCCESS",payload:[true,all_news_data]})
+
+
+
+                    // set a news data 
+                    set_news_data({title:all_news_data.title,des:all_news_data.des,programdate:"",file:all_news_data.photo})
+
+
+                    // set a default of date
+
+                    if(response.data.data.programdate!==null){
+                      
+                        const date = response.data.data.programdate
+                        console.log("not provided data")
+                         document.querySelector(".date-input").value = date.slice(0,date.indexOf("T"))
+                        
+                    }
                 }
             }
+            
             catch(err){
               
                 console.log(err)
                 if(err.message!=="Network Error"){
-                    getnews_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
-                    console.log(err.response.data.emptyfield)
+                    getnews_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
+                 
                 }
             }
         }
@@ -60,11 +82,76 @@ function AdminNewsEdit(props) {
         GetNews()
     },[])
         // 
+    // ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
+
+    // UPDATE A NEWS 
+   async function UpdateNews(event){
+        event.preventDefault()
+
+        const formdata =new FormData();
+
+        formdata.append("title",news_data.title)
+        formdata.append("des",news_data.des)
+        formdata.append("programdate",news_data.programdate)
+        formdata.append("photo",news_data.file)
+
+
+        updatenews_dispatch({type:"FETCH_START"})
+        try{
+            const response = await axios.patch(`editnews/${props.set_news_id}`,formdata)
+            console.log(response)
+            // console.log(response)
+            if(response.data.success){
+                
+                window.location.reload(true)
+                // closeEdit()
+                console.log("close the editor")
+             
+                const all_news_data = response.data.data
+                updatenews_dispatch({type:"FETCH_SUCCESS",payload:[true,all_news_data]})
+
+                // set a default of date
+                const date = response.data.data.programdate
+                // console.log(response.data.data.programdate!==null)
+                if(response.data.data.programdate!==null){
+                    const date = response.data.data.programdate
+                    //  document.querySelector(".date-input").value = date.slice(0,date.indexOf("T"))
+                    
+                }
+
+                // reload the page after sucess and close the editor news
+               
+                ///////////////////////////////////////////////////////
+                
+            }
+        }
+        catch(err){
+          
+            // console.log(err)
+            console.log(err.response)
+            if(err.response!==undefined){
+                if(err.message!=="Network Error"){
+              
+                    updatenews_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
+                            
+                }
+            }
+           
+        }
+    
+
+
+    }
+
+
+    //////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
 
 
 
 
-
+  
 
 
 
@@ -76,6 +163,23 @@ function AdminNewsEdit(props) {
     <div className="editor-news-background-container">
 
     <div className="news-editor-main-container">
+
+        {/* loader */}
+        {
+            updatenews_state.loading?
+            <div className='loading-container'><Loader></Loader></div>:""
+        }
+        {/* /////////// */}
+
+        {/* close the edit */}
+        {
+    
+            <p>{updatenews_state.success}</p>
+               
+            // updatenews_state.success?props.closeEdit(true):""
+        }
+
+        {/*  */}
         
 
         {/* edit-news-img-title-date-container */}
@@ -85,7 +189,7 @@ function AdminNewsEdit(props) {
             <div className="close-news-editor">
                 <i class="fa-solid fa-square-xmark" onClick={closeEdit}></i>
             </div>
-                <form action="">
+                <form action="" onSubmit={UpdateNews}>
                     <div className="photo-title-date-section">
                         <div className="edit-news-title">
                             Edit news
@@ -93,14 +197,14 @@ function AdminNewsEdit(props) {
                         </div>
                         <PhotoPreview width={"90%"} height={"40vh"} getfile={getfile} setfile={preview}  set_img_src={getnews_state.data.photo}></PhotoPreview>
                         <div className="edit-news-input-title-date-container">
-                            <input type="text"  defaultValue={getnews_state.data.title}/>
-                            <input type="date" defaultValue={getnews_state.data.programdate} />
+                            <input type="text"  defaultValue={getnews_state.data.title} onChange={(e)=>set_news_data({...news_data,title:e.target.value})} />
+                            <input className='date-input' type="date" onChange={(e)=>set_news_data({...news_data,programdate:e.target.value})} />
                             <button>Edit Submit</button>
                         </div>
                         
                     </div>
                     <div className="description-section">
-                        <textarea name="" id="" cols="30" rows="10" defaultValue={getnews_state.data.des}></textarea>
+                        <textarea name="" id="" cols="30" rows="10" defaultValue={getnews_state.data.des}  onChange={(e)=>set_news_data({...news_data,des:e.target.value})}></textarea>
                     </div>
                 
                 </form>

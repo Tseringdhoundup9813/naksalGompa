@@ -34,6 +34,7 @@ function AdminNews() {
     const[news_data,set_news_data] = useState({title:"",des:"",programdate:"",file:""})
     const[allnewsdata,setallnewsdata] = useState()
     const[editnewsopen,set_edit_news_open] = useState()
+    console.log(news_data)
 
     // //////////////////////////
 
@@ -110,7 +111,7 @@ function AdminNews() {
                 if(response.data.success){
                     
                     const all_news_data = response.data.data
-                    getnews_dispatch({type:"FETCH_SUCCESS",payloadnews:all_news_data})
+                    getnews_dispatch({type:"FETCH_SUCCESS",payload:[true,all_news_data]})
             
                 }
             }
@@ -141,8 +142,9 @@ function AdminNews() {
             if(response.data.success){
                 
                 const delete_news = response.data.data
+                console.log(delete_news)
 
-                deletenews_dispatch({type:"FETCH_SUCCESS"})
+                // deletenews_dispatch({type:"FETCH_SUCCESS"})
                 getnews_dispatch({type:"DELETE_SUCCESS",payload:delete_news})
         
             }
@@ -227,10 +229,10 @@ function AdminNews() {
                                 </div>
                                 <div className="title-descrition">
                                     <div className="title-date">
-                                        <h5>{data.title}</h5><p>{formatDistanceToNow(new Date((data.programdate)))}</p>
+                                        <h5>{data.title}</h5><p>{data.programdate==null?"":formatDistanceToNow(new Date((data.programdate)))}</p>
                                     </div>
                                     <div className='news-des'>
-                                        <p>{data.des.slice(0,150)}<span style={{color:"blue"}}><br></br>......read more</span></p>
+                                        <p>{data.des.slice(0,150)}<span className = "news-read-more"  onClick={()=>EditNews(data._id)}><br></br>{data.des.length < 150?"":".  .  .   read more"}</span></p>
                                         <span className="news-created-date">
                                             {formatDistanceToNow(new Date((data.createdAt)))}
                                         </span>

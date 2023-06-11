@@ -1,0 +1,201 @@
+
+.adminteam-main-container{
+    width:100%;
+    height:100%;
+    display: flex;
+}
+
+.admin-team-second-container{
+    width:85%;
+    height:100%;
+
+    display: flex;
+}
+
+.admin-team-detail-container{
+    width:60%;  
+    height:95vh;
+    display: flex;
+    overflow-y: scroll;
+    flex-wrap:wrap;
+    align-content:flex-start;
+    
+
+   
+
+
+}
+
+/* loader  */
+.team-loading-container{
+    background-color:rgba(0, 0, 0, 0.122);
+    height:100vh;
+    width:84%;
+    z-index:999999999;
+    position: absolute;
+    top:0px;
+    
+}
+
+.admin-team-box{
+    width:30%;
+    min-height:31%;
+    padding:0px 0px;
+    background-color: rgb(235, 235, 235);
+    position: relative;
+    margin:5px;
+
+}
+
+.admin-team-box img{
+    width:100%;
+    height:20vh;
+    object-fit: cover;
+}
+.admin-team-box div p{
+    margin:0px;
+}
+.admin-team-title{
+    font-size:13px;
+    
+    font-weight: bold;
+    position: relative;
+    padding:0px 5px;
+    margin-top:5px;
+  
+
+}
+.admin-team-title p{
+    font-size:15px;
+    text-transform: uppercase;
+    
+}
+
+.admin-team-title input{
+    border:none;
+    width:100%;
+    padding:4px;
+    margin:3px 0px;
+    background-color: rgb(255, 255, 255);
+    outline: none;
+    
+}
+
+.admin-team-name{
+    font-size:11px;
+    padding:0px 5px;
+ 
+   
+}
+.admin-team-name input{
+    border:none;
+    width:100%;
+    padding:5px 4px;
+    margin:5px 0px;
+}
+/* ///////////////////////// */
+.admin-team-form-container{
+    width:40%;
+    position: relative;
+}
+
+.admin-team-preview-cancle{
+    background-color:rgb(32, 32, 32);
+    width:5%;
+    position: absolute;
+    z-index:99999999999;
+    height:7vh;
+    color:white;
+    cursor: pointer;
+    left:5px;
+    top:6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin-team-form-container > form{
+    width:100%;
+}
+.admin-team-input-container{
+    width:85%;
+    margin:auto;
+}
+.admin-team-form-container > form input{
+    width:100%;
+    padding:6px;
+    margin:10px 0px;
+    border:none;
+    background-color: rgb(224, 225, 224);
+    
+}
+.admin-team-input-container button{
+    width:100%;
+    border:none;
+    padding:10px;
+    background-color: rgb(124, 54, 124);
+    color:white;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.admin-team-input-container button:hover{
+    background-color: rgb(45, 16, 51);   
+}
+
+/* team_edit_save_cancle_container */
+.team_edit_save_cancle_container{
+   
+
+}
+.team_edit_save_cancle_container i{
+    font-size:12px;
+    color:rgb(255, 255, 255);
+    width:25px;
+    height:25px;
+    position: absolute;
+    top:0px;
+    cursor: pointer;
+    text-align: center;
+    line-height:25px;
+    z-index: 9999999999;
+    
+}
+.team_edit_save_cancle_container i:nth-child(1){
+    right:0px;
+    background-color: rgb(53, 59, 231) !important;
+    
+}
+.team_edit_save_cancle_container i:nth-child(1):hover{
+
+    background-color: rgb(159, 162, 255) !important;
+    
+}
+.team_edit_save_cancle_container i:nth-child(2){
+    left:0px;
+    background-color: rgb(255, 50, 50) !important;
+}
+.team_edit_save_cancle_container i:nth-child(2):hover{
+    left:0px;
+    background-color: rgb(255, 116, 116) !important;
+}
+/* //////////////////////////// */
+
+.delete-edit_team i{
+    font-size:12px;
+    color:rgb(255, 255, 255);
+    width:25px;
+    height:25px;
+    position: absolute;
+    top:0px;
+    cursor: pointer;
+    text-align: center;
+    line-height:25px;
+    z-index: 9999999999;
+}
+.delete-edit_team i:nth-child(1){
+    left:0px;
+    background-color: rgb(60, 50, 255) !important;
+}
+.delete-edit_team i:nth-child(2){
+    right:0px;
+    background-color: rgb(255, 50, 50) !important;
+}

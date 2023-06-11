@@ -5,7 +5,7 @@ export const INITIAL_STATE ={
     error:false,
     error_message:"",
     empty_field:[],
-    data:[]
+    data:[],
 }
 
 export const postReducer =(state,action)=>{
@@ -25,35 +25,46 @@ export const postReducer =(state,action)=>{
         case "FETCH_SUCCESS":
             return{
                 loading:false,
-                success:action.payload,
+                success:action.payload[0],
                 error:false,
-                data:action.payloadnews,
+                data:action.payload[1],
                 error_message:"",
                 empty_field:[],
                
                 
             }
-    
-       
+
         case "FETCH_ERROR":
             return{
                 error:true,
                 loading:false,
                 success:false,
-                data:[],
+                data:action.payload[2],
                 error_message:action.payload[0],
                 empty_field:action.payload[1],
             }
+
+
         case "DELETE_SUCCESS":
             return{
                 error:true,
                 loading:false,
-                success:false,
+                success:true,
                 data:state.data.filter((data) =>data._id!==action.payload._id),
                 error_message:"",
                 empty_field:[]
             }
-       
+
+
+        case "UPDATE_DATA":
+            return{
+                loading:false,
+                success:true,
+                error:false,
+                data:action.payload,
+                error_message:"",
+                empty_field:[],
+            }       
        
         default:
             return state

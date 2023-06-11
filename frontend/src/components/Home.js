@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useReducer} from "react";
+import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
 //css
 import "../style/Home.css";
 //navbar
@@ -18,8 +19,14 @@ import { NavLink } from "react-router-dom";
 export default function Home() {
   // state ==================================================
   const [bannerpath, set_bannerpath] = useState(undefined);
+  const[feturenews,set_feturenews] = useState()
+  
+    // stat
+  // news reducer state 
+  const[getnews_state,getnews_dispatch] = useReducer(postReducer,INITIAL_STATE)
+  // /////////////////////////////////////////////////
 
-  console.log(bannerpath !== undefined);
+
 
   // ///////////////////////////////////////////////////////////////
   // Fetch api ==================================================================
@@ -34,9 +41,64 @@ export default function Home() {
       }
     }
     fetchbanner();
-  });
+
+    // get a news recent list 
+      async function GetNews(){
+        getnews_dispatch({type:"FETCH_START"})
+        try{
+            const response = await axios.get("/getnews/")
+            console.log(response)
+            // console.log(response)
+            if(response.data.success){
+                
+                var all_news_data = response.data.data
+                console.log(all_news_data.length)
+           
+             
+                set_feturenews([all_news_data[0]])
+                
+                 if(all_news_data.length > 3){
+              
+                  all_news_data = [all_news_data[1],all_news_data[2],all_news_data[3]]
+                
+                 }
+                  else if(all_news_data.length < 4&& all_news_data.length > 2){
+                    console.log("workng")
+                   all_news_data = [all_news_data[1],all_news_data[2]]
+                 }
+                  else if(all_news_data.length < 3&& all_news_data.length > 1){
+                    console.log('two left');
+                    all_news_data = [all_news_data[1]]
+                 }
+                 else{
+                     all_news_data = []
+
+                 }
+              
+                 getnews_dispatch({type:"FETCH_SUCCESS",payload:[true,all_news_data]})
+               
+            }
+        }
+        catch(err){
+          
+            console.log(err)
+            if(err.message!=="Network Error"){
+                getnews_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+                console.log(err.response.data.emptyfield)
+            }
+        }
+    }
+
+    // 
+    GetNews()
+
+
+    // ///////////////////////////////////////////////
+  },[]);
   // /////////////////////////////////////////////////////////////////////////
 
+
+  console.log(feturenews)
   return (
     <div id="home">
       <NavbarMain></NavbarMain>
@@ -108,69 +170,59 @@ export default function Home() {
       </Container>
 
       {/*news*/}
-      <Container className="home-news" fluid>
+    
+        <Container className="home-news" fluid>
         <Row className="home-news-row mx-auto">
           <Col className="col-12 col-lg-8 col-md-7">
             <div className="home-news-type">featured news</div>
             <div className="home-news-type-line"></div>
-            <div className="home-news-featured-photo"></div>
-            <div className="home-news-f-title">news title</div>
+            <div className="home-news-featured-photo"style={{backgroundImage:`url("${feturenews&&feturenews[0].photo}")`}} ></div>
+            <div className="home-news-f-title">{feturenews&&feturenews[0].title}</div>
             <div className="home-news-f-para">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam
-              inventore quos veritatis, deserunt, quis minima ipsam
-              exercitationem id nihil perferendis rerum distinctio blanditiis.
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsam ex
-              ea quae placeat! Quidem sed veniam, quia earum modi ipsa ab eum
-              deserunt sit fugiat. Architecto quidem magni saepe veritatis!
+              {feturenews&&feturenews[0].des.slice(0,300)} {feturenews&&feturenews[0].des.length > 300?". . . . . . .":""} 
             </div>
             <div>
-              <NavLink to="/news" className="home-news-f-more ">
+              {
+                feturenews&&feturenews[0].des.length > 300?
+                <NavLink to="/news" className="home-news-f-more ">
                 read more <i class="fa-solid fa-angle-right"></i>
-              </NavLink>
+              </NavLink>:''
+              }
+            
             </div>
           </Col>
-          <Col className="col-12 col-lg-4 col-md-5">
+          
+        
+         <Col className="col-12 col-lg-4 col-md-5">
             <div className="home-news-type ">new updates</div>
             <div className="home-news-type-line"></div>
 
-            <div className="home-up-news-container">
-              <div className="home-up-image"></div>
-              <div className="home-up-detail">
-                <div className="home-up-title">this is th title</div>
-                <div className="home-up-para">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                  eius maiores repellat unde assumenda tempora delectus
-                  provident ab facilis quam?
-                </div>
-              </div>
-            </div>
-
-            <div className="home-up-news-container">
-              <div className="home-up-image"></div>
-              <div className="home-up-detail">
-                <div className="home-up-title">this is th title</div>
-                <div className="home-up-para">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                  eius maiores repellat unde assumenda tempora delectus
-                  provident ab facilis quam?
-                </div>
-              </div>
-            </div>
-
-            <div className="home-up-news-container">
-              <div className="home-up-image"></div>
-              <div className="home-up-detail">
-                <div className="home-up-title">this is th title</div>
-                <div className="home-up-para">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                  eius maiores repellat unde assumenda tempora delectus
-                  provident ab facilis quam?
-                </div>
-              </div>
-            </div>
-          </Col>
+            {/* ////////////////////////////////////////////////////////////////// */}
+            {getnews_state.data&&getnews_state.data.map((data,index,array)=>{
+              return(
+                  <div className="home-up-news-container">
+                    <div className="home-up-image" style={{backgroundImage:`url("${data.photo}")`}} ></div>
+                      <div className="home-up-detail">
+                          <div className="home-up-title">{data.title}</div>
+                              <div className="home-up-para">
+                               {data.des.slice(0,280)}{data.des.length > 280?". . . . . . . more":""}
+                          </div>
+                      </div>
+                  </div>
+              )
+            })}
+           
+            {/* ////////////////////////////////////////////////////// */}
+        </Col> 
+       
+           
+          
+       
         </Row>
       </Container>
+
+     
+     
 
       {/*Meet the team */}
       <Container className="home-meet" fluid>

@@ -111,7 +111,7 @@
   z-index: 2;
   padding: 16px 0;
   color: #851616;
-  background-color: #fff;
+  background-color: #fffaf3;
 }
 .home-f-main-box {
   position: relative;
@@ -122,7 +122,7 @@
   width: 50%;
   top: 0px;
   left: 16px;
-  border: 1.3px solid #851616;
+  border: 2px solid #c73f3f;
   z-index: 1;
 }
 .home-founder-name {
@@ -312,8 +312,8 @@
 .home-news-featured-photo {
   height: 60vh;
   width: 100%;
-  background: url("../images/news/news3.jpg") center/contain no-repeat;
-  border: 1px solid grey;
+  background:  center/cover no-repeat;
+
 }
 .home-news-f-title {
   margin: 10px 0;
@@ -349,7 +349,7 @@
   background: url("../images/news/news1.jpg") center/cover no-repeat;
   height: 150px;
   width: 100%;
-  border: 1px solid grey;
+ 
 }
 .home-up-title {
   font-weight: 600;
@@ -360,8 +360,9 @@
 }
 .home-up-para {
   font-weight: 400;
-  font-size: 16.5317px;
+  font-size: 12.5317px;
   text-align: justify;
+  line-height:15px;
   color: #424242;
 }
 
