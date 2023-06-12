@@ -48,7 +48,9 @@ exports.UploadNews=async(req,res)=>{
 
     try{
         // photo path ===================================================
-        const filepath =`${req.protocol}://${req.get("host")}/News/${photo_name}`
+  
+        const random_number = Math.floor(Math.random() * 1000)
+        const filepath =`${req.protocol}://${req.get("host")}/News/${random_number+"_"+ photo_name}`
 
         /////////////////////////////////////////////////////////////////////////
 
@@ -169,34 +171,70 @@ exports.EditNews =async(req,res)=>{
     
     try{
 
+        console.log(programdate.length)
+      
        
         // IF DATE IS HAS NOT VALUE THEN DON'T UPDATE DATE
-        if(programdate.length < 1){
-            const updatenews = await NewsModel.findByIdAndUpdate({_id:id},{title,des})
-            return res.status(200).json({success:true,message:"Sucessfully upload"})
-        }
+    
+        // if(programdate.length < 1){
+           
+        //         const updatenews = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate:""})
+        //         return res.status(200).json({success:true,message:"Sucessfully upload"})
+            
+        // }
+        
+        console.log(req.body)
         // ///////////////////////////////////////////////////////////////////////
    
         if(file==null){
-
-            console.log("image has not change 1")
            
-            const updatenews = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate})
-            return res.status(200).json({success:true,message:"Sucessfully upload"})
+            var updatenews;
+            if(programdate.length<1){
+                console.log("date is not provided")
+                updatenews = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate:""})
+                
+            }
+            else{
+                console.log(programdate)
+                updatenews = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate})
+                console.log("date is  provided")
+            }
+     
+            
+            if(updatenews==undefined){
+              
+                return  res.status(500).json({success:false,message:"due to some error news is not create"})
+                
+            }
+            console.log("created")
+            const all_news = await NewsModel.find({}).sort({createdAt:-1})
+            return res.status(200).json({success:true,message:"Sucessfully upload",data:all_news})
+           
+
         }
        
         else if(file!==null){
-                console.log("new photo is added")
+                
                 let photo_name = file.photo.name
                 // if image name have any gap between name then it will cut the gap
                 photo_name = photo_name.split(" ").join("")
                 // photo path ===================================================
-                const filepath =`${req.protocol}://${req.get("host")}/News/${photo_name}`
-               
-                const create_news = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate,photo:filepath})
+                const random_number = Math.floor(Math.random() * 1000)
+                const filepath =`${req.protocol}://${req.get("host")}/News/${random_number+"_"+ photo_name}`
+                var create_news;
 
+                if(programdate.length<1){
+                    create_news = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate:"",photo:filepath})
+                }
+                else{
+                    create_news = await NewsModel.findByIdAndUpdate({_id:id},{title,des,programdate,photo:filepath})
+                }
+                
+                
+
+           
                 const new_update_news = await NewsModel.findById({_id:id})
-                console.log(new_update_news)
+               
                 ////////////////////////////////////////
             if(!create_news==undefined){
                 return  res.status(500).json({success:false,message:"due to some error news is not create"})
@@ -207,7 +245,10 @@ exports.EditNews =async(req,res)=>{
             else{
             // get a photo path from database///////////////////////////////
             const photoUploadServer_path = new_update_news.photo.split("/")[4]
-            console.log(photoUploadServer_path)
+            const delete_file = create_news.photo.split("/")[4]
+  
+            
+            console.log("working")
             //////////////////////////////////////////////////////////////
              
             // after successfull creating news in database upload a photo file to server upload note:folder
@@ -220,6 +261,7 @@ exports.EditNews =async(req,res)=>{
                 // ////////////////////////////////////////////////////////////////////
                 // successfull uploading photo to server and adding data to database show response with success message 
                 else{
+                    fs.unlinkSync(`Upload/News/${delete_file}`)
                     return res.status(200).json({success:true,message:"Sucessfully upload"})
                 }
             }))

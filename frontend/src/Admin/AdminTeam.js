@@ -19,6 +19,8 @@ function AdminTeam() {
  
     const[team_state,team_dispatch] =useReducer(postReducer,INITIAL_STATE)
     const[edit_id,set_edit_id] = useState();
+    const[edit_team,set_edit_team] = useState({file:"",position:'',name:""})
+
 
 
     
@@ -27,6 +29,7 @@ function AdminTeam() {
       function getfile(file){
        
         set_team({...team,file:file})
+        set_edit_team({...edit_team,file:file})
     
       
     }
@@ -34,16 +37,64 @@ function AdminTeam() {
     // /Cancle the current image preview////////////////
     function canclePreview(){
         set_preview(true)
+        
+        setTimeout(function(){
+            set_preview(false)
+        },0.4)
     }
     // ///////////////////////////////////////////
-    function EditNews(id){
+    function EditNews(id,position,name){
         set_edit_id(id)
-        console.log("edit")
+        set_edit_team({...edit_team,position:position,name:name})
+        
     }
     function closeEdit(){
         set_edit_id()
     }
     // /////////////////////////////////////////
+    
+
+
+    // edit save
+    async function EditSave(id,position,name,file){
+        // event.preventDefault()
+       
+        const formdata =new FormData();
+        formdata.append("position",edit_team.position)
+        formdata.append("name",edit_team.name)
+        formdata.append("photo",edit_team.file)
+
+
+    team_dispatch({type:"FETCH_START"})
+    try{
+        const response = await axios.patch(`editteam/${id}`,formdata)
+        console.log(response)
+      
+        if(response.data.success){
+        
+            const all_news_data = response.data.data
+            team_dispatch({type:"FETCH_SUCCESS",payload:[true,all_news_data]})
+            closeEdit()
+        }
+    }
+    catch(err){
+      
+        // console.log(err)
+        console.log(err.response)
+        if(err.response!==undefined){
+            if(err.message!=="Network Error"){
+          
+                 team_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
+                        
+            }
+        }
+       
+    }
+
+
+
+    }
+    // ///////////////////////
 
 
 //    detele a team 
@@ -78,7 +129,7 @@ function AdminTeam() {
     async function SubmitTeam(event){
         event.preventDefault()
 
-        // 
+        
         const formdata =new FormData();
 
         formdata.append("position",team.position)
@@ -98,7 +149,8 @@ function AdminTeam() {
                 const get_all_team = response.data.get_all_team
                  
                 team_dispatch({type:"UPDATE_DATA",payload:get_all_team})
-            
+                set_team({file:"",position:"",name:""})
+                canclePreview()
                 
                 // setTimeout(function(){
                 //  team_dispatch({type:"FETCH_SUCCESS",payload:false})
@@ -150,15 +202,6 @@ function AdminTeam() {
     // console.log(team_state)
     // /////////////////
 
-
-
-
-
-
-
-
-
-
   return (
     <div className='adminteam-main-container'>
         
@@ -180,11 +223,11 @@ function AdminTeam() {
                                   {
                                     edit_id!==data._id?
                                     <div className="delete-edit_team">
-                                        <i class="fa-solid fa-pen-to-square" onClick={()=>EditNews(data._id)}></i> 
+                                        <i class="fa-solid fa-pen-to-square" onClick={()=>EditNews(data._id,data.position,data.name)}></i> 
                                         <i class="fa-solid fa-trash" onClick={()=>DeleteNews(data._id)}></i>
                                     </div>:
                                     <div className='team_edit_save_cancle_container'>
-                                        <i class="fa-solid fa-file-arrow-up"></i>
+                                        <i class="fa-solid fa-file-arrow-up" onClick={()=>EditSave(data._id)}></i>
                                         <i class="fa-regular fa-rectangle-xmark" onClick={closeEdit}></i>
                                     </div>
                                   }
@@ -193,8 +236,8 @@ function AdminTeam() {
 
                                 {edit_id!==data._id?<img src={data.photo} alt="" />:
                                 <PhotoPreview   width={"100%"} height={"20vh"} getfile={getfile}  required={team_state.empty_field&&team_state.empty_field.includes("file")?true:false} preview_text={true}  set_img_src={data.photo}></PhotoPreview>}
-                                <div className="admin-team-title">{edit_id!==data._id?<p>{data.position}</p>:<input type="text" defaultValue={data.position}></input>}</div>
-                                <div className="admin-team-name">{edit_id!==data._id?<p>{data.name}</p>:<input type="text" defaultValue={data.name}></input>}</div>
+                                <div className="admin-team-title">{edit_id!==data._id?<p>{data.position}</p>:<input type="text" onChange={(e)=>set_edit_team({...edit_team,position:e.target.value})} defaultValue={data.position}></input>}</div>
+                                <div className="admin-team-name">{edit_id!==data._id?<p>{data.name}</p>:<input type="text" defaultValue={data.name}  onChange={(e)=>set_edit_team({...edit_team,name:e.target.value})}></input>}</div>
                             </div>
                         )
                     })
@@ -210,8 +253,8 @@ function AdminTeam() {
                 <form action="" onSubmit={SubmitTeam}>
                     <PhotoPreview width={"85%"} height={"40vh"} getfile={getfile}  setfile={preview} required={team_state.empty_field&&team_state.empty_field.includes("file")?true:false}></PhotoPreview>
                     <div className="admin-team-input-container">
-                        <input type="text"  onChange={(e)=>set_team({...team,position:e.target.value})} placeholder='provide title' style={{border:`${team_state.empty_field&&team_state.empty_field.includes("position")?"2px solid red":""}`}}/>
-                        <input type="text"  onChange={(e)=>set_team({...team,name:e.target.value})}  placeholder='provide name' style={{border:`${team_state.empty_field&&team_state.empty_field.includes("name")?"2px solid red":""}`}}/>
+                        <input type="text"  onChange={(e)=>set_team({...team,position:e.target.value})} placeholder='provide title' style={{border:`${team_state.empty_field&&team_state.empty_field.includes("position")?"2px solid red":""}`}} value={team.position}/>
+                        <input type="text" value={team.name}  onChange={(e)=>set_team({...team,name:e.target.value})}  placeholder='provide name' style={{border:`${team_state.empty_field&&team_state.empty_field.includes("name")?"2px solid red":""}`}}/>
                         <button>Submit</button>
                     </div>
                    

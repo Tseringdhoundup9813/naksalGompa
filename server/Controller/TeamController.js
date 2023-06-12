@@ -146,3 +146,83 @@ exports.DeleteTeam=async(req,res)=>{
 }
 
 // //////////////////////////////////
+
+// EDIT TEAM
+// /////////////////////////////////////////////////////////////////////////////
+
+exports.EditTeam=async(req,res)=>{
+
+
+    const {id} = req.params
+    const {position,name} = req.body
+    const file = req.files
+
+    try{
+   
+        if(file==null){
+           
+            const updatenews = await TeamModel.findByIdAndUpdate({_id:id},{position,name})
+            console.log(updatenews)
+            const all_team = await TeamModel.find({}).sort({createdAt:-1})
+            return res.status(200).json({success:true,message:"Sucessfully upload",data:all_team})
+        }
+       
+        else if(file!==null){
+             
+                let photo_name = file.photo.name
+                // if image name have any gap between name then it will cut the gap
+                photo_name = photo_name.split(" ").join("")
+                // photo path ===================================================
+                const random_number = Math.floor(Math.random() * 1000)
+                const filepath =`${req.protocol}://${req.get("host")}/Team/${random_number+"_"+ photo_name}`
+               
+                const update_team = await TeamModel.findByIdAndUpdate({_id:id},{position,name,photo:filepath})
+                
+                const photo_update = await TeamModel.findById({_id:id})
+                const all_team = await TeamModel.find({}).sort({createdAt:-1})
+            
+                ////////////////////////////////////////
+            if(!update_team==undefined){
+                return  res.status(500).json({success:false,message:"due to some error news is not create"})
+            
+            }
+            ///////////////////////////////////////////////
+            // SUCCESS TO STORE DATA IN DATABASE 
+            else{
+            // get a photo path from database///////////////////////////////
+            const photoUploadServer_path = photo_update.photo.split("/")[4]
+            const delete_file = update_team.photo.split("/")[4]
+         
+            //////////////////////////////////////////////////////////////
+             
+            // after successfull creating team in database upload a photo file to server upload note:folder
+            file.photo.mv(`Upload/Team/${photoUploadServer_path}`,((err)=>{
+                
+                // if error occur upload a photo to server 
+                if(err){
+                    return  res.status(500).json({success:false,message:"server error"})
+                }
+                // ////////////////////////////////////////////////////////////////////
+                // successfull uploading photo to server and adding data to database show response with success message 
+                else{
+                    console.log('sucess')
+                    fs.unlinkSync(`Upload/Team/${delete_file}`)
+                    return res.status(200).json({success:true,message:"Sucessfully upload",data:all_team})
+                }
+            }))
+            // ////////////////////////////////////////////////////////////////////////////////////////////////
+
+         
+        }
+        // 
+            
+        }
+        
+           
+    }
+    catch(err){
+        res.status(500).json({sucess:false,message:"server error"})
+    }   
+}
+
+// //////////////////////////////////////

@@ -24,6 +24,7 @@ export default function Home() {
     // stat
   // news reducer state 
   const[getnews_state,getnews_dispatch] = useReducer(postReducer,INITIAL_STATE)
+  const[team_state,team_dispatch] =useReducer(postReducer,INITIAL_STATE)
   // /////////////////////////////////////////////////
 
 
@@ -42,6 +43,7 @@ export default function Home() {
     }
     fetchbanner();
 
+    // //////////////////////////////////////////////////////////////////////////////
     // get a news recent list 
       async function GetNews(){
         getnews_dispatch({type:"FETCH_START"})
@@ -53,12 +55,9 @@ export default function Home() {
                 
                 var all_news_data = response.data.data
                 console.log(all_news_data.length)
-           
-             
                 set_feturenews([all_news_data[0]])
                 
                  if(all_news_data.length > 3){
-              
                   all_news_data = [all_news_data[1],all_news_data[2],all_news_data[3]]
                 
                  }
@@ -91,6 +90,33 @@ export default function Home() {
 
     // 
     GetNews()
+    // ///////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
+
+    async function GetTeam(){
+      team_dispatch({type:"FETCH_START"})
+      try{
+          const response = await axios.get("/getteam")
+          // console.log(response)
+          if(response.data.success){
+              
+              const all_data = response.data.data
+              team_dispatch({type:"FETCH_SUCCESS",payload:[true,all_data]})
+      
+          }
+      }
+      catch(err){
+        
+          console.log(err)
+          if(err.message!=="Network Error"){
+              team_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+              console.log(err.response.data.emptyfield)
+          }
+      }
+  }
+
+  // 
+  GetTeam()
 
 
     // ///////////////////////////////////////////////
@@ -235,14 +261,24 @@ export default function Home() {
         </Row>
 
         <Row className="home-team-img">
-          <div className="home-team-card grid1">
-            <div className="home-team-card-img"></div>
-            <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
-              <div className="home-team-card-name">Khenpo pema thaye</div>
-              <div className="home-team-card-post">vice principle</div>
-            </div>
-          </div>
-
+          {
+            team_state.data&&team_state.data.map((data,index)=>{
+             
+              return (
+                index <5?
+                <div className="home-team-card grid1">
+                  <div className="home-team-card-img" style={{backgroundImage:`url(${data.photo})`}}></div>
+                  <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
+                    <div className="home-team-card-name">{data.position}</div>
+                    <div className="home-team-card-post">{data.name}</div>
+                  </div>
+                </div>:""
+              )
+              
+            })
+          }
+         
+{/* 
           <div className="home-team-card home-team-card-down grid2">
             <div className="home-team-card-img"></div>
             <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
@@ -273,7 +309,7 @@ export default function Home() {
               <div className="home-team-card-name">Khenpo pema thaye</div>
               <div className="home-team-card-post">vice principle</div>
             </div>
-          </div>
+          </div> */}
         </Row>
         <Row>
           <Col className="col-5 mx-auto text-center">

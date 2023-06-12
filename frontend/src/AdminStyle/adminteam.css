@@ -28,10 +28,10 @@
 
 /* loader  */
 .team-loading-container{
-    background-color:rgba(0, 0, 0, 0.122);
+    background-color:rgba(0, 0, 0, 0.679);
     height:100vh;
     width:84%;
-    z-index:999999999;
+    z-index:9999999999999999999999999999999;
     position: absolute;
     top:0px;
     
