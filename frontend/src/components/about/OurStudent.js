@@ -1,15 +1,53 @@
-import React from "react";
+import React, { useState, useEffect ,useReducer} from "react";
 //navbar footer
 import Navbar from "../navbar";
 import Footer from "../Footer";
-
+import axios from "../../Services/Instance";
+import { INITIAL_STATE,postReducer } from '../../Reducer/NewsReducer'
 //css
 import "../../style/OurStudent.css";
 //bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 const OurStudent = () => {
+
+  const[team_state,team_dispatch] =useReducer(postReducer,INITIAL_STATE)
+
+  useEffect(()=>{
+
+     // ///////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
+
+    async function GetTeam(){
+      team_dispatch({type:"FETCH_START"})
+      try{
+          const response = await axios.get("/getStudent")
+          // console.log(response)
+          if(response.data.success){
+              
+              const all_data = response.data.data
+              team_dispatch({type:"FETCH_SUCCESS",payload:[true,all_data]})
+      
+          }
+      }
+      catch(err){
+        
+          console.log(err)
+          if(err.message!=="Network Error"){
+              team_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+              console.log(err.response.data.emptyfield)
+          }
+      }
+  }
+
+  // 
+  GetTeam()
+
+  },[])
+
+
   return (
     <div>
       <Navbar></Navbar>
@@ -25,69 +63,23 @@ const OurStudent = () => {
           <Row>
             <Col>
               <div className="student-grid-container">
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
+                {
+                  team_state.data&&team_state.data.map((data)=>{
+                      return(
+                        <div className="student-card">
+                            <div className="student-img" style={{backgroundImage:`url(${data.photo})`}}></div>
+                            <div className="student-detail">
+                            <div className="student-post">{data.position}</div>
+                            <div className="student-name">{data.name}</div>
+                            <div className="student-name">{data.age}</div>
 
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
-
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
-
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
-
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
-
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
-
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
-
-                <div className="student-card">
-                  <div className="student-img"></div>
-                  <div className="student-detail">
-                    <div className="student-name">Sangey lama</div>
-                    <div className="student-post">Manager</div>
-                  </div>
-                </div>
+                           
+                          </div>
+                      </div>
+                      )
+                  })
+                }
+              
               </div>
             </Col>
           </Row>

@@ -10,18 +10,18 @@ import { previousDay } from 'date-fns'
 import Loader from '../components/Loader'
 
 
+function AdminStudent() {
 
-function AdminTeam() {
-
+   
 
     const[preview,set_preview] = useState(false)
-    const[team,set_team] = useState({file:"",position:"",name:""})
+    const[team,set_team] = useState({file:"",position:"",name:"",age:""})
  
     const[team_state,team_dispatch] =useReducer(postReducer,INITIAL_STATE)
     const[edit_id,set_edit_id] = useState();
     const[edit_team,set_edit_team] = useState({file:"",position:'',name:""})
 
-
+    console.log(team)
 
     
     
@@ -43,9 +43,9 @@ function AdminTeam() {
         },0.4)
     }
     // ///////////////////////////////////////////
-    function EditNews(id,position,name){
+    function EditNews(id,position,name,age){
         set_edit_id(id)
-        set_edit_team({...edit_team,position:position,name:name})
+        set_edit_team({...edit_team,position:position,name:name,age:age})
         
     }
     function closeEdit(){
@@ -62,12 +62,14 @@ function AdminTeam() {
         const formdata =new FormData();
         formdata.append("position",edit_team.position)
         formdata.append("name",edit_team.name)
+        formdata.append("age",edit_team.age)
+
         formdata.append("photo",edit_team.file)
 
 
     team_dispatch({type:"FETCH_START"})
     try{
-        const response = await axios.patch(`editteam/${id}`,formdata)
+        const response = await axios.patch(`editstudent/${id}`,formdata)
         console.log(response)
       
         if(response.data.success){
@@ -102,7 +104,7 @@ function AdminTeam() {
         console.log("Working")
         team_dispatch({type:"FETCH_START"})
         try{
-            const response = await axios.delete(`/deleteteam/${id}`)
+            const response = await axios.delete(`/deletestudent/${id}`)
             // console.log(response)
             console.log(response.data)
             if(response.data.success){
@@ -126,7 +128,7 @@ function AdminTeam() {
 
      // /////////////////////////////////
     // data fecting and posting.////////////////////////
-    async function SubmitTeam(event){
+    async function SubmitStudent(event){
         event.preventDefault()
 
         
@@ -134,22 +136,23 @@ function AdminTeam() {
 
         formdata.append("position",team.position)
         formdata.append("name",team.name)
+        formdata.append("age",team.age)
         formdata.append("photo",team.file)
 
         try{
 
             team_dispatch({type:"FETCH_START"})
-            const response = await axios.post("/uploadteam",formdata)
+            const response = await axios.post("/uploadstudent",formdata)
            
             if(response.data.success){
                 // after successfully submit empty the input field and file field
                 console.log("dont work")
                 //  set_preview(true)
                 //  ////////////////////////////////////////////
-                const get_all_team = response.data.get_all_team
+                const get_all_team = response.data.data
                  
                 team_dispatch({type:"UPDATE_DATA",payload:get_all_team})
-                set_team({file:"",position:"",name:""})
+                set_team({file:"",position:"",name:"",age:""})
                 canclePreview()
                 
                 // setTimeout(function(){
@@ -175,7 +178,7 @@ function AdminTeam() {
         async function GetTeam(){
             team_dispatch({type:"FETCH_START"})
             try{
-                const response = await axios.get("/getteam")
+                const response = await axios.get("/getStudent")
                 // console.log(response)
                 if(response.data.success){
                     
@@ -229,7 +232,7 @@ function AdminTeam() {
                                   {
                                     edit_id!==data._id?
                                     <div className="delete-edit_team">
-                                        <i class="fa-solid fa-pen-to-square" onClick={()=>EditNews(data._id,data.position,data.name)}></i> 
+                                        <i class="fa-solid fa-pen-to-square" onClick={()=>EditNews(data._id,data.position,data.name,data.age)}></i> 
                                         <i class="fa-solid fa-trash" onClick={()=>DeleteNews(data._id)}></i>
                                     </div>:
                                     <div className='team_edit_save_cancle_container'>
@@ -244,6 +247,7 @@ function AdminTeam() {
                                 <PhotoPreview   width={"100%"} height={"20vh"} getfile={getfile}  required={team_state.empty_field&&team_state.empty_field.includes("file")?true:false} preview_text={true}  set_img_src={data.photo}></PhotoPreview>}
                                 <div className="admin-team-title">{edit_id!==data._id?<p>{data.position}</p>:<input type="text" onChange={(e)=>set_edit_team({...edit_team,position:e.target.value})} defaultValue={data.position}></input>}</div>
                                 <div className="admin-team-name">{edit_id!==data._id?<p>{data.name}</p>:<input type="text" defaultValue={data.name}  onChange={(e)=>set_edit_team({...edit_team,name:e.target.value})}></input>}</div>
+                                <div className="admin-team-name">{edit_id!==data._id?<p>{data.age}</p>:<input type="text" defaultValue={data.age}  onChange={(e)=>set_edit_team({...edit_team,age:e.target.value})}></input>}</div>
                             </div>
                         )
                     })
@@ -256,11 +260,12 @@ function AdminTeam() {
                     <i class="fa-solid fa-xmark"></i>
                 </div>
                 {/* ////////////////////////////////////////////////////////////////////////////// */}
-                <form action="" onSubmit={SubmitTeam}>
+                <form action="" onSubmit={SubmitStudent}>
                     <PhotoPreview width={"85%"} height={"40vh"} getfile={getfile}  setfile={preview} required={team_state.empty_field&&team_state.empty_field.includes("file")?true:false}></PhotoPreview>
                     <div className="admin-team-input-container">
                         <input type="text"  onChange={(e)=>set_team({...team,position:e.target.value})} placeholder='provide title' style={{border:`${team_state.empty_field&&team_state.empty_field.includes("position")?"2px solid red":""}`}} value={team.position}/>
                         <input type="text" value={team.name}  onChange={(e)=>set_team({...team,name:e.target.value})}  placeholder='provide name' style={{border:`${team_state.empty_field&&team_state.empty_field.includes("name")?"2px solid red":""}`}}/>
+                        <input type="text" value={team.age}  onChange={(e)=>set_team({...team,age:e.target.value})}  placeholder='provide age' style={{border:`${team_state.empty_field&&team_state.empty_field.includes("age")?"2px solid red":""}`}}/>
                         <button>Submit</button>
                     </div>
                    
@@ -271,6 +276,7 @@ function AdminTeam() {
         
     </div>
   )
+  
 }
 
-export default AdminTeam
+export default AdminStudent

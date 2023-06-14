@@ -10,6 +10,9 @@ import Home from "./components/Home.js";
 import UploadBanner from "./Admin/UploadBanner.js"
 import NotFound from "./layout/NotFound.js"
 import UploadNews from "./Admin/AdminNews.js"
+import AdminStudent from "./Admin/AdminStudent.js";
+import AdminTeam from "./Admin/AdminTeam.js";
+
 
 //bootstrap style
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,7 +29,6 @@ import News from "./components/News.js";
 import Gallery from "./components/Gallery.js";
 import Contact from "./components/Contact.js";
 import ScrollToTop from "./components/ScrollToTop.js";
-import AdminTeam from "./Admin/AdminTeam.js";
 
 import { ScrollRestoration } from "react-router-dom";
 const router = createBrowserRouter(
@@ -49,6 +51,7 @@ const router = createBrowserRouter(
       <Route path="/admin/uploadbanner" element={<UploadBanner />} />
       <Route path="/admin/uploadnews" element={<UploadNews />} />
       <Route path="/admin/team" element={<AdminTeam/>} />
+      <Route path="/admin/student" element={<AdminStudent/>} />
 
 
 

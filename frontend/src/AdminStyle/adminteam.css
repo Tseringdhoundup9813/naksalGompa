@@ -25,7 +25,22 @@
 
 
 }
+.total-team-container{
+    width:100%;
+    display: flex;
+    align-items: center;
 
+}
+.total-team-container p{
+    color:rgb(51, 51, 51);
+    margin:0px;
+    margin:0px 5px;
+
+}
+.total-team-container p:nth-child(1){
+    font-weight: bold;
+    font-size: 20px;
+}
 /* loader  */
 .team-loading-container{
     background-color:rgba(0, 0, 0, 0.679);
