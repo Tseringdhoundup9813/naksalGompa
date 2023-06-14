@@ -12,7 +12,7 @@ import NotFound from "./layout/NotFound.js"
 import UploadNews from "./Admin/AdminNews.js"
 import AdminStudent from "./Admin/AdminStudent.js";
 import AdminTeam from "./Admin/AdminTeam.js";
-
+import AdminDirector from "./Admin/AdminDirector.js";
 
 //bootstrap style
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -52,6 +52,7 @@ const router = createBrowserRouter(
       <Route path="/admin/uploadnews" element={<UploadNews />} />
       <Route path="/admin/team" element={<AdminTeam/>} />
       <Route path="/admin/student" element={<AdminStudent/>} />
+      <Route path="/admin/director" element={<AdminDirector/>} />
 
 
 
