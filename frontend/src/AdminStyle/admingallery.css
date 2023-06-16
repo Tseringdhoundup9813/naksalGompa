@@ -3,3 +3,50 @@
     width:100%;
     display: flex;
 }
+.admin-gallery-container{
+    width:100%;
+    display: flex;
+
+}
+.admin-gallery-container > div:nth-child(1){
+    width:70%;
+    border:1px solid grey;
+
+}
+
+.gallery-submit-container{
+    width:35%;
+    position: relative;
+
+}
+.gallery-submit-container form{
+    width:85%;
+    margin:auto;
+}
+.gallery-submit-container form select{
+    width:100%;
+    margin:10px 0px;
+    padding:5px;
+    border:none;
+    background-color: rgb(223, 223, 223);
+}
+.gallery-submit-container form input{
+    width:100%;
+    margin:10px 0px;
+    padding:5px;
+    border:none;
+    background-color: rgb(223, 223, 223);
+}
+.gallery-submit-container form button{
+    width:100%;
+    margin:10px 0px;
+
+    padding:5px;
+    border:none;
+    background-color: rgb(119, 41, 175);
+    color:white;
+    font-weight: bold;
+}
+
+
+

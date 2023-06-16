@@ -16,6 +16,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { NavLink } from "react-router-dom";
+import parse from 'html-react-parser';
+
 export default function Home() {
   // state ==================================================
   const [bannerpath, set_bannerpath] = useState(undefined);
@@ -25,6 +27,8 @@ export default function Home() {
   // news reducer state 
   const[getnews_state,getnews_dispatch] = useReducer(postReducer,INITIAL_STATE)
   const[team_state,team_dispatch] =useReducer(postReducer,INITIAL_STATE)
+  const[founder_state,founder_dispatch] =useReducer(postReducer,INITIAL_STATE)
+
   // /////////////////////////////////////////////////
 
 
@@ -119,6 +123,35 @@ export default function Home() {
   GetTeam()
 
 
+  async function GetFounder(){
+    founder_dispatch({type:"FETCH_START"})
+    try{
+        const response = await axios.get("/getfounder")
+        // console.log(response)
+        if(response.data.success){
+            
+            const all_data = response.data.data
+            console.log(all_data)
+            founder_dispatch({type:"FETCH_SUCCESS",payload:[true,all_data]})
+    
+        }
+    }
+    catch(err){
+      
+        console.log(err)
+        if(err.message!=="Network Error"){
+            founder_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+            console.log(err.response.data.emptyfield)
+        }
+    }
+}
+
+// 
+GetFounder()
+
+
+
+
     // ///////////////////////////////////////////////
   },[]);
   // /////////////////////////////////////////////////////////////////////////
@@ -170,14 +203,10 @@ export default function Home() {
             <div className="home-f-title text-uppercase">founder</div>
             <div className="home-f-underline"></div>
             <div className="home-f-name text-capitalize">
-              Khenchen Tashi tsering rinpoche
+            {founder_state.data[0] && founder_state.data[0].name}
             </div>
             <p className="home-f-para text-justify">
-              Late. Ven. Khenchen Tashi Tsering Rinpoche was born in the village
-              called Lho, in the Nubri Valley which is located in Gorkha
-              district of Nepal, which is also considered the sacred hidden land
-              of Guru Padmasambhava. The village is near the hill Rinchen Pungpa
-              (Heaped Jewel) located in front of the holy mountain.
+            {founder_state.data[0]?parse(founder_state.data[0].des):""}
             </p>
             <div>
               <NavLink to="/about/founder" className="btn btn-home-f-more">
@@ -186,7 +215,7 @@ export default function Home() {
             </div>
           </Col>
           <Col className="col-12 col-md-4 me-md-5 me-lg-0 col-lg-3 order-lg-3 order-sm-1 home-f-photo-container">
-            <div className="home-f-photo"></div>
+            <div className="home-f-photo" style={{backgroundImage:`url(${founder_state.data[0] && founder_state.data[0].photo})`}}></div>
             <div className="home-f-line-top d-none d-md-block"></div>
             <div className="home-f-line-bottom d-none d-md-block"></div>
             <div className="home-f-line-left d-none d-md-block"></div>

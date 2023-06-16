@@ -70,7 +70,7 @@ const Founder = () => {
             <Col className="col-12 col-md-5 col-lg-4">
               <div className="founder-card-container">
                 <div className="f-box-left"></div>
-                <div className="f-box-img"></div>
+                <div className="f-box-img" style={{backgroundImage:`url(${founder_state.data[0] && founder_state.data[0].photo})`}}></div>
                 <div className="f-box-right"></div>
               </div>
               <div className="founder-detail">

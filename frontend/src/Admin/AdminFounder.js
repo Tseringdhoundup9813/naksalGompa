@@ -6,7 +6,7 @@ import PhotoPreview from '../components/PhotoPreview'
 import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
 import axios from "../Services/Instance"
 
-import JoditEditor from "jodit-react"
+import JoditEditor, { Jodit } from "jodit-react"
 import parse from 'html-react-parser';
 
 
@@ -30,6 +30,7 @@ function AdminFounder() {
     
       
     }
+  
     // //////////////////////////////////////////
     // /Cancle the current image preview////////////////
     function canclePreview(){
@@ -243,7 +244,7 @@ console.log(director)
                                 </div>
                               
                                {edit?<input defaultValue={data.name} onChange={(e)=>set_edit_director({...edit_director,name:e.target.value})}></input>:<h3>{data.name}</h3>}
-                               {edit?  <JoditEditor  className="jodit-editor"ref={editor} value={data.des} onChange={newContent=>{set_edit_director({...edit_director,des:newContent})}}></JoditEditor>:<div className='founder-bio'>{parse(data.des)}</div>}
+                               {edit?  <JoditEditor  className="jodit-editor"ref={editor} value={data.des} onBlur={newContent=>{set_edit_director({...edit_director,des:newContent})}}></JoditEditor>:<div className='founder-bio'>{parse(data.des)}</div>}
                             </div>
                             
                         )
@@ -263,7 +264,9 @@ console.log(director)
                     <PhotoPreview width={"95%"} height={"30vh"} getfile={getfile}  setfile={preview} required={director_state.empty_field&&director_state.empty_field.includes("file")?true:false}></PhotoPreview>
                     <input type="text" placeholder='name' value={director.name} onChange={(e)=>set_director({...director,name:e.target.value})} />
                   
-                    <JoditEditor  className="jodit-editor"ref={editor} value={director.des} onChange={newContent=>{set_director({...director,des:newContent})}}></JoditEditor>
+                    <JoditEditor  className="jodit-editor"ref={editor} value={director.des} onBlur={newContent=>{set_director({...director,des:newContent})}}></JoditEditor>
+                   
+                   
                     <button className='submit-founder'>Submit Director</button>
 
                 </form>
