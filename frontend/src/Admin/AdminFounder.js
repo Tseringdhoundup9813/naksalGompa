@@ -1,4 +1,4 @@
-import React,{useState,useReducer, useEffect,useRef} from 'react'
+import React,{useState,useReducer, useEffect, useRef} from 'react'
 
 import AdminSideBar from './AdminSideBar'
 import "../AdminStyle/admindirector.css"
@@ -10,9 +10,7 @@ import JoditEditor from "jodit-react"
 import parse from 'html-react-parser';
 
 
-
-function AdminDirector() {
-
+function AdminFounder() {
     const editor = useRef(null)
 
     const[preview,set_preview] = useState(false)
@@ -63,7 +61,7 @@ function AdminDirector() {
             try{
     
                 director_dispatch({type:"FETCH_START"})
-                const response = await axios.post("/uploaddirector",formdata)
+                const response = await axios.post("/uploadfounder",formdata)
                
                 if(response.data.success){
                     // after successfully submit empty the input field and file field
@@ -104,7 +102,7 @@ function AdminDirector() {
         async function GetTeam(){
             director_dispatch({type:"FETCH_START"})
             try{
-                const response = await axios.get("/getdirector")
+                const response = await axios.get("/getfounder")
                 // console.log(response)
                 if(response.data.success){
                     
@@ -146,7 +144,7 @@ function AdminDirector() {
 
     director_dispatch({type:"FETCH_START"})
     try{
-        const response = await axios.patch(`/editdirector/${id}`,formdata)
+        const response = await axios.patch(`/editfounder/${id}`,formdata)
         console.log(response)
       
         if(response.data.success){
@@ -182,7 +180,7 @@ function AdminDirector() {
         console.log("Working")
         director_dispatch({type:"FETCH_START"})
         try{
-            const response = await axios.delete(`/deletedirector/${id}`)
+            const response = await axios.delete(`/deletefounder/${id}`)
             // console.log(response)
             console.log(response.data)
             if(response.data.success){
@@ -212,7 +210,7 @@ function AdminDirector() {
 
 
 
-
+console.log(director)
 
 
   return (
@@ -264,6 +262,7 @@ function AdminDirector() {
                     
                     <PhotoPreview width={"95%"} height={"30vh"} getfile={getfile}  setfile={preview} required={director_state.empty_field&&director_state.empty_field.includes("file")?true:false}></PhotoPreview>
                     <input type="text" placeholder='name' value={director.name} onChange={(e)=>set_director({...director,name:e.target.value})} />
+                  
                     <JoditEditor  className="jodit-editor"ref={editor} value={director.des} onChange={newContent=>{set_director({...director,des:newContent})}}></JoditEditor>
                     <button className='submit-founder'>Submit Director</button>
 
@@ -273,6 +272,7 @@ function AdminDirector() {
 
     </div>
   )
+  
 }
 
-export default AdminDirector
+export default AdminFounder

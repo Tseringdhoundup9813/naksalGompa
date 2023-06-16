@@ -13,7 +13,8 @@ import UploadNews from "./Admin/AdminNews.js"
 import AdminStudent from "./Admin/AdminStudent.js";
 import AdminTeam from "./Admin/AdminTeam.js";
 import AdminDirector from "./Admin/AdminDirector.js";
-
+import AdminFounder from "./Admin/AdminFounder.js";
+import AdminGallery from "./Admin/AdminGallery.js";
 //bootstrap style
 import "bootstrap/dist/css/bootstrap.min.css";
 //router link
@@ -53,6 +54,10 @@ const router = createBrowserRouter(
       <Route path="/admin/team" element={<AdminTeam/>} />
       <Route path="/admin/student" element={<AdminStudent/>} />
       <Route path="/admin/director" element={<AdminDirector/>} />
+      <Route path="/admin/founder" element={<AdminFounder/>} />
+      <Route path="/admin/gallery" element={<AdminGallery/>} />
+
+
 
 
 

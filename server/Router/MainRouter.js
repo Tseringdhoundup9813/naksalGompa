@@ -4,7 +4,12 @@ const BannerController = require("../Controller/BannerController")
 const NewsController = require("../Controller/NewsController")
 const TeamController = require('../Controller/TeamController')
 const StudentController = require("../Controller/StudentController")
+const DirectorController = require("../Controller/DirectorController")
+const FounderController = require("../Controller/FounderController")
+
 // -//////////////////////////////////////////////////////////
+
+
 const router = express.Router()
 
 
@@ -29,11 +34,14 @@ router.get("/getnew/:id",NewsController.GetSingleNews)
 router.patch("/editnews/:id",NewsController.EditNews)
 // /////////////////////////////
 // ------------------------------------------------------------
-
-
-
-
-
+// 
+// 
+// 
+// 
+// 
+// 
+// /
+// /
 
 //TEAM ROUTE R=================================================================
 ////////////////////////////////////////////////////////////////////////////////////
@@ -48,15 +56,14 @@ router.delete("/deleteteam/:id",TeamController.DeleteTeam)
 router.patch("/editteam/:id",TeamController.EditTeam)
 //-------------------------------------------------------------------
 // //////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
+// 
+// 
+// 
+// 
+// 
+// 
+// /
+// /
 
 // student -------------------------------fasdfklsdfkl
 router.post("/uploadstudent/",StudentController.UploadStudent)
@@ -65,9 +72,32 @@ router.delete("/deletestudent/:id",StudentController.DeleteStudent)
 router.patch("/editstudent/:id",StudentController.EditStudent)
 
 // ***********************************************************************
+// 
+// 
+// 
+// 
+// 
+// 
+// /
+// /
+// /Director ------------------------------------------------------
+// // /////////////////////////////////////////////////////////
+router.post("/uploaddirector",DirectorController.UploadDirector)
+router.get("/getdirector",DirectorController.GetDirector)
+router.delete("/deletedirector/:id",DirectorController.DeleteDirector)
+router.patch("/editdirector/:id",DirectorController.EditDirector)
 
 
+// ///////////////////////////////////////////////////////////////
+// *****************************************************************
 
+// founder------------------------------------------------------------
+router.post("/uploadfounder",FounderController.UploadFounder)
+router.get("/getfounder",FounderController.GetFounder)
+router.delete("/deletefounder/:id",FounderController.DeleteFounder)
+router.patch("/editfounder/:id",FounderController.EditFounder)
+
+// ///////////////////////////////////////////////////////////////////
 
 
 // /-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

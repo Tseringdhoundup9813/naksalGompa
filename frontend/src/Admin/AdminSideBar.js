@@ -13,7 +13,10 @@ function AdminSideBar() {
               <li> <i class="fa-solid fa-radio"></i><NavLink to="/admin/uploadnews">News</NavLink></li>
               <li><i class="fa-solid fa-radio"></i><NavLink to="/admin/team">Team</NavLink></li>
               <li><i class="fa-solid fa-users"></i><NavLink to="/admin/student">Student</NavLink></li>
+              <li><i class="fa-solid fa-users"></i><NavLink to="/admin/founder">Founder</NavLink></li>
               <li><i class="fa-solid fa-users"></i><NavLink to="/admin/director">Director</NavLink></li>
+              <li><i class="fa-solid fa-users"></i><NavLink to="/admin/gallery">Gallery</NavLink></li>
+
               
             </ul>
         </div>
