@@ -6,6 +6,8 @@ const TeamController = require('../Controller/TeamController')
 const StudentController = require("../Controller/StudentController")
 const DirectorController = require("../Controller/DirectorController")
 const FounderController = require("../Controller/FounderController")
+const CategoryController = require("../Controller/CategoryController")
+const GalleryController = require("../Controller/GalleryController")
 
 // -//////////////////////////////////////////////////////////
 
@@ -100,6 +102,23 @@ router.patch("/editfounder/:id",FounderController.EditFounder)
 // ///////////////////////////////////////////////////////////////////
 
 
+
+
+// Category--------------------------------------------------------
+// //////////////////////////////////////////////////////////////////
+
+router.post("/uploadCategory",CategoryController.UploadCategory)
+router.get("/getcategory",CategoryController.GetCategory)
+// ///////////////////////////////////////////////////
+
+
+
+// gallery------------------------------------------------
+router.post('/uploadgallery',GalleryController.UploadGallery)
+router.get("/getgallery",GalleryController.GetGallery)
+router.delete("/deletegallery/:id",GalleryController.DeleteGallery)
+
+// ///////////////////
 // /-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Client page Router ================================================================================
 // ************************************************************************************************************************************************88
