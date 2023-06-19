@@ -18,6 +18,13 @@ function AdminGallery() {
          const[category,set_category] = useState("")
          const[add,set_add] = useState('true')
          const [filter_category,set_filter_category] = useState({category:"all"})
+
+         const[edit_category,set_edit_category] = useState(false)
+         const[editcontext,set_editcontext] = useState({x:"",y:"",category:"",index:"",totalphoto:0})
+         const[category_replace,set_category_replace] = useState({old_category:"",replace_old_category:""})
+         const[category_index,set_category_index] = useState();
+
+        
          // get a  file from photopreview component
          function getfile(file){
             set_gallery({...gallery,file:file})
@@ -114,30 +121,26 @@ async function SubmitGallery(event){
            
             if(response.data.success){
                 // after successfully submit empty the input field and file field
-                console.log("dont work")
-                //  set_preview(true)
-                //  ////////////////////////////////////////////
+            
                 const get_all_team = response.data.data
                 console.log(get_all_team)
                  
                 category_dispatch({type:"FETCH_SUCCESS",payload:[true,get_all_team]})
-                // set_team({file:"",position:"",name:""})
-                canclePreview()
+                set_category('');
+                setTimeout(function(){
+                 category_dispatch({type:"FETCH_SUCCESS",payload:[false,get_all_team]})
                 
-                // setTimeout(function(){
-                //  team_dispatch({type:"FETCH_SUCCESS",payload:false})
-            
-                // },1200)
+                },2000)
             }
 
         }
         catch(err){
-            console.log(err)
+         
             console.log(err.message!=="Network Error")
             
             if(err.message!=="Network Error"){
     
-                category_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+                category_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield,err.response.data.data]})
                
             }
         }
@@ -154,7 +157,7 @@ async function SubmitGallery(event){
                     
                     const all_data = response.data.data
                     
-                    category_dispatch({type:"FETCH_SUCCESS",payload:[true,all_data]})
+                    category_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
             
                 }
             }
@@ -173,7 +176,6 @@ async function SubmitGallery(event){
         // ////////////////////////////////////////
 
 
-        console.log(filter_category)
 
         async function GetGallery(){
             gallery_dispatch({type:"FETCH_START"})
@@ -245,16 +247,16 @@ async function SubmitGallery(event){
 
     rightarrow&&rightarrow.addEventListener("click",()=>{
         tablist.scrollLeft += 200;
-        console.log(tablist)
+
         manageIcons();
-        console.log("right arrow");
+     
     })
     
     leftarrow&&leftarrow.addEventListener("click",()=>{
         tablist.scrollLeft -= 200;
-        console.log(tablist)
+      
         manageIcons();
-        console.log("right arrow");
+        
     })
     tablist&& tablist.addEventListener("scroll",manageIcons)
     let dragging = false;
@@ -303,9 +305,9 @@ async function SubmitGallery(event){
     // 
     // filter out 
 
-    function filterout(data){
+    function filterout(data,event){
         set_filter_category(data)
-        console.log(data)
+        // console.log(event.detail)
         GetGallery()
         
         async function GetGallery(){
@@ -334,9 +336,172 @@ async function SubmitGallery(event){
 
     }
 
+   
+    // delete a category or replace category
+     function EditCategory(e,category,index,array){
+       e.preventDefault();
+            // get a total category
+            async function GetGallery(){
+                // gallery_dispatch({type:"FETCH_START"})
+                try{
+                    const response = await axios.get(`/getgallery?category=${category}`)
+                    // console.log(response)
+                    if(response.data.success){
+                        
+                        const all_data = response.data.data
+                        set_category_index(index)
+                        set_edit_category(true)
+                        set_category_replace({...category_replace,old_category:category})
+                        set_editcontext({x:e.pageX,y:e.pageY,category:category,index:index,totalphoto:all_data.length})
+                    
+                
+                    }
+                }
+                catch(err){
+                
+                    // console.log(err)
+                    if(err.message!=="Network Error"){
+                        console.log(err)
+
+                    }
+                }
+            }
+
+            // 
+            GetGallery()
+
+     }
+
+    //  close the edit context 
+
+    // replace category-------------------------------------------------------------
+    // ///////////////////////////////////////////////////////////////////////////
+      async function ReplaceCategorySave(event){
+         event.preventDefault();
+            
+        const formdata =new FormData();
+        formdata.append("index",category_index)
+
+        formdata.append("old_category",category_replace.old_category)
+        formdata.append("new_category",category_replace.replace_old_category)
+        try{
+
+            category_dispatch({type:"FETCH_START"})
+            const response = await axios.post("/replacecategory",formdata)
+           
+            if(response.data.success){
+                // after successfully submit empty the input field and file field
+                console.log("dont work")
+                //  set_preview(true)
+                //  ////////////////////////////////////////////
+                const get_all_team = response.data.data
+                console.log(get_all_team)
+                
+                 
+                category_dispatch({type:"FETCH_SUCCESS",payload:[true,get_all_team]})
+                
+                // setTimeout(function(){
+                //  team_dispatch({type:"FETCH_SUCCESS",payload:false})
+            
+                // },1200)
+            }
+
+        }
+        catch(err){
+            console.log(err)
+            console.log(err.message!=="Network Error")
+            
+            if(err.message!=="Network Error"){
+    
+                category_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+               
+            }
+        }
+      }
+    // //////////////////////////////////////////////////////////////////////////
+    
+    // delete category and photo 
+    async function delete_category_photo(event,category){
+        event.preventDefault()
+        console.log(category)
+        // const formdata =new FormData();
+        // formdata.append("category",category_replace.old_category)
+       
+        try{
+
+            category_dispatch({type:"FETCH_START"})
+            const response = await axios.delete(`/deletecategory/${category}/${category_index}`)
+           
+            if(response.data.success){
+                // after successfully submit empty the input field and file field
+                console.log("dont work")
+                //  set_preview(true)
+                //  ////////////////////////////////////////////
+                const get_all_team = response.data.data
+                const get_gallery = response.data.photo;
+                console.log(get_all_team)
+                
+                gallery_dispatch({type:"FETCH_SUCCESS",payload:[true,get_gallery]})
+                
+                category_dispatch({type:"FETCH_SUCCESS",payload:[true,get_all_team]})
+                
+                // setTimeout(function(){
+                //  team_dispatch({type:"FETCH_SUCCESS",payload:false})
+            
+                // },1200)
+            }
+
+        }
+        catch(err){
+            console.log(err)
+            console.log(err.message!=="Network Error")
+            
+            if(err.message!=="Network Error"){
+    
+                category_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+               
+            }
+        }
+
+    }
+      
+
+
+
 
   return (
     <div className="admin-gallery-main-container">
+
+
+    {/* category edit  */}
+        {
+            edit_category? 
+             <div className="edit-category-container" style={{transform:`translate(${editcontext.x}px,${editcontext.y}px)`}}>
+                <div className="edit-context-category">
+                    <div className="editcontext-category-close">
+                       <i class="fa-solid fa-xmark" onClick={()=>set_edit_category(false)}></i> 
+                    </div>
+                    <p>{editcontext.category}</p>
+                    <p><span>{editcontext.totalphoto}</span> photo</p>
+                    <div className="edit-context-replace-category-container">
+                        <form onSubmit={ReplaceCategorySave}>
+                            <input type="text" value={editcontext.category} />
+                            <input type="text" onChange={(e)=>set_category_replace({...category_replace,replace_old_category:e.target.value})} placeholder='Replace' />
+                            <button>Replace Save</button>
+                        </form>
+                       
+                    </div>
+                    <div className="editcontext-delete-including-photo">
+                        <form onSubmit={(e)=>delete_category_photo(e,editcontext.category)}>
+                             <button>Delete category with photo</button>
+                        </form>
+                    </div>
+                  
+                </div>
+            </div>
+            :""
+        }
+      
         <AdminSideBar></AdminSideBar>
 
 
@@ -353,8 +518,8 @@ async function SubmitGallery(event){
                                 
                                     {
                                 
-                                    category_state.data&&category_state.data[0]&&category_state.data[0].category.map((category,index)=>{
-                                        return(<li key={category._id}><a className={index==0?"active":""} onClick={()=>filterout({category})}>{category}</a></li>)
+                                    category_state.data&&category_state.data[0]&&category_state.data[0].category.map((category,index,array)=>{
+                                        return(<li key={category._id}  onContextMenu={(e)=>EditCategory(e,category,index,array)}><a className={index==0?"active":""}onClick={(e)=>filterout({category},e)}   >{category}</a></li>)
 
                                     })
                                     }
@@ -392,8 +557,10 @@ async function SubmitGallery(event){
                 {/* ////////////////////////////////////////////////////////////////////////////// */}
                 <div className="add-category-add-photo-selection">
                     <select className='add-category-photo' onChange={(e)=>set_add(e.target.value)}>
+                     
+
                         <option value={true}>Add Photo</option>
-                        <option value={false}>Add photo Category</option>
+                        <option value={false}>Add Category</option>
                     </select>
                 </div>
                
@@ -407,7 +574,7 @@ async function SubmitGallery(event){
                         <form onSubmit={SubmitGallery}>
                             <PhotoPreview width={"100%"} height={"40vh"} getfile={getfile}  preview_text={true}  setfile={preview} ></PhotoPreview>
                             <select value={gallery.category} onChange={(e)=>set_gallery({...gallery,category:e.target.value})}>
-                                <option></option>
+                                <option selected disabled>Choose a category for photo</option>
                             {
                                 category_state.data&&category_state.data[0]&&category_state.data[0].category.map((category,index)=>{
                                     return(index>0?<option value={category}>{category}</option>:"")
@@ -421,8 +588,24 @@ async function SubmitGallery(event){
                         </div> 
                     :
                         <form onSubmit={SubmitCategory}>
-                            <input placeholder='add a new category' onChange={(e)=>set_category(e.target.value)}></input>
-                            <button>Submit photo</button>
+                            {
+                                category_state.success&&category_state.success?
+                                <div className="category-submit-sucess-message">
+                                    <p>Sucessfully added category</p>
+                                </div>
+                                :""
+                            }
+                            <input placeholder='add a new category' value ={category}onChange={(e)=>set_category(e.target.value)} style={{border:`${category_state.empty_field&&category_state.empty_field.includes("category")?"2px solid red":""}`}}></input>
+                            {
+                               category_state.error&&category_state.error
+                               ?
+                                <div className="category-submit-message">
+                                <p> {category_state.error_message&&category_state.error_message}</p>
+                                </div>
+                                :''
+                            }
+                           
+                            <button>Submit Category</button>
                         </form>   
 
                 }

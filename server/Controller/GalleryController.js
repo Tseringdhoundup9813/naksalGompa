@@ -41,7 +41,7 @@ exports.UploadGallery = async(req,res)=>{
         // photo path ===================================================
         const random_number = Math.floor(Math.random() * 1000)
         console.log(random_number)
-        const filepath =`${req.protocol}://${req.get("host")}/Gallery/${random_number+category+"_"+ photo_name}`
+        const filepath =`${req.protocol}://${req.get("host")}/Gallery/${category}/${random_number+"_"+ photo_name}`
 
         /////////////////////////////////////////////////////////////////////////
 
@@ -63,12 +63,17 @@ exports.UploadGallery = async(req,res)=>{
         // SUCCESS TO STORE DATA IN DATABASE 
         else{
             // get a photo path from database///////////////////////////////
-            const photoUploadServer_path = create_gallery.photo.split("/")[4]
+            const photoUploadServer_path = create_gallery.photo.split("/")[5]
             console.log(photoUploadServer_path)
             //////////////////////////////////////////////////////////////
-             
+             if(fs.existsSync(`Upload/gallery/${category}`)){
+
+             }
+             else{
+                fs.mkdirSync(`Upload/Gallery/${category}`)
+             }
             // after successfull creating news in database upload a photo file to server upload note:folder
-            file.photo.mv(`Upload/Gallery/${photoUploadServer_path}`,((err)=>{
+            file.photo.mv(`Upload/Gallery/${category}/${photoUploadServer_path}`,((err)=>{
                 
                 // if error occur upload a photo to server 
                 if(err){
@@ -132,24 +137,27 @@ exports.DeleteGallery =async(req,res)=>{
 
 
         const deletedphoto = await GalleryModel.findByIdAndDelete({_id:id})
-        console.log(deletedphoto)
+        
       
+
       
        
         if(deletedphoto!==undefined){
-            const deleted_file = deletedphoto.photo.split('/')[4];
+            const categoryfolder = deletedphoto.photo.split("/")[4];
+            const deleted_file = deletedphoto.photo.split('/')[5];
+            console.log(deleted_file)
 
             const category = req.query.category||"all";
             
             if(category=="all"){
                 const allGallery = await GalleryModel.find({}).sort({createdAt:-1})
-                const success_delted_file = fs.unlinkSync(`Upload/Gallery/${deleted_file}`)
+                const success_delted_file = fs.unlinkSync(`Upload/Gallery/${categoryfolder}/${deleted_file}`)
                 res.status(200).json({success:true,data:allGallery})
      
      
              }else{
                  const allGallery = await GalleryModel.find({category}).sort({createdAt:-1})
-                 const success_delted_file = fs.unlinkSync(`Upload/Gallery/${deleted_file}`)
+                 const success_delted_file = fs.unlinkSync(`Upload/Gallery/${categoryfolder}/${deleted_file}`)
                  res.status(200).json({success:true,data:allGallery})
 
              }

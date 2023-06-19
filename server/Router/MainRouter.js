@@ -109,6 +109,8 @@ router.patch("/editfounder/:id",FounderController.EditFounder)
 
 router.post("/uploadCategory",CategoryController.UploadCategory)
 router.get("/getcategory",CategoryController.GetCategory)
+router.post("/replacecategory",CategoryController.ReplaceCategory)
+router.delete("/deletecategory/:category/:index",CategoryController.DeleteCategory_Photo)
 // ///////////////////////////////////////////////////
 
 

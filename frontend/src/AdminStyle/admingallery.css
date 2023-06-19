@@ -9,19 +9,21 @@
 
 }
 .admin-gallery-container > div:nth-child(1){
-    width:85%;
-    /* border:1px solid grey; */
+    width:70%;
+    border:1px solid grey;
 
 }
 
 .gallery-submit-container{
     width:30%;
+  
     position: relative;
 
 }
 .gallery-submit-container form{
     width:85%;
     margin:auto;
+
 }
 .gallery-submit-container form select{
     width:100%;
@@ -58,13 +60,17 @@
 
 
 .add-category-photo{
-    width:50%;
+    width:100%;
     padding:3px;
     border:none;
     background-color:rgb(255, 219, 152);
     color:rgb(74, 74, 74);
-    font-weight: bold;
+    
     font-size:13px;
+    margin:20px 0px;
+}
+.add-category-photo:focus{
+    outline: none;
 }
 
 
@@ -228,4 +234,122 @@
 .total-photo-count *{
     margin:0px 5px;
     
+}
+
+/* edit  */
+.edit-category-container{
+    position: absolute;
+    background-color:rgb(47, 47, 47);
+    z-index: 99999999999;
+    width:200px;
+    /* height:300px; */
+    color:white;
+    padding:10px;
+
+    
+}
+.edit-context-category{
+    width:100%;
+    white-space:nowrap;
+    font-size: 12px;
+
+}
+.edit-context-category p{
+    font-size:11px;
+    margin:5px 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.edit-context-category p span{
+    color:red;
+    color:black;
+    background-color:rgb(255, 255, 98);
+    padding:3px;
+}
+
+.edit-context-replace-category-container form{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    
+}
+.edit-context-replace-category-container  input{
+    width:100%;
+    background-color: none;
+    border-radius:none;
+    
+    background-color: rgb(74, 74, 74);
+    outline: none;
+    border:none;
+    padding:5px;
+    margin:4px 0px;
+    color:rgb(209, 209, 209);
+    font-weight: bold;
+    
+}
+.edit-context-replace-category-container input::placeholder{
+    color:rgb(199, 199, 199);
+  
+}
+.edit-context-replace-category-container button{
+    border:none;
+    background-color: purple;
+    color:white;
+    font-weight: bold;
+    padding:3px 0px;
+}
+.editcontext-category-close{
+    position: absolute;
+    top:10px;
+    right:10px;
+
+    
+}
+.editcontext-category-close i{
+    background-color:grey;
+    padding:3px 5px;
+    cursor: pointer;
+
+}
+.editcontext-category-close i:hover{
+    background-color:rgb(248, 248, 248);
+    color:black;
+
+}
+.editcontext-delete-including-photo{
+    width:100%;
+}
+.editcontext-delete-including-photo button{
+    width:100%;
+    background-color: rgb(255, 78, 78);
+    border:none;
+    color:white;
+    margin-top:20px;
+    padding:7px;
+    font-weight: bold;
+}
+
+/* message */
+
+.category-submit-message p{
+    background-color: rgb(236, 20, 20);
+    padding:4px 6px;
+    color:white;
+    border-radius:3px;
+    font-weight: bold;
+    font-size: 12px;
+
+}
+.category-submit-sucess-message{
+    position: absolute;
+    top:3px;
+    right:5px;
+}
+.category-submit-sucess-message p{
+    background-color: rgb(97, 61, 227);
+    color:white;
+    padding:2px 5px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 2px;
 }
