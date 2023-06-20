@@ -8,7 +8,6 @@ const fs = require("fs")
 exports.UploadGallery = async(req,res)=>{
     // getting json from body ===================
     const {category} = req.body
-    console.log(req.body)
     // =====================================
     // getting file
     const file = req.files
@@ -17,15 +16,15 @@ exports.UploadGallery = async(req,res)=>{
     let emptyfield = []
 
     // check req if empty or not 
-
     if(category.length<1){
-        emptyfield.push("position")
+        emptyfield.push("category")
     }
     if(file==undefined){
         emptyfield.push("file")
     }
     if(emptyfield.length > 0){
-        return res.status(400).json({error:true,message:"please provide all the field",emptyfield})
+        const get_all_gallery= await GalleryModel.find({}).sort({createdAt:-1})
+        return res.status(400).json({error:true,message:"please provide all the field",emptyfield,data:get_all_gallery})
         
     }
 

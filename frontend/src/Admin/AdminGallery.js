@@ -4,7 +4,7 @@ import "../AdminStyle/admingallery.css"
 import PhotoPreview from '../components/PhotoPreview'
 import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
 import axios from "../Services/Instance"
-
+import Loader from '../components/Loader'
 
 function AdminGallery() {
 
@@ -54,10 +54,6 @@ async function SubmitGallery(event){
 
     formdata.append("category",gallery.category)
     formdata.append("photo",gallery.file)
-
-
-   
-
     try{
 
         gallery_dispatch({type:"FETCH_START"})
@@ -69,8 +65,7 @@ async function SubmitGallery(event){
             //  set_preview(true)
             //  ////////////////////////////////////////////
             const get_all_team = response.data.data
-            console.log(get_all_team)
-             
+            
             gallery_dispatch({type:"FETCH_SUCCESS",payload:[true,get_all_team]})
             removeAllActiveClasses()
             const tabs = document.querySelectorAll(".category-scrollbar-tab-container a")
@@ -78,11 +73,13 @@ async function SubmitGallery(event){
             filterout({ category: 'all' })
 
             canclePreview()
-            
-            // setTimeout(function(){
-            //  team_dispatch({type:"FETCH_SUCCESS",payload:false})
+            // set category to empty after sucessfull upload
+            set_gallery({gallery:"",category:""})
+
+            setTimeout(function(){
+             gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,get_all_team]})
         
-            // },1200)
+            },3200)
         }
 
     }
@@ -91,8 +88,7 @@ async function SubmitGallery(event){
         console.log(err.message!=="Network Error")
         
         if(err.message!=="Network Error"){
-
-            gallery_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+            gallery_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield,err.response.data.data]})
            
         }
     }
@@ -186,7 +182,7 @@ async function SubmitGallery(event){
                     
                     const all_data = response.data.data
                     
-                    gallery_dispatch({type:"FETCH_SUCCESS",payload:[true,all_data]})
+                    gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
             
                 }
             }
@@ -288,7 +284,7 @@ async function SubmitGallery(event){
                 
                 const delete_team = response.data.data
                 console.log(delete_team)
-                gallery_dispatch({type:"FETCH_SUCCESS",payload:[true,delete_team]})
+                gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,delete_team]})
                
         
             }
@@ -319,7 +315,7 @@ async function SubmitGallery(event){
                     
                     const all_data = response.data.data
                     
-                    gallery_dispatch({type:"FETCH_SUCCESS",payload:[true,all_data]})
+                    gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
             
                 }
             }
@@ -341,6 +337,7 @@ async function SubmitGallery(event){
      function EditCategory(e,category,index,array){
        e.preventDefault();
             // get a total category
+          
             async function GetGallery(){
                 // gallery_dispatch({type:"FETCH_START"})
                 try{
@@ -348,9 +345,13 @@ async function SubmitGallery(event){
                     // console.log(response)
                     if(response.data.success){
                         
+
                         const all_data = response.data.data
                         set_category_index(index)
+                   
                         set_edit_category(true)
+                   
+
                         set_category_replace({...category_replace,old_category:category})
                         set_editcontext({x:e.pageX,y:e.pageY,category:category,index:index,totalphoto:all_data.length})
                     
@@ -367,8 +368,11 @@ async function SubmitGallery(event){
                 }
             }
 
+            if(category!=="all"){
+                GetGallery()
+            }
             // 
-            GetGallery()
+         
 
      }
 
@@ -396,14 +400,11 @@ async function SubmitGallery(event){
                 //  ////////////////////////////////////////////
                 const get_all_team = response.data.data
                 console.log(get_all_team)
+                set_edit_category(false)
                 
                  
                 category_dispatch({type:"FETCH_SUCCESS",payload:[true,get_all_team]})
-                
-                // setTimeout(function(){
-                //  team_dispatch({type:"FETCH_SUCCESS",payload:false})
-            
-                // },1200)
+               
             }
 
         }
@@ -439,11 +440,12 @@ async function SubmitGallery(event){
                 //  ////////////////////////////////////////////
                 const get_all_team = response.data.data
                 const get_gallery = response.data.photo;
-                console.log(get_all_team)
+                set_edit_category(false)
                 
-                gallery_dispatch({type:"FETCH_SUCCESS",payload:[true,get_gallery]})
                 
-                category_dispatch({type:"FETCH_SUCCESS",payload:[true,get_all_team]})
+                gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,get_gallery]})
+                
+                category_dispatch({type:"FETCH_SUCCESS",payload:[false,get_all_team]})
                 
                 // setTimeout(function(){
                 //  team_dispatch({type:"FETCH_SUCCESS",payload:false})
@@ -508,16 +510,19 @@ async function SubmitGallery(event){
 
         <div className="admin-gallery-container">
             <div className="category-gallery-container-main">
+
+                    {
+                         gallery_state.loading?<div className="gallery-main-loader"><Loader></Loader></div>:""
+                    }
+
+
                     <div className="category-scrollbar-tab-container">
                             <div className="left-arrow">
                             <i class="fa-solid fa-caret-left"></i>
                             </div>
-                     
                                 <ul>
-                                
-                                
                                     {
-                                
+                                      category_state.loading?<li><a>...loading</a></li>:
                                     category_state.data&&category_state.data[0]&&category_state.data[0].category.map((category,index,array)=>{
                                         return(<li key={category._id}  onContextMenu={(e)=>EditCategory(e,category,index,array)}><a className={index==0?"active":""}onClick={(e)=>filterout({category},e)}   >{category}</a></li>)
 
@@ -539,8 +544,10 @@ async function SubmitGallery(event){
                             <p>total picture</p>
                     </div>
                     <div className="photo-gallery-container">
+                      
                      
                         {
+                           
                             gallery_state.data&&gallery_state.data.map((photo)=>{
                                 return<div>
                                     <img src={photo.photo} loading='lazy'></img>
@@ -556,25 +563,44 @@ async function SubmitGallery(event){
              
                 {/* ////////////////////////////////////////////////////////////////////////////// */}
                 <div className="add-category-add-photo-selection">
-                    <select className='add-category-photo' onChange={(e)=>set_add(e.target.value)}>
-                     
 
-                        <option value={true}>Add Photo</option>
-                        <option value={false}>Add Category</option>
-                    </select>
+                    <div className="add-category-photo-container">
+                        <select className='add-category-photo' onChange={(e)=>set_add(e.target.value)}>
+                            <option value={true}>Add Photo</option>
+                            <option value={false}>Add Category</option>
+                        </select>
+                        <div className="category-photo-drop-down-icon">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    
                 </div>
                
                 {
                   add=="true"? 
                         <div>
-                            <div className="admin-team-preview-cancle" onClick={canclePreview}>
-                                <i class="fa-solid fa-xmark"></i>
-                            </div>
-                       
+                        {/* cancle preivew  */}
+                        <div className="admin-gallery-preview-cancle" onClick={canclePreview}>
+                           <i class="fa-solid fa-xmark"></i>
+                        </div>
+                        {/* /////////////////////////// */}
+
+                       {/* /////////////////////////////////////////////////////////////////////// */}
                         <form onSubmit={SubmitGallery}>
-                            <PhotoPreview width={"100%"} height={"40vh"} getfile={getfile}  preview_text={true}  setfile={preview} ></PhotoPreview>
-                            <select value={gallery.category} onChange={(e)=>set_gallery({...gallery,category:e.target.value})}>
-                                <option selected disabled>Choose a category for photo</option>
+                            {/* sucessfull added message  */}
+
+                             {
+                                gallery_state.success&&gallery_state.success?
+                                <div className="category-submit-sucess-message">
+                                    <p>Sucessfully added category</p>
+                                </div>
+                                :""
+                            }
+                            {/* //////////////////////////////////////////////////////////////////////// */}
+
+                            <PhotoPreview width={"100%"} height={"40vh"} getfile={getfile}  preview_text={true}  setfile={preview}  required={gallery_state.empty_field&&gallery_state.empty_field.includes("file")?true:false}></PhotoPreview>
+                            <select value={gallery.category} onChange={(e)=>set_gallery({...gallery,category:e.target.value})}  style={{border:`${gallery_state.empty_field&&gallery_state.empty_field.includes("category")?"2px solid red":""}`}}>
+                                <option value="">Choose a category for photo</option>
                             {
                                 category_state.data&&category_state.data[0]&&category_state.data[0].category.map((category,index)=>{
                                     return(index>0?<option value={category}>{category}</option>:"")
@@ -582,11 +608,23 @@ async function SubmitGallery(event){
                                 })
                             }
                             </select>
-                       
+                            {/* error message----------------------------- */}
+                            {
+                             gallery_state.error&&gallery_state.error
+                             ?
+                              <div className="category-submit-message">
+                              <p> {gallery_state.error_message&&gallery_state.error_message}</p>
+                              </div>
+                              :''
+                            }
+                            {/* ///////////////////////////////////////////////////// */}
+                           
                             <button>Submit photo</button>
                         </form> 
+
+                        {/* //////////////////////////////////////////////////////////////////////// */}
                         </div> 
-                    :
+                         :
                         <form onSubmit={SubmitCategory}>
                             {
                                 category_state.success&&category_state.success?
