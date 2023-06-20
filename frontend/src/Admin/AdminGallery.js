@@ -182,7 +182,7 @@ async function SubmitGallery(event){
                     
                     const all_data = response.data.data
                     
-                    gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
+                    gallery_dispatch({type:"FETCH_SUCCESS",payload:[gallery_state.success,all_data]})
             
                 }
             }

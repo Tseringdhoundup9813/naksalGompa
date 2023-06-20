@@ -40,9 +40,10 @@
 }
 .nav-main-logo {
   height: auto !important;
-  width: 100%;
+  width:100px;
   border: 1px solid #f9d974;
   background-color: #fff;
+
 }
 .nav-main-logo img {
   height: 50px !important;

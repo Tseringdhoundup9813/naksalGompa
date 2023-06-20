@@ -1,8 +1,13 @@
-import React from "react";
-import { useState } from "react";
+import React,{useState,useReducer, useEffect, useRef} from 'react'
+
+
 //navbar footer
 import Navbar from "./navbar";
 import Footer from "./Footer";
+import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
+import axios from "../Services/Instance"
+import Loader from '../components/Loader'
+
 
 //css
 import "../style/Gallery.css";
@@ -13,237 +18,232 @@ import Col from "react-bootstrap/Col";
 import { NavLink } from "react-router-dom";
 
 const Gallery = () => {
-  const [all, setAll] = useState(true);
-  const [events, setEvents] = useState(false);
-  const [tour, setTour] = useState(false);
-  const [student, setStudents] = useState(false);
-  const [award, setAward] = useState(false);
-  const [competition, setCompetition] = useState(false);
+  const[category_state,category_dispatch] =useReducer(postReducer,INITIAL_STATE)
+  const[gallery_state,gallery_dispatch] =useReducer(postReducer,INITIAL_STATE)
+  const [filter_category,set_filter_category] = useState({category:"all"})
+  const [masonry,set_masonry] = useState()
+  const[column,set_column] = useState([0,1,2,3])
 
-  const handleAll = () => {
-    setAll(true);
-    setEvents(false);
-    setTour(false);
-    setStudents(false);
-    setAward(false);
-    setCompetition(false);
-  };
-  const handleEvents = () => {
-    setAll(false);
-    setEvents(true);
-    setTour(false);
-    setStudents(false);
-    setAward(false);
-    setCompetition(false);
-  };
 
-  const handleTour = () => {
-    setAll(false);
-    setEvents(false);
-    setTour(true);
-    setStudents(false);
-    setAward(false);
-    setCompetition(false);
-  };
+       // ////////////////////////////////////////////
 
-  const handleStudent = () => {
-    setAll(false);
-    setEvents(false);
-    setTour(false);
-    setStudents(true);
-    setAward(false);
-    setCompetition(false);
-  };
 
-  const handleAward = () => {
-    setAll(false);
-    setEvents(false);
-    setTour(false);
-    setStudents(false);
-    setAward(true);
-    setCompetition(false);
-  };
-  const handleCompetition = () => {
-    setAll(false);
-    setEvents(false);
-    setTour(false);
-    setStudents(false);
-    setAward(false);
-    setCompetition(true);
-  };
+      
+    // Horizontal scroll system/////------------------------------------
+    const tabs = document.querySelectorAll(".category-scrollbar-tab-container a")
+    const rightarrow = document.querySelector(".category-scrollbar-tab-container .right-arrow i")
+    const leftarrow = document.querySelector(".category-scrollbar-tab-container .left-arrow i")
+
+    const tablist = document.querySelector('.category-scrollbar-tab-container ul')
+
+    const rightarrowContainer = document.querySelector(".category-scrollbar-tab-container .right-arrow")
+    const leftarrowContainer = document.querySelector(".category-scrollbar-tab-container .left-arrow")
+
+    const removeAllActiveClasses = ()=>{
+        tabs.forEach((tab)=>{
+            tab.classList.remove("active")
+        })
+    }
+    tabs.forEach((tab)=>{
+        tab.addEventListener("click",function(event){
+            removeAllActiveClasses()
+            tab.classList.add("active");
+        })
+    })
+    const manageIcons = ()=>{
+        if(tablist.scrollLeft >= 20){
+            leftarrowContainer.classList.add("active");
+        }
+        else{
+            leftarrowContainer.classList.remove("active");
+        }
+        let maxScrollValue= tablist.scrollWidth - tablist.clientWidth - 20;
+        if(tablist.scrollLeft >=maxScrollValue){
+            rightarrowContainer.classList.remove("active")
+        }
+        else{
+            rightarrowContainer.classList.add('active');
+        }
+
+    }
+
+    rightarrow&&rightarrow.addEventListener("click",()=>{
+        tablist.scrollLeft += 200;
+
+        manageIcons();
+     
+    })
+    
+    leftarrow&&leftarrow.addEventListener("click",()=>{
+        tablist.scrollLeft -= 200;
+      
+        manageIcons();
+        
+    })
+    tablist&& tablist.addEventListener("scroll",manageIcons)
+    let dragging = false;
+    tablist&&tablist.addEventListener("mousedown",()=>{
+        dragging = true;
+    })
+    tablist&&tablist.addEventListener('mousemove',(e)=>{
+        if(!dragging) return;
+        tablist.classList.add("dragging")
+        tablist.scrollLeft -=e.movementX;
+    })
+    document.addEventListener("mouseup",()=>{
+        dragging = false;
+        tablist&&tablist.classList.remove("dragging")
+        // tablist!==null?tablist.classList.remove("dragging"):""
+        
+    })
+    // /////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+     // Get A team data 
+     useEffect(()=>{
+
+        
+
+
+
+
+
+
+
+      async function GetTeam(){
+          category_dispatch({type:"FETCH_START"})
+          try{
+              const response = await axios.get("/getcategory")
+              // console.log(response)
+              if(response.data.success){
+                  
+                  const all_data = response.data.data
+                  
+                  category_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
+          
+              }
+          }
+          catch(err){
+            
+              console.log(err)
+              if(err.message!=="Network Error"){
+                  category_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+                  console.log(err.response.data.emptyfield)
+              }
+          }
+      }
+      GetTeam()
+
+      async function GetGallery(){
+        gallery_dispatch({type:"FETCH_START"})
+        try{
+            const response = await axios.get(`/getgallery?category=${filter_category.category}`)
+            // console.log(response)
+            if(response.data.success){
+                
+                const all_data = response.data.data
+                gallery_dispatch({type:"FETCH_SUCCESS",payload:[gallery_state.success,all_data]})
+               
+        
+            }
+        }
+        catch(err){
+          
+            // console.log(err)
+            if(err.message!=="Network Error"){
+                gallery_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
+                console.log(err.response.data.emptyfield)
+            }
+        }
+    }
+
+    // 
+    GetGallery()
+
+    },[])
+
+
+
+
+
+   function filterout(data,event){
+    // set_filter_category(data)
+    // console.log(event.detail)
+   
+
+    GetGallery()
+      
+      async function GetGallery(){
+          gallery_dispatch({type:"FETCH_START"})
+          try{
+              const response = await axios.get(`/getgallery?category=${data.category}`)
+
+              if(response.data.success){
+                  
+                  const all_data = response.data.data
+                  gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
+                
+          
+              }
+          }
+          catch(err){
+            
+              // console.log(err)
+              if(err.message!=="Network Error"){
+                  gallery_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
+                  console.log(err.response.data.emptyfield)
+              }
+          }
+      }
+
+
+  }
+
+  
+
+
+
+
 
   return (
     <div>
       <Navbar />
       <div id="gallery">
-        <Container fluid className="p-0">
-          <Row className="w-100 m-0 ">
-            <Col className="gallery-banner col-12">
-              <div className="home-banner-text">
-                <div className="home-banner-title text-capitalize">
-                  naksa chhuling
-                </div>
-                <div className="home-banner-sub-title">Monastery</div>
-                <p className="text-capitalize">empowering through education</p>
-                <NavLink
-                  to="/donation/donation-pay"
-                  className="gallery-banner-btn btn"
-                >
-                  Help Us Donate now
-                </NavLink>
-              </div>
-            </Col>
-            <Col className="gall-nav-container col-12">
-              <div
-                className="gall-nav-link"
-                onClick={handleAll}
-                style={{
-                  backgroundColor: `${all ? "#851616" : ""}`,
-                  color: `${all ? "#f9d974" : "#62615f"}`,
-                }}
-              >
-                All
-              </div>
-              <div
-                className="gall-nav-link"
-                onClick={handleEvents}
-                style={{
-                  backgroundColor: `${events ? "#851616" : ""}`,
-                  color: `${events ? "#f9d974" : "#62615f"}`,
-                }}
-              >
-                Events
-              </div>
-              <div
-                className="gall-nav-link"
-                onClick={handleTour}
-                style={{
-                  backgroundColor: `${tour ? "#851616" : ""}`,
-                  color: `${tour ? "#f9d974" : "#62615f"}`,
-                }}
-              >
-                Educational Tours
-              </div>
-              <div
-                className="gall-nav-link"
-                onClick={handleStudent}
-                style={{
-                  backgroundColor: `${student ? "#851616" : ""}`,
-                  color: `${student ? "#f9d974" : "#62615f"}`,
-                }}
-              >
-                Students Projects
-              </div>
-              <div
-                className="gall-nav-link"
-                onClick={handleAward}
-                style={{
-                  backgroundColor: `${award ? "#851616" : ""}`,
-                  color: `${award ? "#f9d974" : "#62615f"}`,
-                }}
-              >
-                Award ceremony
-              </div>
-              <div
-                className="gall-nav-link"
-                onClick={handleCompetition}
-                style={{
-                  backgroundColor: `${competition ? "#851616" : ""}`,
-                  color: `${competition ? "#f9d974" : "#62615f"}`,
-                }}
-              >
-                competitions
-              </div>
-            </Col>
+        <div className="gallery-category-container">
+        <div className="category-scrollbar-tab-container">
+            <div className="left-arrow">
+                <i class="fa-solid fa-caret-left"></i>
+                   </div>
+                      <ul>
+                         {
+                            category_state.loading?<li><a>...loading</a></li>:
+                            category_state.data&&category_state.data[0]&&category_state.data[0].category.map((category,index,array)=>{
+                            return(<li key={category._id}><a className={index==0?"active":""}onClick={(e)=>filterout({category},e)}   >{category}</a></li>)
 
-            {all && (
-              <Col className="col-12 gall-view">
-                <div className="gall-grid-container">
-                  <div className="gall-grid-item gall-item"></div>
-                  <div className="gall-grid-item1 gall-item"></div>
-                  <div className="gall-grid-item2 gall-item"></div>
-                  <div className="gall-grid-item3 gall-item"></div>
-                  <div className="gall-grid-item4 gall-item"></div>
-                  <div className="gall-grid-item5 gall-item"></div>
+                          })
+                          }
+                        </ul>
+                                
+                        <div className="right-arrow active">
+                        <i class="fa-solid fa-caret-right"></i>
                 </div>
-
-                <div className="gall-more">
-                  <span>load more</span>
-                </div>
-              </Col>
-            )}
-            {events && (
-              <Col className="col-12 gall-view">
-                <div className="gall-grid-container">
-                  <div className="gall-grid-item gall-item"></div>
-                  <div className="gall-grid-item1 gall-item"></div>
-                  <div className="gall-grid-item2 gall-item"></div>
-                  <div className="gall-grid-item5 gall-item"></div>
-                </div>
-
-                <div className="gall-more">
-                  <span>load more</span>
-                </div>
-              </Col>
-            )}
-            {tour && (
-              <Col className="col-12 gall-view">
-                <div className="gall-grid-container">
-                  <div className="gall-grid-item3 gall-item"></div>
-                  <div className="gall-grid-item4 gall-item"></div>
-                  <div className="gall-grid-item5 gall-item"></div>
-                </div>
-
-                <div className="gall-more">
-                  <span>load more</span>
-                </div>
-              </Col>
-            )}
-            {student && (
-              <Col className="col-12 gall-view">
-                <div className="gall-grid-container">
-                  <div className="gall-grid-item gall-item"></div>
-                  <div className="gall-grid-item1 gall-item"></div>
-                  <div className="gall-grid-item2 gall-item"></div>
-                </div>
-
-                <div className="gall-more">
-                  <span>load more</span>
-                </div>
-              </Col>
-            )}
-            {award && (
-              <Col className="col-12 gall-view">
-                <div className="gall-grid-container">
-                  <div className="gall-grid-item gall-item"></div>
-                  <div className="gall-grid-item1 gall-item"></div>
-                  <div className="gall-grid-item2 gall-item"></div>
-                  <div className="gall-grid-item5 gall-item"></div>
-                </div>
-
-                <div className="gall-more">
-                  <span>load more</span>
-                </div>
-              </Col>
-            )}
-            {competition && (
-              <Col className="col-12 gall-view">
-                <div className="gall-grid-container">
-                  <div className="gall-grid-item gall-item"></div>
-                  <div className="gall-grid-item1 gall-item"></div>
-                  <div className="gall-grid-item2 gall-item"></div>
-                  <div className="gall-grid-item3 gall-item"></div>
-                </div>
-
-                <div className="gall-more">
-                  <span>load more</span>
-                </div>
-              </Col>
-            )}
-          </Row>
-        </Container>
+            </div>
+        </div>
+        <div className="user-gallery-main-container">
+            {
+                gallery_state.data&&gallery_state.data.map((data)=>{
+                   return  <img src={data.photo} alt="" />
+                })
+            }
+        </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
