@@ -172,3 +172,38 @@ exports.DeleteGallery =async(req,res)=>{
 
     }
 }
+
+
+exports.MasonryGallery=async(req,res)=>{
+    try{
+        const limit = Number(req.query.limit)||16;
+        const page = Number(req.query.page)||1;
+      
+        const category = req.query.category||"all";
+
+        // let skip = (page-1) * limit;
+
+        // apiData = apiData.skip(skip).limit(limit)
+        
+        if(category=="all"){
+           let totalgallery = await GalleryModel.find({}).sort({createdAt:-1})
+           totalgallery = totalgallery.length;
+           const allGallery = await GalleryModel.find({}).sort({createdAt:-1}).limit(limit*1).skip((page-1)*limit);
+           res.status(200).json({success:true,data:allGallery,total:totalgallery})
+
+
+        }else{
+            let totalgallery = await GalleryModel.find({category}).sort({createdAt:-1})
+            totalgallery = totalgallery.length;
+            const allGallery = await GalleryModel.find({category}).sort({createdAt:-1}).limit(limit*1).skip((page-1)*limit);
+            res.status(200).json({success:true,data:allGallery,total:totalgallery})
+
+
+        }
+    }
+    catch(err){
+        console.log(err)
+        res.status(500).json({sucess:false,message:"server error"})
+
+    }
+}

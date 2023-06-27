@@ -11,30 +11,236 @@
   display: flex;
   align-items: flex-end;
   margin:auto;
+  padding:10px;
+  gap:20px;
 }
-.user-gallery-main-container{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .user-gallery-main-container{
   
-     width:85%;
-     height:75vh;
-     overflow-y:scroll;
+     width:95%;
+     min-height:80vh;
      margin:auto;
-     display: grid;
-     grid-gap:10px;
-     grid-template-columns: repeat(5,1fr);
-     padding:20px;
+     display:flex;
+     gap:7px;
     
-}
-
-
-.user-gallery-main-container img{
+     margin-bottom:20px;
   
-   width:100%;
-   height:250px;
-   
-   object-fit: cover;
-   border-radius:5px;
-   filter:brightness(0.8);
-
+}
+.user-gallery-main-container  div{
+   flex:1;
+   display: flex;
+   flex-direction: column;
+   gap:7px;
+   position: relative;
  
 }
+.user-gallery-main-container div span{
 
+  position: relative;
+  overflow: hidden;
+
+}
+.user-gallery-main-container div span img{
+   width:100%;
+   /* max-height:400px;
+   min-height:300px; */
+   border-radius:4px;
+   transition:all 0.4s ease;
+   object-fit: contain;
+
+} 
+
+.user-gallery-main-container div span .fa-arrow-pointer{
+  position: absolute;
+  background-color: rgb(236, 236, 236);
+  border-radius:50%;
+  opacity:0;
+  top:50%;
+  left:50%;
+  transition:all 0.4s ease;
+  width:20px;
+  height:20px;
+  transform: translate(-50%,-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center center;
+  transform: scale(1);
+  font-size: 8px;
+
+
+
+}
+.user-gallery-main-container div span:hover .fa-arrow-pointer{
+  opacity:0.6;
+  transform-origin: center center;
+  transform: scale(2.5);
+
+  
+}
+
+.user-gallery-main-container .usergallery-photo:hover{
+    
+     filter: brightness(0.7);
+}
+
+.preview-photo-section{
+
+  position: fixed !important;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index:9999;
+  background-color: rgba(11, 11, 11, 0.763);
+
+}
+.preview-photo-section div{
+  width:60%;
+  height:80%;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color: white;
+  
+
+}
+.preview-photo-section div img{
+
+  width:95%;
+  height:90%;
+  object-fit: contain;
+  margin:auto;
+
+}
+.preview-photo-section i{
+  position: absolute;
+  top:-5%;
+  right:0px;
+  font-size:15px;
+  cursor: pointer;
+  transform: translate(0%,-50%);
+  background-color: white;
+  padding:5px 20px;
+
+  
+}
+.preview-photo-section i:hover{
+   color:white;
+   background-color: rgb(255, 72, 72);
+}
+
+@media only screen and (max-width: 600px)  {
+  
+  .preview-photo-section div{
+    width:85%;
+    height:45%;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    
+   
+
+  }
+  .gallery-category-container{
+    width:95%;
+    padding:0px;
+    
+  }
+  .gallery-category-container div .right-arrow {
+    padding:0px;
+    width:45px;
+   
+  }
+  .gallery-category-container div .left-arrow {
+    padding:0px;
+    width:45px;
+   
+  }
+  .gallery-category-container ul{
+    padding:10px 10px;
+    margin:0px;
+   
+  }
+  .gallery-category-container li{
+    font-size:11px;
+    padding:0px;
+    margin:0px;
+  }
+  .gallery-category-container li a{
+   
+    padding:0px;
+    padding:2px 7px;
+    margin:0px;
+  }
+
+  .user-gallery-main-container div span i{
+
+    width:10px;
+    height:10px;
+    font-size:6px;
+    transform: scale(5);
+   
+  
+  }
+  
+  .user-gallery-main-container div span:hover .fa-arrow-pointer{
+    opacity:0.6;
+    transform-origin: center center;
+    transform: scale(1.5);
+
+  
+    
+  }
+
+  
+}
+/* tablet */
+@media only screen and (min-width: 600px) and (max-width: 1020px) {
+ 
+  .gallery-category-container{
+    width:80%;
+  }
+  .gallery-category-container li{
+  
+    padding:0px;
+  }
+  .gallery-category-container li a{
+    font-size:10px;
+    padding:0px;
+    padding:3px 10px;
+    margin:0px;
+  }
+  .user-gallery-main-container div span:hover .fa-arrow-pointer{
+    opacity:0.6;
+    transform-origin: center center;
+    transform: scale(1.5);
+
+  
+    
+  }
+  .preview-photo-section div{
+    width:90%;
+    height:45%;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  
+  }
+}

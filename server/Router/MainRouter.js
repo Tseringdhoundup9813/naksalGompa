@@ -118,6 +118,7 @@ router.delete("/deletecategory/:category/:index",CategoryController.DeleteCatego
 // gallery------------------------------------------------
 router.post('/uploadgallery',GalleryController.UploadGallery)
 router.get("/getgallery",GalleryController.GetGallery)
+router.get("/getmasonrygallery",GalleryController.MasonryGallery)
 router.delete("/deletegallery/:id",GalleryController.DeleteGallery)
 
 // ///////////////////

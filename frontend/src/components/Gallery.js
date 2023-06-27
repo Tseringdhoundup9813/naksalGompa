@@ -9,6 +9,7 @@ import axios from "../Services/Instance"
 import Loader from '../components/Loader'
 
 
+
 //css
 import "../style/Gallery.css";
 //bootstrap
@@ -16,13 +17,20 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { NavLink } from "react-router-dom";
+import ImageLoading from './ImageLoading';
+import GalleryPhoto from './GalleryPhoto';
 
 const Gallery = () => {
   const[category_state,category_dispatch] =useReducer(postReducer,INITIAL_STATE)
   const[gallery_state,gallery_dispatch] =useReducer(postReducer,INITIAL_STATE)
   const [filter_category,set_filter_category] = useState({category:"all"})
   const [masonry,set_masonry] = useState()
-  const[column,set_column] = useState([0,1,2,3])
+
+  const[columnWrapper,set_columnWrapper] = useState({})
+  const[page,set_page] = useState(1);
+  const[gallery_data,set_gallery_data] = useState([])
+  const [totalphoto,set_totalphoto] = useState(true);
+  const [old_category,set_old_category] = useState('all');
 
 
        // ////////////////////////////////////////////
@@ -51,7 +59,7 @@ const Gallery = () => {
         })
     })
     const manageIcons = ()=>{
-        if(tablist.scrollLeft >= 20){
+        if(tablist.scrollLeft >= 10){
             leftarrowContainer.classList.add("active");
         }
         else{
@@ -96,114 +104,114 @@ const Gallery = () => {
         // tablist!==null?tablist.classList.remove("dragging"):""
         
     })
+  
     // /////////////////////////////////////////////////////////////////
     // /////////////////////////////////////////////////////////////
+   
 
 
-
-
-
-
-
-     // Get A team data 
-     useEffect(()=>{
-
-        
-
-
-
-
-
-
-
-      async function GetTeam(){
-          category_dispatch({type:"FETCH_START"})
-          try{
-              const response = await axios.get("/getcategory")
-              // console.log(response)
-              if(response.data.success){
-                  
-                  const all_data = response.data.data
-                  
-                  category_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
-          
-              }
-          }
-          catch(err){
-            
-              console.log(err)
-              if(err.message!=="Network Error"){
-                  category_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
-                  console.log(err.response.data.emptyfield)
-              }
-          }
-      }
-      GetTeam()
-
-      async function GetGallery(){
-        gallery_dispatch({type:"FETCH_START"})
+    async function GetTeam(){
+        category_dispatch({type:"FETCH_START"})
         try{
-            const response = await axios.get(`/getgallery?category=${filter_category.category}`)
+            const response = await axios.get("/getcategory")
             // console.log(response)
             if(response.data.success){
                 
                 const all_data = response.data.data
-                gallery_dispatch({type:"FETCH_SUCCESS",payload:[gallery_state.success,all_data]})
-               
+                
+                category_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
         
             }
         }
         catch(err){
           
-            // console.log(err)
+            console.log(err)
             if(err.message!=="Network Error"){
-                gallery_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
+                category_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
                 console.log(err.response.data.emptyfield)
             }
         }
     }
 
-    // 
-    GetGallery()
 
-    },[])
-
-
-
-
-
-   function filterout(data,event){
-    // set_filter_category(data)
-    // console.log(event.detail)
-   
-
-    GetGallery()
-      
-      async function GetGallery(){
-          gallery_dispatch({type:"FETCH_START"})
-          try{
-              const response = await axios.get(`/getgallery?category=${data.category}`)
-
-              if(response.data.success){
-                  
-                  const all_data = response.data.data
-                  gallery_dispatch({type:"FETCH_SUCCESS",payload:[false,all_data]})
+     // Get A team data 
+     useEffect(()=>{
+        const controller = new AbortController()
+        const {signal} = controller;
+        
+        GetGallery()
+        async function GetGallery(){
+        
+        gallery_dispatch({type:"FETCH_START"})
+        try{
+            const response = await axios.get(`/getmasonrygallery?category=${filter_category.category}&page=${page}`,{signal})
+            // console.log(response)
+            if(response.data.success){
                 
-          
-              }
-          }
-          catch(err){
+                const all_data = response.data.data
+    
+                set_old_category(filter_category.category);
+                if(old_category!==filter_category.category){
+                    console.log('category change')
+                    set_page(1);
+                    set_gallery_data(all_data)
+                    set_old_category(filter_category.category);
+                }
+                else{
             
-              // console.log(err)
-              if(err.message!=="Network Error"){
-                  gallery_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
-                  console.log(err.response.data.emptyfield)
-              }
-          }
-      }
+                    set_gallery_data((prev)=>[...prev,...all_data])
+                }
+                // console.log(filter_category)
+                // console.log(old_category);
+                set_totalphoto(gallery_data.length+ 1 > response.data.total?false:true);
+                gallery_dispatch({type:"FETCH_SUCCESS",payload:[gallery_state.success]})
+            }
+        }
+        catch(err){
+    
+            // if(err.message!=="Network Error"){
+            //     gallery_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message]})
+                
+            // }
+        }
+    }
+        return()=>{controller.abort()}
 
+    },[page,filter_category])
+ 
+
+
+    useEffect(()=>{
+        
+        window.addEventListener("scroll",handleInfiniteScroll);
+        GetTeam()
+        return()=>window.removeEventListener("scroll",handleInfiniteScroll)
+        
+    },[]);
+
+    console.log(gallery_data);
+    
+
+    
+
+    const handleInfiniteScroll= ()=>{
+        const{scrollTop,clientHeight,scrollHeight} = document.documentElement;
+        if(scrollTop +clientHeight+0.9>=scrollHeight&&totalphoto){
+            
+            set_page((prev)=>prev+1);
+            console.log("page increasing")
+        }
+    
+    }
+    console.log(page)
+
+
+
+  function filterout(data,event,index){
+        set_filter_category({category:data.category})
 
   }
+
 
   
 
@@ -217,14 +225,14 @@ const Gallery = () => {
       <div id="gallery">
         <div className="gallery-category-container">
         <div className="category-scrollbar-tab-container">
-            <div className="left-arrow">
-                <i class="fa-solid fa-caret-left"></i>
-                   </div>
+                   <div className="left-arrow">
+                      <i class="fa-solid fa-caret-left"></i>
+                    </div>
                       <ul>
                          {
                             category_state.loading?<li><a>...loading</a></li>:
                             category_state.data&&category_state.data[0]&&category_state.data[0].category.map((category,index,array)=>{
-                            return(<li key={category._id}><a className={index==0?"active":""}onClick={(e)=>filterout({category},e)}   >{category}</a></li>)
+                            return(<li key={category._id}><a className={index==0?"active":""}onClick={(e)=>filterout({category},e,index)}>{category}</a></li>)
 
                           })
                           }
@@ -236,11 +244,7 @@ const Gallery = () => {
             </div>
         </div>
         <div className="user-gallery-main-container">
-            {
-                gallery_state.data&&gallery_state.data.map((data)=>{
-                   return  <img src={data.photo} alt="" />
-                })
-            }
+            <GalleryPhoto gallerydata={gallery_data}></GalleryPhoto>      
         </div>
       </div>
       {/* <Footer /> */}
@@ -249,3 +253,5 @@ const Gallery = () => {
 };
 
 export default Gallery;
+
+  
