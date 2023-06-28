@@ -243,10 +243,20 @@ const Gallery = () => {
                 </div>
             </div>
         </div>
+
+      
         <div className="user-gallery-main-container">
-            <GalleryPhoto gallerydata={gallery_data}></GalleryPhoto>      
+            <GalleryPhoto gallerydata={gallery_data}></GalleryPhoto> 
+         
         </div>
+       
+      
       </div>
+      {
+        gallery_state.loading?
+         <span class="loader"></span>:""
+
+      }
       {/* <Footer /> */}
     </div>
   );

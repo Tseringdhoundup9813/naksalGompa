@@ -8,6 +8,7 @@ const DirectorController = require("../Controller/DirectorController")
 const FounderController = require("../Controller/FounderController")
 const CategoryController = require("../Controller/CategoryController")
 const GalleryController = require("../Controller/GalleryController")
+const ContactController = require("../Controller/ContactController")
 
 // -//////////////////////////////////////////////////////////
 
@@ -122,6 +123,13 @@ router.get("/getmasonrygallery",GalleryController.MasonryGallery)
 router.delete("/deletegallery/:id",GalleryController.DeleteGallery)
 
 // ///////////////////
+
+// contact--------------------------------------
+router.post("/sendmessage",ContactController.SendContact)
+router.get("/getcontact",ContactController.GetContact)
+router.get("/getcontact/:id",ContactController.GetSingleContact)
+
+// 
 // /-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Client page Router ================================================================================
 // ************************************************************************************************************************************************88

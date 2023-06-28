@@ -1,0 +1,376 @@
+
+.admin-contact-container{
+    display: flex;
+}
+.admin-contact-message-container{
+    width:85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+
+}
+.admin-contact-message-container > div{
+    margin:0px 10px;
+}
+.admin-message-list{
+    width:22%;
+    min-height:70vh;
+    background-color: rgb(241, 241, 241);
+    border-radius:7px;
+
+}
+.admin-message-name-list{
+    width:100%;
+    height:50vh;
+    overflow-y: scroll;
+}
+.admin-message-container{
+    width:40%;
+    min-height:70vh;
+    background-color: rgb(245, 245, 245);
+    -webkit-animation-name: bounceIn;
+    animation-name: bounceIn;
+    -webkit-animation-duration: .75s;
+    animation-duration: .75s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+    }
+    20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+    }
+    60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+    }
+    100% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    }
+    }
+    @keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    }
+    0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+    }
+    20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+    }
+    60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+    }
+    100% {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+    }
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.admin-customer-detail-container{
+    min-width:20%;
+    height:70vh;
+
+
+}
+.admin-customer-detail-container div{
+    width:100%;
+    /* background-color: red; */
+    background-color: rgb(248, 248, 248);
+    padding:10px;
+    margin:10px 0px;
+    border-radius:4px;
+}
+.admin-message-title{
+    width:90%;
+    display: flex;
+    align-items: center;
+    margin:auto;
+    height:10vh;
+   
+
+}
+.admin-message-title h1{
+    font-size:15px;
+    color:rgb(66, 66, 66);
+
+}
+.message-new-old{
+    width:100%;
+    height:5vh;
+  
+    
+    
+
+}
+.message-new-old ul{
+    width:100%;
+    display: flex;
+    justify-content: flex-start;
+    margin:0px;
+    padding:0px 0px;
+    position: relative;
+
+}
+.message-new-old ul::after{
+    content:'';
+    width:90%;
+    height:0.7px;
+    background-color: rgb(216, 215, 215);;
+    position: absolute;
+    bottom:-5px;
+    left:50%;
+    transform: translate(-50%,-50%);
+
+}
+.message-new-old ul li{
+    list-style-type: none;
+    font-size:13px;
+    margin:0px 10px;
+    font-weight: 500;
+    color:rgb(191, 28, 134);
+    position: relative;
+   
+}
+.message-new-old ul li:nth-child(1):after{
+    content:'';
+    width:100%;
+    height:0.9px;
+    background-color: rgb(245, 21, 140);;
+    position: absolute;
+    bottom:-5px;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+.admin-message-customer-list{
+    width:90%;
+    margin:25px auto;
+    display: flex;
+    align-items: center;
+    /* border:1px solid grey; */
+    position: relative;
+    cursor: pointer;
+  
+}
+
+.admin-message-customer-list::after{
+    content:'';
+    width:100%;
+    height:1px;
+    background-color:rgb(207, 207, 207);
+    position: absolute;
+    bottom:-10px;
+}
+.admin-message-customer-list div:nth-child(1){
+
+    width:20%;
+    height:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding:5px;
+    background-color: white;
+    border-radius:3px;
+}
+
+.admin-message-customer-list div:nth-child(2){
+
+    width:75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:auto;
+
+    height:100%;
+    padding:7px 5px;
+   
+    position: relative;
+    
+}
+.admin-message-customer-list div:nth-child(2):hover{
+    content:"";
+    position: absolute;
+    height:100%;
+    background-color: rgba(62, 14, 14, 0.286);
+    color:white;
+    border-radius:3px;
+    width:0%;
+    right:0px;
+    width:79%;
+    transition:all 0.3s ease-in-out;
+   
+    
+}
+.select-cutomer.active {
+    background-color: rgba(62, 14, 14, 0.286);
+    color:white;
+    border-radius:3px;
+    width:0%;
+    right:0px;
+    width:79%;
+}
+
+.admin-message-customer-list div:nth-child(2) p{
+    padding:0px;
+    margin:0px;
+    font-size:13px;
+
+}
+.admin-message-customer-list div:nth-child(2) p:nth-child(2){
+    font-weight: 500;
+    font-size:8px;
+    color:rebeccapurple;
+}
+
+.admin-message-list div div img{
+    width:30px;
+    height:30px;
+    object-fit:cover;
+}
+
+/* admin-message-container */
+.admin-message-container{
+    position: relative;
+}
+.admin-message-container h1{
+    font-size:17px;
+    
+    height:5vh;
+   
+    display: flex;
+    justify-content:flex-start;
+    padding:15px;
+    color:rgb(73, 73, 73);
+    font-size:12px;
+}
+.admin-message-container div{
+    width:95%;
+    height:50vh;
+    overflow-y: scroll;
+    
+    border-radius:1px;
+    margin:auto;
+    background-color: rgb(252, 252, 252);
+    padding:10px;
+    color:grey;
+    font-size:15px;
+}
+.admin-message-container button{
+    position: absolute;
+    bottom:20px;
+    right:20px;
+    width:70px;
+    height:50px;
+    font-size:10px;
+    padding:10px;
+    border-radius:10px;
+    /* box-shadow: 1px 5px 3px 0px rgb(197, 197, 197); */
+    border:none;
+    background-color: rgb(80, 39, 170);
+    color:white;
+    font-weight: 600;
+
+}
+.cutomer-email{
+
+    display: flex;
+    align-items: center;
+    
+}
+
+.cutomer-email li {
+    height:100%;
+    list-style-type:none;
+    margin:0px 5px;
+    color:rgb(115, 115, 115);
+    font-weight:400;
+   
+}
+
+.cutomer-email li:nth-child(1){
+    background-color:purple;
+    padding:5px;
+    color:white;
+    border-radius:5px;
+}
+.cutomer-contact{
+    
+    display: flex;
+    align-items: center;
+}
+
+.cutomer-contact li{
+    height:100%;
+    list-style-type:none;
+    margin:0px 5px;
+    color:rgb(139, 138, 138);
+    font-weight:400;
+   
+}
+.cutomer-contact li:nth-child(1){
+    background-color:purple;
+    padding:5px;
+    color:white;
+    border-radius:5px;
+}

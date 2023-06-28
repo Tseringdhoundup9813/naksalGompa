@@ -89,8 +89,7 @@ function AdminNews() {
 
         }
         catch(err){
-            console.log(err)
-            console.log(err.message!=="Network Error")
+
             
             if(err.message!=="Network Error"){
                 dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})

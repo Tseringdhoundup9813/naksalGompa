@@ -16,6 +16,8 @@ function AdminSideBar() {
               <li><i class="fa-solid fa-users"></i><NavLink to="/admin/founder">Founder</NavLink></li>
               <li><i class="fa-solid fa-users"></i><NavLink to="/admin/director">Director</NavLink></li>
               <li><i class="fa-solid fa-users"></i><NavLink to="/admin/gallery">Gallery</NavLink></li>
+              <li><i class="fa-solid fa-users"></i><NavLink to="/admin/contact">Contact</NavLink></li>
+
 
               
             </ul>

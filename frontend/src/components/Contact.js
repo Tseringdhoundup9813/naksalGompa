@@ -1,8 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React,{useState,useReducer, useEffect, useRef} from 'react'
+
 //navbar footer
 import Navbar from "./navbar";
 import Footer from "./Footer";
+import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
 
 //css
 import "../style/Contact.css";
@@ -10,10 +11,65 @@ import "../style/Contact.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import axios from "../Services/Instance"
+
 
 const Gallery = () => {
+
+  const[contact_state,contact_dispatch] =useReducer(postReducer,INITIAL_STATE)
+  const[contact,set_contact] = useState({name:"",email:"",phone:"",subject:"",message:""});
+
+  async function SendMessage(event){
+      event.preventDefault();
+      const formdata =new FormData();
+
+      formdata.append("name",contact.name)
+      formdata.append("email",contact.email)
+      formdata.append("phone",contact.phone)
+      formdata.append("subject",contact.subject)
+      formdata.append("message",contact.message)
+
+
+      try{
+
+          contact_dispatch({type:"FETCH_START"})
+          const reponse = await axios.post("sendmessage",formdata)
+         
+          if(reponse.data.success){
+              // after successfully submit empty the input field and file field
+           
+              contact_dispatch({type:"FETCH_SUCCESS",payload:[true]})
+              console.log(reponse.data)
+          
+      
+              setTimeout(function(){
+               contact_dispatch({type:"FETCH_SUCCESS",payload:[false]})
+            
+              },9200)
+          }
+
+      }
+      catch(err){
+          console.log(err)
+          console.log(err.message!=="Network Error")
+          
+          if(err.message!=="Network Error"){
+              contact_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+              console.log(err.response.data.emptyfield)
+          }
+      }
+  }
+
+
+  console.log(contact_state.success)
+
+
+
   return (
     <div>
+      {/* 
+
+      */}
       <Navbar />
       <div id="Contact">
         <Container className="p-0" fluid>
@@ -43,6 +99,7 @@ const Gallery = () => {
                     <div className="c-p-detail">
                       <div className="c-ph">Phone</div>
                       <div className="c-num">+977 987123902</div>
+
                     </div>
                   </div>
                   <div className="c-phone">
@@ -87,13 +144,26 @@ const Gallery = () => {
                     Deleniti deserunt consequatur ipsam sunt repellat! Eius
                     consequatur quam autem voluptatem minus.
                   </div>
-                  <form action="">
+                  <form action="" onSubmit={SendMessage}>
+                      {/* sucessfull added message  */}
+
+                      {
+                                contact_state.success&&contact_state.success?
+                                <div className="contact-submit-sucess-message">
+                                    <p>Sucessfully send message</p>
+                                </div>
+                                :""
+                            }
+                            {/* //////////////////////////////////////////////////////////////////////// */}
                     <div className="c-msg-name">
                       <div>
                         <input
                           type="text"
                           className="c-input"
                           placeholder="Your Name"
+                          onChange={(e)=>set_contact({...contact,name:e.target.value})}
+                          style={{border:`${contact_state.empty_field&&contact_state.empty_field.includes("name")?"2px solid red":""}`}}
+
                         />
                       </div>
                       <div>
@@ -101,15 +171,20 @@ const Gallery = () => {
                           type="text"
                           className="c-input"
                           placeholder="Your Email"
+                          onChange={(e)=>set_contact({...contact,email:e.target.value})}
+                          style={{border:`${contact_state.empty_field&&contact_state.empty_field.includes("email")?"2px solid red":""}`}}
+
                         />
                       </div>
                     </div>
                     <div className="c-msg-name">
                       <div>
                         <input
-                          type="text"
+                          type="number"
                           className="c-input"
                           placeholder="Phone Number"
+                          onChange={(e)=>set_contact({...contact,phone:e.target.value})}
+                          style={{border:`${contact_state.empty_field&&contact_state.empty_field.includes("phone")?"2px solid red":""}`}}
                         />
                       </div>
                       <div>
@@ -117,6 +192,10 @@ const Gallery = () => {
                           type="text"
                           className="c-input"
                           placeholder="Subject"
+                          onChange={(e)=>set_contact({...contact,subject:e.target.value})}
+                          style={{border:`${contact_state.empty_field&&contact_state.empty_field.includes("subject")?"2px solid red":""}`}}
+
+
                         />
                       </div>
                     </div>
@@ -126,10 +205,22 @@ const Gallery = () => {
                         type="text"
                         className="c-msg-box"
                         placeholder="Enter your Message"
+                        onChange={(e)=>set_contact({...contact,message:e.target.value})}
+                        style={{border:`${contact_state.empty_field&&contact_state.empty_field.includes("message")?"2px solid red":""}`}}
+
+
                       />
                     </div>
+                     {
+                               contact_state.error&&contact_state.error
+                               ?
+                                <div className="category-submit-message">
+                                <p> {contact_state.error_message&&contact_state.error_message}</p>
+                                </div>
+                                :''
+                      }
                     <div className="msg-submit">
-                      <span>send message</span>
+                     <button>Send message</button>
                     </div>
                   </form>
                 </Col>
