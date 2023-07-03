@@ -59,9 +59,6 @@ function NavbarMain() {
             <NavLink to="/donation" className="nav-link text-uppercase mx-lg-2">
               Donation
             </NavLink>
-            <NavLink to="/news" className="nav-link text-uppercase mx-lg-2">
-              News
-            </NavLink>
           </Nav>
         </Navbar.Collapse>
         {/*center logo*/}
@@ -75,15 +72,15 @@ function NavbarMain() {
 
         <Navbar.Collapse id="basic-navbar-nav" className="order-lg-3 order-4">
           <Nav className="me-auto">
+            <NavLink to="/news" className="nav-link text-uppercase mx-lg-2">
+              News
+            </NavLink>
             <NavLink to="/gallery" className="nav-link text-uppercase mx-lg-2">
               gallery
             </NavLink>
             <NavLink to="/contact" className="nav-link text-uppercase mx-lg-2">
               contact
             </NavLink>
-            <Nav.Link href="#home" className="text-uppercase mx-lg-2">
-              login
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
 

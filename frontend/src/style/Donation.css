@@ -1,6 +1,6 @@
 .donation-banner {
   background: url("../images/news/news3.jpg") center/cover no-repeat;
-  height: 60vh;
+  height: 70vh;
   width: 100vw;
   position: relative;
 }
@@ -42,6 +42,8 @@
   transform: translate(-50%, 0);
   width: 75% !important;
   margin: 0 auto !important;
+  z-index: 1;
+background: #fff;
 }
 .dona-top {
   background: #851616;
@@ -131,6 +133,9 @@
 }
 
 @media screen and (max-width: 1200px) {
+  .donation-banner{
+    height: 65vh;
+  }
   .dona-banner-title {
     font-size: 40px;
     font-weight: 600;
@@ -156,6 +161,9 @@
   }
 }
 @media screen and (max-width: 992px) {
+  .donation-banner{
+    height: 60vh;
+  }
   .dona-banner-title {
     font-size: 24px;
     font-weight: 600;
@@ -232,6 +240,9 @@
   }
 }
 @media screen and (max-width: 520px) {
+  .donation-banner{
+    height: 35vh;
+  }
   .donation-banner-text {
     width: 100%;
     top: 56%;
