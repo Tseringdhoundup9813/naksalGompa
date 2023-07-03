@@ -1,3 +1,4 @@
+// const { default: formatRelativeWithOptions } = require("date-fns/fp/formatRelativeWithOptions")
 const ContactModel = require("../Models/ContactModel")
 
 
@@ -71,5 +72,34 @@ exports.GetSingleContact=async (req,res)=>{
     catch(err){
         console.log(err)
         res.status(500).json({sucess:false,message:"server error"})
+    }
+}
+
+
+exports.SetImportant = async(req,res)=>{
+    const {id} = req.params
+    try{
+        
+        const singlecontact = await ContactModel.find({_id:id})
+        console.log(singlecontact[0].important)
+        if(singlecontact[0].important ==true){
+            const set_important = await ContactModel.findByIdAndUpdate({_id:id},{important:false})
+            const all_contact = await ContactModel.find({}).sort({createdAt:-1})
+            const singlecontact = await ContactModel.find({_id:id})
+            res.status(200).json({success:true,data:all_contact,singledata:singlecontact})
+        }
+        else{
+            const set_important = await ContactModel.findByIdAndUpdate({_id:id},{important:true})
+            const all_contact = await ContactModel.find({}).sort({createdAt:-1})
+            const singlecontact = await ContactModel.find({_id:id})
+            res.status(200).json({success:true,data:all_contact,singledata:singlecontact})
+        }
+
+
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({sucess:false,message:"server error"})
+
     }
 }

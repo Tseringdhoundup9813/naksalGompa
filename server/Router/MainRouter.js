@@ -128,6 +128,7 @@ router.delete("/deletegallery/:id",GalleryController.DeleteGallery)
 router.post("/sendmessage",ContactController.SendContact)
 router.get("/getcontact",ContactController.GetContact)
 router.get("/getcontact/:id",ContactController.GetSingleContact)
+router.get("/important/:id",ContactController.SetImportant)
 
 // 
 // /-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

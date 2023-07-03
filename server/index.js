@@ -5,9 +5,10 @@ const fileUpload = require("express-fileupload")
 const cors = require("cors")
 
 
+
 require("dotenv").config()
 
-
+const UserRouter = require("./Router/userRoute")
 const MainRouter = require("./Router/MainRouter")
 const { default: mongoose } = require("mongoose")
 
@@ -31,6 +32,7 @@ app.use(express.static("Upload"))
 // Routing ================
 
 app.use("/api/naksa",MainRouter)
+app.use("/api/user",UserRouter)
 
 // END=================================
 

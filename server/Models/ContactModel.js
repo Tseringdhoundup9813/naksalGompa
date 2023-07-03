@@ -31,6 +31,12 @@ const ContactModel = new Scheme({
         required:false,
         default:false,
 
+    },
+    important:{
+        type:Boolean,
+        required:false,
+        default:false,
+
     }
 
    

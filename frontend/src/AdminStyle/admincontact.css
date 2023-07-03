@@ -19,6 +19,7 @@
     min-height:70vh;
     background-color: rgb(241, 241, 241);
     border-radius:7px;
+    position: relative;
 
 }
 .admin-message-name-list{
@@ -192,8 +193,20 @@
     color:rgb(191, 28, 134);
     position: relative;
    
+   
 }
-.message-new-old ul li:nth-child(1):after{
+.message-new-old ul li span{
+    position:absolute;
+    top:-60%;
+    right:0px;
+    background-color: rgb(63, 47, 152);
+    color:white;
+    padding:2px 4px;
+    font-size:9px;
+    border-radius:10px;
+}
+
+.message-new-old ul li.active:after{
     content:'';
     width:100%;
     height:0.9px;
@@ -320,16 +333,15 @@
     position: absolute;
     bottom:20px;
     right:20px;
-    width:70px;
-    height:50px;
-    font-size:10px;
+    font-size:8px;
     padding:10px;
     border-radius:10px;
-    /* box-shadow: 1px 5px 3px 0px rgb(197, 197, 197); */
+    white-space: nowrap;
     border:none;
     background-color: rgb(80, 39, 170);
     color:white;
     font-weight: 600;
+    
 
 }
 .cutomer-email{
@@ -338,6 +350,11 @@
     align-items: center;
     
 }
+.cutomer-email:hover{
+    background-color: rgba(128, 128, 128, 0.22);
+    color:black;
+
+}
 
 .cutomer-email li {
     height:100%;
@@ -345,19 +362,25 @@
     margin:0px 5px;
     color:rgb(115, 115, 115);
     font-weight:400;
+    font-size:12px;
    
 }
+
 
 .cutomer-email li:nth-child(1){
     background-color:purple;
     padding:5px;
     color:white;
     border-radius:5px;
+    font-size:8px;
 }
 .cutomer-contact{
     
     display: flex;
     align-items: center;
+}
+.cutomer-contact:hover{
+    background-color: rgba(128, 128, 128, 0.22);
 }
 
 .cutomer-contact li{
@@ -366,6 +389,8 @@
     margin:0px 5px;
     color:rgb(139, 138, 138);
     font-weight:400;
+    font-size:12px;
+
    
 }
 .cutomer-contact li:nth-child(1){
@@ -373,4 +398,36 @@
     padding:5px;
     color:white;
     border-radius:5px;
+    font-size:8px;
+
+}
+.bell{
+    position: absolute;
+    right:10px;
+    top:10px;
+    padding:1px 5px;
+    border-radius:4px;
+    background-color: gainsboro;
+}
+.bell span{
+    position: absolute;
+    top:-5px;
+    right:-6px;
+    background-color: rgb(255, 42, 0);
+    width:15px;
+    height:15px;
+    padding:5px;
+    border-radius:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:10px;
+    color:white;
+    font-weight: bold;
+    
+}
+.notseen {
+    background-color: rgba(255, 0, 0, 0.089);
+    border-radius:4px;
+    
 }
