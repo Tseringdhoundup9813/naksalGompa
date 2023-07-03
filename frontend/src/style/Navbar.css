@@ -45,6 +45,7 @@
   width: 100%;
   border: 1px solid #f9d974;
   background-color: #fff;
+  margin-top:4px;
 }
 
 .nav-main-logo img {
@@ -126,6 +127,7 @@
     position: absolute;
     height: 100px;
     width: 100%;
+    margin-top:0px;
     
   }
   .nav-main-logo img {
