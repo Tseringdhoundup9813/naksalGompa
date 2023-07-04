@@ -12,7 +12,7 @@ const ContactController = require("../Controller/ContactController")
 
 // -//////////////////////////////////////////////////////////
 
-
+const requireAuth =require('../Middleware/requireAuth')
 const router = express.Router()
 
 
@@ -21,7 +21,7 @@ const router = express.Router()
 // ----------------------------------------------------------------------------------
 // Admin ROuter =========================================
 // upload banner api =================================
-router.post("/bannerupload",BannerController.uploadBanner)
+router.post("/bannerupload",requireAuth,BannerController.uploadBanner)
 // ////////////////////////////////////////////////////
 // upload news api=======================================
 router.post("/newsupload",NewsController.UploadNews)

@@ -340,8 +340,8 @@
 /* right side */
 .home-up-news-container {
   display: grid;
-  grid-template-columns: 40% 60%;
-  grid-gap: 10px;
+  grid-template-columns: 37% 58%;
+  grid-gap: 5%;
   margin: 10px 0;
   align-items: center;
   justify-content: center;
@@ -353,8 +353,12 @@
   width: 100%;
  
 }
+.home-up-detail{
+  height: 100%;
+}
 .home-up-title {
   font-weight: 600;
+  margin-bottom:10px;
   font-size: 18px;
   line-height: 25px;
   text-transform: capitalize;
@@ -383,7 +387,6 @@
 }
 @media screen and (max-width: 768px) {
   .home-news-f-title,
-  .home-up-title,
   .home-news-type {
     margin-top: 10px;
     font-size: 17px;
@@ -401,7 +404,8 @@
     height: 113px;
   }
   .home-up-news-container {
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 28% 67%;
+    grid-gap:4%;
   }
   .home-news-type-line {
     height: 3px;
@@ -504,6 +508,10 @@
   grid-template-columns: repeat(5, 1fr);
   height: 400px;
 }
+.home-team-card:nth-child(2), .home-team-card:nth-child(4)  {
+  margin-top: 50px !important;
+  height: 300px !important;
+}
 .home-team-card-down {
   margin-top: 50px !important;
   height: 300px !important;
@@ -513,6 +521,7 @@
   height: 300px;
 }
 .home-team-card-img {
+  border:1px solid grey;
   background: url("../images/news/news3.jpg") center/cover no-repeat;
   height: 80%;
   width: 100%;
@@ -535,23 +544,23 @@
 }
 
 @media screen and (max-width: 992px) {
-  .home-team-card-down {
+  .home-team-card:nth-child(2), .home-team-card:nth-child(4) {
     margin-top: 0 !important;
   }
-  .grid1 {
+  .home-team-card:nth-child(1){
     grid-area: one;
   }
-  .grid2 {
+  .home-team-card:nth-child(2){
     grid-area: two;
     margin-top: 40% !important;
   }
-  .grid3 {
+  .home-team-card:nth-child(3){
     grid-area: three;
   }
-  .grid4 {
+  .home-team-card:nth-child(4){
     grid-area: four;
   }
-  .grid5 {
+  .home-team-card:nth-child(5) {
     grid-area: five;
   }
   .home-team-img {
@@ -567,8 +576,8 @@
   .home-team-card {
     height: 200px;
   }
-  .grid2,
-  .grid4 {
+  .home-team-card:nth-child(2),
+  .home-team-card:nth-child(4){
     height: 200px !important;
   }
   .home-team-card-img {
@@ -589,7 +598,7 @@
   .home-team-card {
     margin: 20px 0 !important;
   }
-  .grid2 {
+  .home-team-card:nth-child(2) {
     margin-top: 0 !important;
   }
   .home-meet-rightarrow:before {

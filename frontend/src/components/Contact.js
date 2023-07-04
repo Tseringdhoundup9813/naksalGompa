@@ -128,7 +128,7 @@ const Gallery = () => {
                   <div className="c-phone">
                     <div className="c-icon">
                       <div>
-                        <i class="fa-solid fa-location-dot"></i>
+                      <i class="fa-solid fa-location-arrow"></i>
                       </div>
                     </div>
                     <div className="c-p-detail">
@@ -190,6 +190,7 @@ const Gallery = () => {
                       <div>
                         <input
                           type="text"
+                          inputMode='numeric'
                           className="c-input"
                           placeholder="Subject"
                           onChange={(e)=>set_contact({...contact,subject:e.target.value})}
@@ -220,7 +221,7 @@ const Gallery = () => {
                                 :''
                       }
                     <div className="msg-submit">
-                     <button>Send message</button>
+                     <button className="btn btn-danger">Send message</button>
                     </div>
                   </form>
                 </Col>

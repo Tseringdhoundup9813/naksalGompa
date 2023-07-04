@@ -61,7 +61,6 @@
   font-size: 20px;
   margin-right: 20px;
   background: #f9d974;
-
   color: #851616;
   height: 60px;
   width: 60px;
@@ -81,7 +80,6 @@
   height: 50px;
   width: 50px;
   background-color: #f4c51b;
-
   border-radius: 50%;
 }
 .c-ph {
@@ -110,6 +108,11 @@
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
   margin: 20px 0;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin:0;
 }
 .c-input {
   width: 100%;
@@ -163,7 +166,7 @@
   width: 90%;
   margin: 20px auto;
   height: 500px;
-  border: 1px solid red;
+  border:1px solid grey;
 }
 .google-map {
   height: 100%;

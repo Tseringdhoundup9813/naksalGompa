@@ -30,11 +30,29 @@ userSchema.statics.singup = async function(username,password){
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password,salt)
 
-    const user = await this.create({username,password})
+    const user = await this.create({username,password:hash})
     return user
 
+}
 
+// login static 
 
+userSchema.statics.login = async function(username,password){
+    if(!username||!password){
+        throw Error('all fields must be filled')
+    }
+    const users = await this.findOne({username})
+    if(!users){
+        throw Error('Incorrect username')
+    }
+
+    const match = await bcrypt.compare(password,users.password)
+    console.log(match)
+
+    if(!match){
+        throw Error('Incorrect password')
+    }
+    return users
 
 }
 

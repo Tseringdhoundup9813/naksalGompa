@@ -59,31 +59,32 @@ function NavbarMain() {
             <NavLink to="/donation" className="nav-link text-uppercase mx-lg-2">
               Donation
             </NavLink>
-            <NavLink to="/news" className="nav-link text-uppercase mx-lg-2">
-              News
-            </NavLink>
           </Nav>
         </Navbar.Collapse>
         {/*center logo*/}
-        <Navbar.Brand href="#home" className="order-1 nav-brand me-1 ms-1">
+
+        <NavLink
+              to="/"
+              className=" nav-brand text-uppercase mx-lg-2 nav-color order-1 nav-brand me-1 ms-1"
+            >
           <div className="nav-main-logo">
             <img src={logoImg} className="img-fluid" alt="" />
           </div>
-        </Navbar.Brand>
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="order-2" />
         {/*right side*/}
 
         <Navbar.Collapse id="basic-navbar-nav" className="order-lg-3 order-4">
           <Nav className="me-auto">
+            <NavLink to="/news" className="nav-link text-uppercase mx-lg-2">
+              News
+            </NavLink>
             <NavLink to="/gallery" className="nav-link text-uppercase mx-lg-2">
               gallery
             </NavLink>
             <NavLink to="/contact" className="nav-link text-uppercase mx-lg-2">
               contact
             </NavLink>
-            <Nav.Link href="#home" className="text-uppercase mx-lg-2">
-              login
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
 

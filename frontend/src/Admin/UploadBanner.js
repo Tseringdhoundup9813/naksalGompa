@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import axios from "../Services/Instance"
 import "../AdminStyle/uploadbanner.css"
+import { useAuthContext } from "../Hooks/useAuthContext";
+
 
 // side bar
 import AdminSideBar from './AdminSideBar'
@@ -9,7 +11,7 @@ function UploadBanner() {
 
 
 
-
+    const {user} =useAuthContext()
     // 
     const [file,set_file] = useState()
     const[imgsrc,set_imgsrc] = useState()
@@ -39,12 +41,23 @@ function UploadBanner() {
     // file upload 
     async function fileUpload(e){
         e.preventDefault()
+
+        if(!user){
+            console.log("not login")
+            return 
+        }
+
         const formdata = new FormData();
         formdata.append("banner",file)
 
         try{
-            const repsonse = await axios.post("bannerupload",formdata,
-
+            const repsonse = await axios.post("bannerupload",formdata,{
+     
+                headers:{
+                    Authorization : `Bearer ${user.token}`
+                },
+            },
+       
             {onUploadProgress:({loaded,total})=>{
                 console.log(loaded)
                 set_progressbar(Math.floor((loaded/total) *100));  

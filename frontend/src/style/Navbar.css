@@ -11,6 +11,8 @@
 .nav-container {
   border-bottom: 4px solid #f9d974;
   background: #851616;
+  height: auto;
+  align-items: normal !important;
 }
 .navbar-toggler {
   border: 1px solid #fff !important;
@@ -40,15 +42,70 @@
 }
 .nav-main-logo {
   height: auto !important;
-  width:100px;
+  width: 100%;
   border: 1px solid #f9d974;
   background-color: #fff;
-
+  margin-top:4px;
 }
+
 .nav-main-logo img {
   height: 50px !important;
 }
+.dropdown-item.active, .dropdown-item:active  {
+  color:#851616 !important;
+  background-color: #f9d974 !important;
+}
+@media screen and (max-width:992px){
+  .nav-link{
+    padding-left: 15px !important;
+  }
+  .navbar-toggler{
+    margin:10px 0 !important;
+  }
+}
 @media screen and (min-width: 992px) {
+  .nav-main-logo {
+    height: 130px !important;
+    width:130px !important;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top:13px;
+  }
+  .nav-main-logo::after{
+    content: '';
+    height: 82px;
+    width: 138px;
+    border-top:none;
+    border-bottom:5px solid #f9d974;
+    border-left:5px solid #f9d974;
+    border-right:5px solid #f9d974;
+    position: absolute;
+    border-radius: 0 0 150px 150px ;
+    top:41%;
+  }
+  .nav-brand{
+    width:140px;
+  }
+  .nav-brand img{
+    height: 80% !important;
+    width: 80% !important;
+  }
+  .navbar-nav{
+    height: 100% !important;
+  }
+  .nav-link{
+    height: 100% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-container{
+    height: 70px;
+  }
   .main-navbar {
     display: flex;
   }
@@ -61,7 +118,7 @@
   .nav-brand {
     z-index: 99;
     height: auto;
-    width: 100px;
+    width: 140px;
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     position: relative;
     margin: 0 10px;
@@ -70,7 +127,7 @@
     position: absolute;
     height: 100px;
     width: 100%;
-    border: 1px solid #f9d974;
+    margin-top:0px;
     
   }
   .nav-main-logo img {

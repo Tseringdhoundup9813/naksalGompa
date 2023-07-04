@@ -1,4 +1,6 @@
-import React from "react";
+
+import React,{useEffect, useReducer, useState} from 'react'
+
 //navbar footer
 import Navbar from "./navbar";
 import Footer from "./Footer";
@@ -9,8 +11,42 @@ import "../style/News.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
+import axios from "../Services/Instance"
 
 const News = () => {
+
+  const[getnews_state,getnews_dispatch] = useReducer(postReducer,INITIAL_STATE)
+
+  useEffect(()=>{
+     
+    async function GetNews(){
+        getnews_dispatch({type:"FETCH_START"})
+        try{
+            const response = await axios.get("/getnews/")
+            // console.log(response)
+            if(response.data.success){
+                
+                const all_news_data = response.data.data
+                getnews_dispatch({type:"FETCH_SUCCESS",payload:[true,all_news_data]})
+        
+            }
+        }
+        catch(err){
+          
+            console.log(err)
+            if(err.message!=="Network Error"){
+                getnews_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
+                console.log(err.response.data.emptyfield)
+            }
+        }
+    }
+
+    // 
+    GetNews()
+},[])
+
+
   return (
     <div>
       <Navbar></Navbar>
@@ -33,77 +69,39 @@ const News = () => {
         </Row>
         <Row className="news-second-container p-0 m-0">
           <div className="ns-card-container">
-            <div className="newsimg-container">
-              <div className="news-img"></div>
-              <div className="ns-detail">
-                <div className="ns-para">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Adipisci eos nisi error beatae delectus, quasi quo quos
-                  recusandae. Molestias voluptatum iure libero aperiam quidem,
-                  quis molestiae similique corporis accusamus! Aperiam.
-                </div>
-                <div className="d-flex sm-margin align-items-center justify-content-between">
-                  <div className="ns-more ">read more</div>
-                  <div className="ns-icon">
-                    <div className="ns-fb">
-                      <i className="fa-brands fa-square-facebook"></i>
+         
+       
+            {
+              getnews_state.data&&getnews_state.data.map((item)=>{
+                return(
+                  <div className="newsimg-container">
+                  <div className="news-img" style={{backgroundImage:`url(${item.photo})`}}></div>
+                  <div className="ns-detail">
+                    <div className="ns-para">
+                    {item.des}
                     </div>
-                    <div className="ns-insta">
-                      <i class="fa-brands fa-instagram"></i>
+                    <div className="d-flex sm-margin align-items-center justify-content-between">
+                      <div className="ns-more ">read more</div>
+                      <div className="ns-icon">
+                        <div className="ns-fb">
+                          <i className="fa-brands fa-square-facebook"></i>
+                        </div>
+                        <div className="ns-insta">
+                          <i class="fa-brands fa-instagram"></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+                )
+              })
+            }
+         
 
-            <div className="newsimg-container">
-              <div className="news-img"></div>
-              <div className="ns-detail">
-                <div className="ns-para">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Adipisci eos nisi error beatae delectus, quasi quo quos
-                  recusandae. Molestias voluptatum iure libero aperiam quidem,
-                  quis molestiae similique corporis accusamus! Aperiam.
-                </div>
-                <div className="d-flex  sm-margin align-items-center justify-content-between">
-                  <div className="ns-more ">read more</div>
-                  <div className="ns-icon">
-                    <div className="ns-fb">
-                      <i className="fa-brands fa-square-facebook"></i>
-                    </div>
-                    <div className="ns-insta">
-                      <i class="fa-brands fa-instagram"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div className="newsimg-container">
-              <div className="news-img"></div>
-              <div className="ns-detail">
-                <div className="ns-para">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Adipisci eos nisi error beatae delectus, quasi quo quos
-                  recusandae. Molestias voluptatum iure libero aperiam quidem,
-                  quis molestiae similique corporis accusamus! Aperiam.
-                </div>
-                <div className="d-flex sm-margin align-items-center justify-content-between">
-                  <div className="ns-more ">read more</div>
-                  <div className="ns-icon">
-                    <div className="ns-fb">
-                      <i className="fa-brands fa-square-facebook"></i>
-                    </div>
-                    <div className="ns-insta">
-                      <i class="fa-brands fa-instagram"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </Row>
-        <div className="news-third">
+        {/* <div className="news-third">
           <div className="banner-two"></div>
           <div className="ns-third-detail">
             <div className="banner-two-para">
@@ -114,78 +112,8 @@ const News = () => {
             </div>
             <span className="ns-more">Read more</span>
           </div>
-        </div>
-
-        <Row className="last-container ">
-          <div className="newsimg-container">
-            <div className="news-img"></div>
-            <div className="ns-detail">
-              <div className="ns-para">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Adipisci eos nisi error beatae delectus, quasi quo quos
-                recusandae. Molestias voluptatum iure libero aperiam quidem,
-                quis molestiae similique corporis accusamus! Aperiam.
-              </div>
-              <div className="d-flex  sm-margin  align-items-center justify-content-between">
-                <div className="ns-more ">read more</div>
-                <div className="ns-icon">
-                  <div className="ns-fb">
-                    <i className="fa-brands fa-square-facebook"></i>
-                  </div>
-                  <div className="ns-insta">
-                    <i class="fa-brands fa-instagram"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="newsimg-container">
-            <div className="news-img"></div>
-            <div className="ns-detail">
-              <div className="ns-para">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Adipisci eos nisi error beatae delectus, quasi quo quos
-                recusandae. Molestias voluptatum iure libero aperiam quidem,
-                quis molestiae similique corporis accusamus! Aperiam.
-              </div>
-              <div className="d-flex  sm-margin align-items-center justify-content-between">
-                <div className="ns-more ">read more</div>
-                <div className="ns-icon">
-                  <div className="ns-fb">
-                    <i className="fa-brands fa-square-facebook"></i>
-                  </div>
-                  <div className="ns-insta">
-                    <i class="fa-brands fa-instagram"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="newsimg-container">
-            <div className="news-img"></div>
-            <div className="ns-detail">
-              <div className="ns-para">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Adipisci eos nisi error beatae delectus, quasi quo quos
-                recusandae. Molestias voluptatum iure libero aperiam quidem,
-                quis molestiae similique corporis accusamus! Aperiam.
-              </div>
-              <div className="d-flex  sm-margin align-items-center justify-content-between">
-                <div className="ns-more ">read more</div>
-                <div className="ns-icon">
-                  <div className="ns-fb">
-                    <i className="fa-brands fa-square-facebook"></i>
-                  </div>
-                  <div className="ns-insta">
-                    <i class="fa-brands fa-instagram"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Row>
+        </div> */}
+/
       </Container>
       <Footer></Footer>
     </div>

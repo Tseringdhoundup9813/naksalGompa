@@ -295,7 +295,7 @@ GetFounder()
              
               return (
                 index <5?
-                <div className="home-team-card grid1">
+                <div className="home-team-card">
                   <div className="home-team-card-img" style={{backgroundImage:`url(${data.photo})`}}></div>
                   <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
                     <div className="home-team-card-name">{data.position}</div>
@@ -306,39 +306,6 @@ GetFounder()
               
             })
           }
-         
-{/* 
-          <div className="home-team-card home-team-card-down grid2">
-            <div className="home-team-card-img"></div>
-            <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
-              <div className="home-team-card-name">Khenpo pema thaye</div>
-              <div className="home-team-card-post">vice principle</div>
-            </div>
-          </div>
-
-          <div className="home-team-card grid3">
-            <div className="home-team-card-img"></div>
-            <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
-              <div className="home-team-card-name">Khenpo pema thaye</div>
-              <div className="home-team-card-post">vice principle</div>
-            </div>
-          </div>
-
-          <div className="home-team-card home-team-card-down grid4">
-            <div className="home-team-card-img"></div>
-            <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
-              <div className="home-team-card-name">Khenpo pema thaye</div>
-              <div className="home-team-card-post">vice principle</div>
-            </div>
-          </div>
-
-          <div className="home-team-card grid5 ">
-            <div className="home-team-card-img"></div>
-            <div className="home-team-card-detail d-flex align-items-center justify-content-center flex-column">
-              <div className="home-team-card-name">Khenpo pema thaye</div>
-              <div className="home-team-card-post">vice principle</div>
-            </div>
-          </div> */}
         </Row>
         <Row>
           <Col className="col-5 mx-auto text-center">
@@ -354,7 +321,6 @@ GetFounder()
           </Col>
         </Row>
       </Container>
-
       <Footer></Footer>
     </div>
   );
