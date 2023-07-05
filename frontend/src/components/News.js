@@ -72,15 +72,20 @@ const News = () => {
          
        
             {
-              getnews_state.data&&getnews_state.data.map((item)=>{
+              getnews_state.data&&getnews_state.data.map((item,index)=>{
                 return(
+                  index <3? 
                   <div className="newsimg-container">
                   <div className="news-img" style={{backgroundImage:`url(${item.photo})`}}></div>
                   <div className="ns-detail">
                     <div className="ns-para">
                     {item.des}
                     </div>
-                    <div className="d-flex sm-margin align-items-center justify-content-between">
+                    <div className='news-time d-flex align-items-center'>
+                      <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
+                      <div className='ns-detail text-capitalize'>publish date : 5 july 2023</div>
+                    </div>
+                    {/* <div className="d-flex sm-margin align-items-center justify-content-between">
                       <div className="ns-more ">read more</div>
                       <div className="ns-icon">
                         <div className="ns-fb">
@@ -90,9 +95,9 @@ const News = () => {
                           <i class="fa-brands fa-instagram"></i>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
-                </div>
+                </div>:""
                 )
               })
             }
@@ -101,7 +106,7 @@ const News = () => {
 
           </div>
         </Row>
-        {/* <div className="news-third">
+        <div className="news-third">
           <div className="banner-two"></div>
           <div className="ns-third-detail">
             <div className="banner-two-para">
@@ -110,10 +115,34 @@ const News = () => {
               quam consequuntur, unde minima voluptas ipsum aspernatur?
               Explicabo quia magnam omnis!
             </div>
-            <span className="ns-more">Read more</span>
+            <div className='news-time d-flex align-items-center'>
+                      <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
+                      <div className='ns-detail text-capitalize'>publish date : 5 july 2023</div>
+                    </div>
           </div>
-        </div> */}
-/
+        </div>
+
+        <Row className="last-container ">
+        {
+              getnews_state.data&&getnews_state.data.map((item,index)=>{
+                return(
+                  index >3? 
+                  <div className="newsimg-container">
+                  <div className="news-img" style={{backgroundImage:`url(${item.photo})`}}></div>
+                  <div className="ns-detail">
+                    <div className="ns-para">
+                    {item.des}
+                    </div>
+                    <div className='news-time d-flex align-items-center'>
+                      <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
+                      <div className='ns-detail text-capitalize'>publish date : 5 july 2023</div>
+                    </div>
+                  </div>
+                </div>:""
+                )
+              })
+            }
+        </Row>
       </Container>
       <Footer></Footer>
     </div>
