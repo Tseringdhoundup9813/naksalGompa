@@ -13,6 +13,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
 import axios from "../Services/Instance"
+import formatDistanceToNow from "date-fns/formatDistanceToNow"
+
 
 const News = () => {
 
@@ -83,19 +85,9 @@ const News = () => {
                     </div>
                     <div className='news-time d-flex align-items-center'>
                       <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
-                      <div className='ns-detail text-capitalize'>publish date : 5 july 2023</div>
+                      <div className='ns-detail text-capitalize'>{formatDistanceToNow(new Date((item.createdAt)))} ago</div>
                     </div>
-                    {/* <div className="d-flex sm-margin align-items-center justify-content-between">
-                      <div className="ns-more ">read more</div>
-                      <div className="ns-icon">
-                        <div className="ns-fb">
-                          <i className="fa-brands fa-square-facebook"></i>
-                        </div>
-                        <div className="ns-insta">
-                          <i class="fa-brands fa-instagram"></i>
-                        </div>
-                      </div>
-                    </div> */}
+                  
                   </div>
                 </div>:""
                 )
@@ -135,7 +127,7 @@ const News = () => {
                     </div>
                     <div className='news-time d-flex align-items-center'>
                       <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
-                      <div className='ns-detail text-capitalize'>publish date : 5 july 2023</div>
+                      <div className='ns-detail text-capitalize'>{formatDistanceToNow(new Date((item.createdAt)))} ago</div>
                     </div>
                   </div>
                 </div>:""
