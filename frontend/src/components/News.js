@@ -1,5 +1,4 @@
-
-import React,{useEffect, useReducer, useState} from 'react'
+import React, { useEffect, useReducer, useState } from "react";
 
 //navbar footer
 import Navbar from "./navbar";
@@ -11,43 +10,44 @@ import "../style/News.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
-import axios from "../Services/Instance"
-import formatDistanceToNow from "date-fns/formatDistanceToNow"
-
+import { INITIAL_STATE, postReducer } from "../Reducer/NewsReducer";
+import axios from "../Services/Instance";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 const News = () => {
+  const [getnews_state, getnews_dispatch] = useReducer(
+    postReducer,
+    INITIAL_STATE
+  );
 
-  const[getnews_state,getnews_dispatch] = useReducer(postReducer,INITIAL_STATE)
-
-  useEffect(()=>{
-     
-    async function GetNews(){
-        getnews_dispatch({type:"FETCH_START"})
-        try{
-            const response = await axios.get("/getnews/")
-            // console.log(response)
-            if(response.data.success){
-                
-                const all_news_data = response.data.data
-                getnews_dispatch({type:"FETCH_SUCCESS",payload:[true,all_news_data]})
-        
-            }
+  useEffect(() => {
+    async function GetNews() {
+      getnews_dispatch({ type: "FETCH_START" });
+      try {
+        const response = await axios.get("/getnews/");
+        // console.log(response)
+        if (response.data.success) {
+          const all_news_data = response.data.data;
+          getnews_dispatch({
+            type: "FETCH_SUCCESS",
+            payload: [true, all_news_data],
+          });
         }
-        catch(err){
-          
-            console.log(err)
-            if(err.message!=="Network Error"){
-                getnews_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
-                console.log(err.response.data.emptyfield)
-            }
+      } catch (err) {
+        console.log(err);
+        if (err.message !== "Network Error") {
+          getnews_dispatch({
+            type: "FETCH_ERROR",
+            payload: [err.response.data.message, err.response.data.emptyfield],
+          });
+          console.log(err.response.data.emptyfield);
         }
+      }
     }
 
-    // 
-    GetNews()
-},[])
-
+    //
+    GetNews();
+  }, []);
 
   return (
     <div>
@@ -71,31 +71,30 @@ const News = () => {
         </Row>
         <Row className="news-second-container p-0 m-0">
           <div className="ns-card-container">
-         
-       
-            {
-              getnews_state.data&&getnews_state.data.map((item,index)=>{
-                return(
-                  index <3? 
-                  <div className="newsimg-container">
-                  <div className="news-img" style={{backgroundImage:`url(${item.photo})`}}></div>
-                  <div className="ns-detail">
-                    <div className="ns-para">
-                    {item.des}
+            {getnews_state.data &&
+              getnews_state.data.map((item, index) => {
+                return index < 3 ? (
+                  <div className="newsimg-container" data-aos="zoom-out">
+                    <div
+                      className="news-img"
+                      style={{ backgroundImage: `url(${item.photo})` }}
+                    ></div>
+                    <div className="ns-detail">
+                      <div className="ns-para">{item.des}</div>
+                      <div className="news-time d-flex align-items-center">
+                        <div className="nt-icon">
+                          <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div className="ns-detail text-capitalize">
+                          {formatDistanceToNow(new Date(item.createdAt))} ago
+                        </div>
+                      </div>
                     </div>
-                    <div className='news-time d-flex align-items-center'>
-                      <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
-                      <div className='ns-detail text-capitalize'>{formatDistanceToNow(new Date((item.createdAt)))} ago</div>
-                    </div>
-                  
                   </div>
-                </div>:""
-                )
-              })
-            }
-         
-
-
+                ) : (
+                  ""
+                );
+              })}
           </div>
         </Row>
         <div className="news-third">
@@ -107,33 +106,42 @@ const News = () => {
               quam consequuntur, unde minima voluptas ipsum aspernatur?
               Explicabo quia magnam omnis!
             </div>
-            <div className='news-time d-flex align-items-center'>
-                      <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
-                      <div className='ns-detail text-capitalize'>publish date : 5 july 2023</div>
-                    </div>
+            <div className="news-time d-flex align-items-center">
+              <div className="nt-icon">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <div className="ns-detail text-capitalize">
+                publish date : 5 july 2023
+              </div>
+            </div>
           </div>
         </div>
 
         <Row className="last-container ">
-        {
-              getnews_state.data&&getnews_state.data.map((item,index)=>{
-                return(
-                  index >3? 
-                  <div className="newsimg-container">
-                  <div className="news-img" style={{backgroundImage:`url(${item.photo})`}}></div>
+          {getnews_state.data &&
+            getnews_state.data.map((item, index) => {
+              return index > 3 ? (
+                <div className="newsimg-container">
+                  <div
+                    className="news-img"
+                    style={{ backgroundImage: `url(${item.photo})` }}
+                  ></div>
                   <div className="ns-detail">
-                    <div className="ns-para">
-                    {item.des}
-                    </div>
-                    <div className='news-time d-flex align-items-center'>
-                      <div className='nt-icon'><i class="fa-solid fa-clock"></i></div>
-                      <div className='ns-detail text-capitalize'>{formatDistanceToNow(new Date((item.createdAt)))} ago</div>
+                    <div className="ns-para">{item.des}</div>
+                    <div className="news-time d-flex align-items-center">
+                      <div className="nt-icon">
+                        <i class="fa-solid fa-clock"></i>
+                      </div>
+                      <div className="ns-detail text-capitalize">
+                        {formatDistanceToNow(new Date(item.createdAt))} ago
+                      </div>
                     </div>
                   </div>
-                </div>:""
-                )
-              })
-            }
+                </div>
+              ) : (
+                ""
+              );
+            })}
         </Row>
       </Container>
       <Footer></Footer>

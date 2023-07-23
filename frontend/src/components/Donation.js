@@ -64,7 +64,7 @@ const Donation = () => {
                   <div className="dona-why">
                     Why we need a <span className="donation-red">donation</span>
                   </div>
-                  <div className="dona-para">
+                  <div className="dona-para" data-aos="fade-right">
                     Ngagyur Memorial School is situated at Chandragiri,
                     Kathmandu, Nepal. It was established in 2015 by our founding
                     father Khenchen Tashi Tsering Rinpoche. Starting with almost
@@ -83,7 +83,7 @@ const Donation = () => {
                   <div className="dona-why">
                     Why we need a <span className="donation-red">donation</span>
                   </div>
-                  <div className="dona-para">
+                  <div className="dona-para" data-aos="fade-left">
                     Ngagyur Memorial School is situated at Chandragiri,
                     Kathmandu, Nepal. It was established in 2015 by our founding
                     father Khenchen Tashi Tsering Rinpoche. Starting with almost
@@ -122,6 +122,7 @@ const Donation = () => {
 
                   <NavLink
                     to="/donation/donation-pay"
+                    data-aos="fade-left"
                     className="home-banner-btn btn text-capitalize"
                   >
                     help us Donate now

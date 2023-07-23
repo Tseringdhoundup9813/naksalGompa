@@ -1,9 +1,9 @@
-import React, { useState, useEffect ,useReducer} from "react";
+import React, { useState, useEffect, useReducer } from "react";
 //navbar footer
 import Navbar from "../navbar";
 import Footer from "../Footer";
 import axios from "../../Services/Instance";
-import { INITIAL_STATE,postReducer } from '../../Reducer/NewsReducer'
+import { INITIAL_STATE, postReducer } from "../../Reducer/NewsReducer";
 //css
 import "../../style/OurStudent.css";
 //bootstrap
@@ -12,41 +12,36 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const OurStudent = () => {
+  const [team_state, team_dispatch] = useReducer(postReducer, INITIAL_STATE);
 
-  const[team_state,team_dispatch] =useReducer(postReducer,INITIAL_STATE)
-
-  useEffect(()=>{
-
-     // ///////////////////////////////////////////////////////////////////////
+  useEffect(() => {
+    // ///////////////////////////////////////////////////////////////////////
     // /////////////////////////////////////////////////////////////////////////
 
-    async function GetTeam(){
-      team_dispatch({type:"FETCH_START"})
-      try{
-          const response = await axios.get("/getStudent")
-          // console.log(response)
-          if(response.data.success){
-              
-              const all_data = response.data.data
-              team_dispatch({type:"FETCH_SUCCESS",payload:[true,all_data]})
-      
-          }
+    async function GetTeam() {
+      team_dispatch({ type: "FETCH_START" });
+      try {
+        const response = await axios.get("/getStudent");
+        // console.log(response)
+        if (response.data.success) {
+          const all_data = response.data.data;
+          team_dispatch({ type: "FETCH_SUCCESS", payload: [true, all_data] });
+        }
+      } catch (err) {
+        console.log(err);
+        if (err.message !== "Network Error") {
+          team_dispatch({
+            type: "FETCH_ERROR",
+            payload: [err.response.data.message, err.response.data.emptyfield],
+          });
+          console.log(err.response.data.emptyfield);
+        }
       }
-      catch(err){
-        
-          console.log(err)
-          if(err.message!=="Network Error"){
-              team_dispatch({type:"FETCH_ERROR",payload:[err.response.data.message,err.response.data.emptyfield]})
-              console.log(err.response.data.emptyfield)
-          }
-      }
-  }
+    }
 
-  // 
-  GetTeam()
-
-  },[])
-
+    //
+    GetTeam();
+  }, []);
 
   return (
     <div>
@@ -63,23 +58,22 @@ const OurStudent = () => {
           <Row>
             <Col>
               <div className="student-grid-container">
-                {
-                  team_state.data&&team_state.data.map((data)=>{
-                      return(
-                        <div className="student-card">
-                            <div className="student-img" style={{backgroundImage:`url(${data.photo})`}}></div>
-                            <div className="student-detail">
-                            <div className="student-post">{data.position}</div>
-                            <div className="student-name">{data.name}</div>
-                            <div className="student-name">{data.age}</div>
-
-                           
-                          </div>
+                {team_state.data &&
+                  team_state.data.map(data => {
+                    return (
+                      <div className="student-card" data-aos="zoom-in">
+                        <div
+                          className="student-img"
+                          style={{ backgroundImage: `url(${data.photo})` }}
+                        ></div>
+                        <div className="student-detail">
+                          <div className="student-post">{data.position}</div>
+                          <div className="student-name">{data.name}</div>
+                          <div className="student-name">{data.age}</div>
+                        </div>
                       </div>
-                      )
-                  })
-                }
-              
+                    );
+                  })}
               </div>
             </Col>
           </Row>

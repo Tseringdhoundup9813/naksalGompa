@@ -20,7 +20,7 @@ const History = () => {
             <Col className=" col-12 history-main-banner"></Col>
           </Row>
           <Row className="w-90 ms-auto text-end">
-            <Col className=" col-4 text-uppercase history-title">history</Col>
+            <Col className=" col-4 text-uppercase history-title ">history</Col>
           </Row>
           <Row className="history-detail-row">
             <Col className="col-12 col-lg-5 hg-img">
