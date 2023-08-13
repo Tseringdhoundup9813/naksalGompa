@@ -16,12 +16,12 @@ jobs:
     - name: Use Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: [18.x]
+        node-version: '18'
       
     - name:  Build Project
       run: |
-        npm ci
-        npm run build --if--present
+        npm install
+        npm run build
     
     - name:  Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
