@@ -20,8 +20,9 @@ jobs:
       
     - name:  Build Project
       run: |
-        npm audit fix --force
         npm install
+        npm audit fix --force
+
         npm run build
     
     - name:  Sync files
