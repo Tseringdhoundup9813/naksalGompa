@@ -20,7 +20,7 @@ jobs:
       
     - name:  Build Project
       run: |
-        npm install --force
+        npm install force
         npm run build
     
     - name:  Sync files
