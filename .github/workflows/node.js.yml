@@ -16,11 +16,11 @@ jobs:
     - name: Use Node.js 18
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: '16'
       
     - name:  Build Project
       run: |
-        npm ci
+        npm install
         npm run build
     
     - name:  Sync files
