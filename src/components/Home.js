@@ -20,7 +20,7 @@ import parse from "html-react-parser";
 
 //animation on scroll
 // import AOS from "aos";
-import "aos/dist/aos.css";
+// import "aos/dist/aos.css";
 export default function Home() {
   // state ==================================================
   const [bannerpath, set_bannerpath] = useState(undefined);
