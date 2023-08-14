@@ -19,8 +19,8 @@ import { NavLink } from "react-router-dom";
 import parse from "html-react-parser";
 
 //animation on scroll
-// import AOS from "aos";
-// import "aos/dist/aos.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 export default function Home() {
   // state ==================================================
   const [bannerpath, set_bannerpath] = useState(undefined);
@@ -61,11 +61,11 @@ export default function Home() {
       getnews_dispatch({ type: "FETCH_START" });
       try {
         const response = await axios.get("/getnews/");
-        console.log(response);
+      
         // console.log(response)
         if (response.data.success) {
           var all_news_data = response.data.data;
-          console.log(all_news_data.length);
+       
           set_feturenews([all_news_data[0]]);
 
           if (all_news_data.length > 3) {
@@ -75,10 +75,10 @@ export default function Home() {
               all_news_data[3],
             ];
           } else if (all_news_data.length < 4 && all_news_data.length > 2) {
-            console.log("workng");
+          
             all_news_data = [all_news_data[1], all_news_data[2]];
           } else if (all_news_data.length < 3 && all_news_data.length > 1) {
-            console.log("two left");
+     
             all_news_data = [all_news_data[1]];
           } else {
             all_news_data = [];
