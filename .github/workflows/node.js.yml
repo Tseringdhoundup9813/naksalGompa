@@ -13,7 +13,7 @@ jobs:
     - name:  Get latest code
       uses: actions/checkout@v3
 
-    - name: Use Node.js 18
+    - name: Use Node.js 16
       uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -29,5 +29,5 @@ jobs:
         server: ftp.pdmaischool.com
         username:  frontend@naksagumba.org.np
         password: ${{ secrets.FTP_PASSWORD}}
-        protocol: ftps
+        protocol: ftp
         local-dir: ./build/
