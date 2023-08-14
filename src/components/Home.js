@@ -19,7 +19,7 @@ import { NavLink } from "react-router-dom";
 import parse from "html-react-parser";
 
 //animation on scroll
-import AOS from "aos";
+// import AOS from "aos";
 import "aos/dist/aos.css";
 export default function Home() {
   // state ==================================================
