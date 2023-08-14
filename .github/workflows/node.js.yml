@@ -29,5 +29,4 @@ jobs:
         server: ftp.pdmaischool.com
         username:  frontend@naksagumba.org.np
         password: ${{ secrets.FTP_PASSWORD}}
-        protocol: ftp
         local-dir: ./build/
