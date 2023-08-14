@@ -28,6 +28,6 @@ jobs:
       with:
         server: ftp.pdmaischool.com
         username: ${{ secrets.FTP_USERNAME}}
-        password: ${{ secrets.FTP_PASSWORD}}
+        password: @a]j3qP&pcIQ
         protocol: ftps
         local-dir: ./build/
