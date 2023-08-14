@@ -1,4 +1,4 @@
-import React,{useState,useReducer, useEffect, useRef} from 'react'
+import React,{useState,useReducer, useEffect} from 'react'
 
 import "../AdminStyle/admincontact.css"
 import AdminSideBar from './AdminSideBar'
@@ -11,11 +11,11 @@ import formatDistanceToNow from "date-fns/formatDistanceToNow"
 
 function AdminContact() {
   const[contact_state,contact_dispatch] =useReducer(postReducer,INITIAL_STATE)
-  const[important_state,important_dispatch] =useReducer(postReducer,INITIAL_STATE)
+  const[important_dispatch] =useReducer(postReducer,INITIAL_STATE)
 
   const[singleMessage,singleMessage_dispatch] = useReducer(postReducer,INITIAL_STATE)
   const[filter_category,set_filter_category] = useState({"all":true});
-  const[filterCutomerlist ,set_filterCutomerlist ] = useState([]);
+  const[set_filterCutomerlist ] = useState([]);
 
 useEffect(()=>{
   async function GetTeam(){
@@ -102,9 +102,9 @@ function updateFilter(update,index){
 
 function filterMessage(messagelist,category){
 
-  if(category.seen==false){
+  if(category.seen===false){
     let filterCutomerlist = messagelist.filter((product)=>{
-      if(category.seen==product.seen){
+      if(category.seen===product.seen){
         return product;
   
       }
@@ -113,12 +113,12 @@ function filterMessage(messagelist,category){
   }
   else{
 
-    if(category.all==true){
+    if(category.all===true){
       return messagelist;
   
     }
     let filterCutomerlist = messagelist.filter((product)=>{
-      if(category.important==product.important){
+      if(category.important===product.important){
         return product;
   
       }

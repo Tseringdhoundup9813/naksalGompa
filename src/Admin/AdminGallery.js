@@ -1,4 +1,4 @@
-import React,{useState,useReducer, useEffect, useRef} from 'react'
+import React,{useState,useReducer, useEffect} from 'react'
 import AdminSideBar from './AdminSideBar'
 import "../AdminStyle/admingallery.css"
 import PhotoPreview from '../components/PhotoPreview'

@@ -6,7 +6,7 @@ import PhotoPreview from '../components/PhotoPreview'
 import { INITIAL_STATE,postReducer } from '../Reducer/NewsReducer'
 import axios from "../Services/Instance"
 
-import JoditEditor, { Jodit } from "jodit-react"
+// import JoditEditor, {  } from "jodit-react"
 import parse from 'html-react-parser';
 
 
