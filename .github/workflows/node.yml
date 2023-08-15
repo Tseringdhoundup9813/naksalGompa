@@ -27,7 +27,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: ftp.pdmaischool.com
-        username: ${{ secrets.FTP_USERNAME}}
+        username: frontend@naksagumba.org.np
         password: ${{ secrets.FTP_PASSWORD}}
         protocol: ftps
         local-dir: ./build/
