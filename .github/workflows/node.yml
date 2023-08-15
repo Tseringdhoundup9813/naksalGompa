@@ -30,4 +30,5 @@ jobs:
         username: frontend@naksagumba.org.np
         password: ${{ secrets.FTP_PASSWORD}}
         protocol: ftps
+        port: 21
         local-dir: ./build/
